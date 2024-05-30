@@ -14,12 +14,12 @@ export default function Register() {
           </div>
           <UserAuthForm />
           <p className="px-8 text-center text-sm text-muted-foreground">
-            Forgot password?{" "}
+            Have a account?{" "}
             <Link
-              to="/forgot-password"
+              to="/login"
               className="underline underline-offset-4 text-blue-500 hover:text-blue-600 font-normal"
             >
-              Reset password
+              LOGIN
             </Link>
             .
           </p>
