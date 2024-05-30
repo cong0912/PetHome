@@ -5,9 +5,11 @@ import Header from "./Organisms/Header/Header";
 import Footer from "./Organisms/Footer/Footer";
 function App() {
   return (
-    <ServiceCard
-    title={"Grooming"}
-    detail={"asdfasdfasdfasdfasdfjfslk;adjf;lksajdfkl;jsad;lkfjaslk;djflk;sadjf;lkasjdfsadff"}
+    <ProductCard
+    status={"con hang"}
+    content={"do an cho meo 15kg"}
+    forType={"cho meo"}
+    price={"15.000d"}
     />
   );
 }
