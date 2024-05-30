@@ -4,10 +4,14 @@
     border-radius: 5px;
     padding: 22px 12px 22px 20px;
 }
-.card-icon{
-    
+.service-card-icon{
+    display: flex;
+    justify-content: start;
 }
-.service-card-title{
+.ser-img{
+    width: 60px;
+}
+.service-card-title-text{
     font-weight: bold;
     font-size: 20px;
     color: #000000;
@@ -15,6 +19,10 @@
 .service-card-information{
     font-size: 15px;
     color: #656565;
+    width: 200px; 
+    white-space: normal; 
+    word-wrap: break-word; 
+    overflow-wrap: break-word;
 }
 .service-card-button{
     width: 120px;

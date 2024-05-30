@@ -1,0 +1,41 @@
+
+.header-container{
+    width: 100%;    
+}
+header {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.logo-container {
+    width: 10%  ;
+    display: flex;
+    align-items: center;
+}
+
+.header-logo {
+    width: 70px;
+    object-fit: contain;
+}
+.header-phone{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+}
+.header-address{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+}
+.header-info{
+    width: 100%;
+    gap: 50px;
+    display: flex;
+    padding-left: 50px;
+}
+.header-cart{
+    margin-left: 500px;
+    
+}
