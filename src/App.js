@@ -2,7 +2,7 @@ import ServiceCard from "./Atomic Components/Molescule/ServiceCards/ServiceCards
 import ProductCard from "./Atomic Components/Molescule/ProductCards/ProductCard";
 import BasicSelect from "./Atomic Components/Atom/select/BasicSelect";
 
-import DefaultLayout from "./Atomic Components/layout/DefaultLayout";
+import DefaultLayout from "./Atomic Components/layout/DefaultLayout/index.js";
 import { Fragment } from "react";
 import { publicRoute } from "./routes/index";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
