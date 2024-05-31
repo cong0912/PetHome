@@ -15,22 +15,42 @@ import {
   FormLabel,
   FormMessage,
 } from "../../ui/form";
+//check chuan form dien thoai viet nam
+const phoneRegex = new RegExp(/(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/);
 const formLoginSchema = z
   .object({
-    username: z.string().min(3, {
-      message: "username ít nhất 3 ký tự",
-    }),
-    email: z.string().email({
-      message: "Email không hợp lệ",
-    }),
-    phone: z.string({ message: "Phone không hợp lệ" }).max(10, {
-      message: "phone phải 10 số",
-    }),
+    username: z
+      .string()
+      .min(3, {
+        message: "username ít nhất 3 ký tự",
+      })
+      .max(30, { message: " username không quá 30 kí tự" }),
+    email: z
+      .string()
+      .min(1, {
+        message: "không được bỏ trống",
+      })
+      .email({
+        message: "Email không hợp lệ",
+      }),
+    phone: z
+      .string()
+      .min(1, {
+        message: "không được bỏ trống",
+      })
+      .regex(phoneRegex, {
+        message: "Phone không hợp lệ",
+      }),
+    password: z
+      .string()
+      .regex(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{6,16}$/, {
+        message:
+          "pass phải ít nhất 6 kí tự bao gồm(chữ in hoa, chữ thường, kí tự đặt biệt, và số)",
+      }),
 
-    password: z.string().min(3, {
-      message: "Password ít nhất 3 ký tự",
+    confirmPassword: z.string().min(1, {
+      message: "không được bỏ trống",
     }),
-    confirmPassword: z.string().min(3),
   })
   .refine(
     (values) => {
