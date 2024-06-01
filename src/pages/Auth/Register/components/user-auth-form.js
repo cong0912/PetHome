@@ -1,7 +1,7 @@
 import React from "react";
-import { cn } from "../../../lib/utils";
-import { Input } from "../../ui/input";
-import { Button } from "../../ui/button";
+import { cn } from "../../../../lib/utils";
+import { Input } from "../../../../Components/ui/input";
+import { Button } from "../../../../Components/ui/button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +14,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../ui/form";
+} from "../../../../Components/ui/form";
 //check chuan form dien thoai viet nam
 const phoneRegex = new RegExp(/(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/);
 const formLoginSchema = z
