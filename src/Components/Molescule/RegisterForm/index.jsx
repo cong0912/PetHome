@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import AuthenticationLayout from "./components/AuthenticationLayout.js";
-import UserAuthForm from "./components/user-auth-form.js";
+import AuthenticationLayout from "../AuthenticationLayout.js";
+import UserAuthForm from "./user-auth-form.jsx";
 export default function Register() {
   return (
     <AuthenticationLayout>

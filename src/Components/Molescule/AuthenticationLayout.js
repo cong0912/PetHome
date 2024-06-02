@@ -1,5 +1,5 @@
 import React from "react";
-import Background from "../../../../assets/images/PetDog.png";
+import Background from "assets/images/PetDog.png";
 export default function AuthenticationLayout({ children }) {
   return (
     <div className="font-geist w-screen h-screen flex">

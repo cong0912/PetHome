@@ -8,14 +8,17 @@ const LoginForm = () => {
         <div className="relative w-1/2 h-full flex flex-col">
           <img src={PetDog} className="w-full h-full" />
         </div>
-        <div className="w-1/2 h-full bg-[#f5f5f5] flex flex-col p-20 justify-between items-center">
+        <div className="w-1/2 h-full bg-[#fff] flex flex-col p-20 justify-between items-center">
           <h1 className="w-full max-w-[550px] mx-auto text-xl text-[#060606] font-semibold mr-auto">
             Pet Home dịch vụ tốt nhất cho thú cưng
           </h1>
           <div className="w-full flex flex-col max-w-[550px]">
             <div className="w-full flex flex-col mb-2">
               <h3 className="text-4xl font-semibold mb-2">Login</h3>
-              <p className="text-base mb-2"> Welcome Back! Please fill your details. </p>
+              <p className="text-base mb-2">
+                {" "}
+                Welcome Back! Please fill your details.{" "}
+              </p>
             </div>
             <div className="w-full flex flex-col">
               <input
@@ -58,7 +61,9 @@ const LoginForm = () => {
           <div className="w-full flex items-center justify-center">
             <p className="text-sm font-normal text-black">
               Don't have a account ?{" "}
-              <span className="font-semibold underline underline-offset-2 cursor-pointer">Sign up for free ?</span>
+              <span className="font-semibold underline underline-offset-2 cursor-pointer">
+                Sign up for free ?
+              </span>
             </p>
           </div>
         </div>
