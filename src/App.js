@@ -1,7 +1,10 @@
-import DefaultLayout from "./Components/layout/DefaultLayout/index.js";
+import DefaultLayout from "components/layout/DefaultLayout";
 import { Fragment } from "react";
 import { publicRoute } from "./routes/index";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   return (
     <div className="App">
@@ -29,6 +32,19 @@ function App() {
           </Routes>
         </div>
       </Router>
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        stacked
+      />
     </div>
   );
 }
