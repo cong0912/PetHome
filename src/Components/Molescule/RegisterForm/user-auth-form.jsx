@@ -75,6 +75,8 @@ export default function UserAuthForm({ className, ...props }) {
       phone: "",
       password: "",
       confirmPassword: "",
+      sex: "nam",
+      dateOfBirth: "",
     },
   });
   // 2. Define a submit handler. ok không
