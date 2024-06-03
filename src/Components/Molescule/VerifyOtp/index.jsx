@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import AuthenticationLayout from "../AuthenticationLayout";
+import AuthenticationLayout from "../AuthenticationLayout.jsx";
 import VerifyOtp from "./VerifyOtp.jsx";
 export default function VerifiOTP() {
   return (
