@@ -23,7 +23,7 @@ function Navbar() {
         <li>Trang Chủ</li>
         <li>
           {" "}
-          <Link to="/"> Giới Thiệu </Link>{" "}
+          <Link to="/introduction"> Giới Thiệu </Link>{" "}
         </li>
         <li
           onMouseEnter={() => setIsDichVuOpen(true)}

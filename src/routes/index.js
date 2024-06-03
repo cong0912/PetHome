@@ -1,8 +1,9 @@
-import DefaultLayout from "Components/layout/DefaultLayout";
-import LoginForm from "Components/Molescule/LoginForm/LoginForm";
-import VerifiOTP from "Components/Molescule/VerifyOtp";
-import Register from "Components/Molescule/RegisterForm/index.jsx";
-import GioiThieu from "Components/Molescule/GioiThieu/GioiThieu";
+import DefaultLayout from "components/layout/DefaultLayout";
+import LoginForm from "components/Molescule/LoginForm/LoginForm";
+import VerifiOTP from "components/Molescule/VerifyOtp";
+import Register from "components/Molescule/RegisterForm/index.jsx";
+import GioiThieu from "components/Molescule/GioiThieu/GioiThieu";
+
 // const role = localStorage.getItem("role");
 const publicRoute = [
   { path: "/register", component: Register, layout: null },
