@@ -1,5 +1,7 @@
-import Text from "../../Atom/Text/Text"
-import "./ProductCards.css"
+import React from "react";
+import Text from "../../Atom/Text/Text";
+import "./ProductCards.scss"
+
 function ProductCard({
     status,
     img,
@@ -15,7 +17,7 @@ function ProductCard({
             onClick={onClick}>
             <div className="product-card-detail">
                 <div className="product-img">
-                    <img src={img} alt="" />
+                    <img src={img} alt="Product" />
                 </div>
                 <div className="product-card-current">
                     <Text
@@ -26,21 +28,24 @@ function ProductCard({
                 <div>
                     <Text
                         className="product-card-whichpet"
-                        content={forType} />
+                        content={forType}
+                    />
                 </div>
-                <div >
+                <div>
                     <Text
                         className="product-card-detail"
                         content={content}
                     />
                 </div>
-                <div >
+                <div>
                     <Text
                         className="product-card-price"
-                        content={price} />
+                        content={price}
+                    />
                 </div>
             </div>
         </div>
-    )
+    );
 }
-export default ProductCard
+
+export default ProductCard;
