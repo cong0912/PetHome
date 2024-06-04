@@ -115,7 +115,7 @@ function Navbar() {
             </ul>
           )}
         </li>
-        <li>Liên Hệ</li>
+        <li> <Link to="/contact">Liên Hệ</Link></li>
       </ul>
       <div className="navbar-booking">
         <p>ONLINE BOOKING</p>

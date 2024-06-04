@@ -25,15 +25,15 @@ function Footer() {
                     </div>
                     <div >
                         <Text
-                            content={"Pet Servicera đời với mong muốn mang lại cho khách hàng sự chuyên nghiệp, uy tín mang nét đẹp hoa mỹ mà chúng tôi đem lại sự trải nghiệm tốt nhất cho thú cưng của chúng ta. Với nhiều năm kinh nghiệm trong ngành dịch vụ thú cưng bao gồm: Spa thú cưng, Khách sạn thú cưng, dịch vụ khám ,..."}
+                            content={"Pet Home đời với mong muốn mang lại cho khách hàng sự chuyên nghiệp, uy tín mang nét đẹp hoa mỹ mà chúng tôi đem lại sự trải nghiệm tốt nhất cho thú cưng của chúng ta. Với nhiều năm kinh nghiệm trong ngành dịch vụ thú cưng bao gồm: Spa thú cưng, Khách sạn thú cưng, dịch vụ khám ,..."}
                             className={"footer-detail-infor"}
                         />
                     </div>
                     <div className="footer-icons">
-                        <InstagramIcon />
-                        <EmailIcon />
-                        <FacebookIcon />
-                        <LocalPhoneIcon />
+                        <InstagramIcon className="cursor-pointer hover:text-blue-400" />
+                        <EmailIcon className="cursor-pointer  hover:text-blue-400"/>
+                        <FacebookIcon className="cursor-pointer  hover:text-blue-400"/>
+                        <LocalPhoneIcon className="cursor-pointe  hover:text-blue-400r"/>
                     </div>
                 </div>
 
