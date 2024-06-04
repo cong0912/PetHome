@@ -3,6 +3,7 @@ import PetDog from "../../../assets/images/PetDog.png";
 import Google from "../../../assets/images/Logo-google-icon-PNG.png";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import MyAxios from "../../../setup/configAxios";
 
 const initFormValue = {
   email: "",
@@ -68,20 +69,21 @@ const LoginForm = () => {
   // Post API
   const loginUser = async (email, password) => {
     try {
-      const response = await axios.post("http://localhost:5000/api/v1/auth/login", {
+      const response = await MyAxios.post("http://localhost:5000/api/v1/auth/login", {
         email,
         password,
       });
       console.log("response", response);
       const { access_token, refresh_token } = response.data;
 
-      if (response.status === 200 && response.statusText === "OK") {
+      if (response.status === "success") {
         if (rememberMe) {
           saveLoginInfo(access_token, refresh_token);
         }
         localStorage.setItem("access_token", response.data.access_token);
         localStorage.setItem("refresh_token", response.data.refresh_token);
-        console.log(response.data.message);
+        console.log(response.message);
+        // window.location.href = "/";
       } else {
         setLoginFail(true);
         console.log("fails");
