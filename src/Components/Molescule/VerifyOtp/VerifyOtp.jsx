@@ -1,20 +1,44 @@
 import React, { useState } from "react";
 import OTPInput from "react-otp-input";
-import axios from "axios";
 import { Button } from "Components/ui/button";
 import { verifyApi } from "lib/api/user-api";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
 const VerifyOtp = () => {
   const [otp, setOtp] = useState("");
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  async function handleSubmit(values) {
+  async function handleSubmit(event) {
+    event.preventDefault();
     setLoading(true);
+
+    // Get data from local storage
+    const registerData = JSON.parse(localStorage.getItem("registerData"));
+    if (!registerData) {
+      toast.error("No registration data found.", { position: "top-left" });
+      setLoading(false);
+      return;
+    }
+    const result = await verifyApi({ ...registerData, otp });
+    setLoading(false);
+    console.log("API Response:", result);
+    if (result.error) {
+      toast.error(`Error: ${result.error}`, { position: "top-left" });
+    } else if (result.data?.status === "error") {
+      toast.error(`Error: ${result.data.message}`, { position: "top-left" });
+    } else {
+      toast.success("Verification successful", { position: "top-right" });
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
+    }
   }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-4">
+      <h1 className="text-gray-500 mb-6">Please check your mail !</h1>
       <form onSubmit={handleSubmit} className="flex flex-col items-center">
         <OTPInput
           value={otp}
@@ -40,7 +64,6 @@ const VerifyOtp = () => {
           {loading ? "Verifying..." : "Verify OTP"}
         </Button>
       </form>
-      {error && <p className="text-red-500 mt-8">{error}</p>}
     </div>
   );
 };

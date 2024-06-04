@@ -29,7 +29,7 @@ const phoneRegex = new RegExp(/(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/);
 
 const formLoginSchema = z
   .object({
-    username: z
+    name: z
       .string()
       .min(3, { message: "username ít nhất 3 ký tự" })
       .max(30, { message: "username không quá 30 kí tự" }),
@@ -63,7 +63,7 @@ export default function UserAuthForm({ className, ...props }) {
   const form = useForm({
     resolver: zodResolver(formLoginSchema),
     defaultValues: {
-      username: "",
+      name: "",
       email: "",
       phone: "",
       password: "",
@@ -75,31 +75,32 @@ export default function UserAuthForm({ className, ...props }) {
 
   async function onSubmit(values) {
     setIsLoading(true);
-    registerUser({
-      username: values.username,
-      phone: values.phone,
-      email: values.email,
-      password: values.password,
-      sex: values.sex,
-      dob: values.dob,
-    })
-      .then((response) => {
-        const { error } = response;
-        if (error !== null) {
-          toast.error(error, { position: "top-left" });
-        } else {
-          toast.success("Pls check mail to verify otp", {
-            position: "top-right",
-          });
+    const { confirmPassword, ...dataToStore } = values;
+    const result = await registerUser({
+      ...dataToStore,
+    });
+    setIsLoading(false);
+    console.log("test data :", result);
 
-          setTimeout(() => {
-            navigate("/verify");
-          }, 1000);
-        }
-      })
-      .finally(() => {
-        setIsLoading(false);
+    if (result.error) {
+      toast.error(`Error: ${result.error}`, {
+        position: "top-left",
       });
+    } else if (result.data.status === "error") {
+      toast.error(`Error: ${result.data.message}`, {
+        position: "top-left",
+      });
+    } else {
+      //set data in local
+      localStorage.setItem("registerData", JSON.stringify(dataToStore));
+      toast.success(`Success: ${result.data.message}`, {
+        position: "top-right",
+      });
+      setTimeout(() => {
+        navigate("/verify");
+      }, 1000);
+    }
+    setIsLoading(false);
   }
 
   return (
@@ -112,7 +113,7 @@ export default function UserAuthForm({ className, ...props }) {
         >
           <FormField
             control={form.control}
-            name="username"
+            name="name"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Username</FormLabel>

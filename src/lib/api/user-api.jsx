@@ -1,32 +1,28 @@
-import axios from "axios";
-export const handleApiError = (error) => {
-  try {
-    const errorMessage =
-      error.response?.data || "An unexpected error occurred.";
-    const data = null;
-    return { error: errorMessage, data };
-  } catch (err) {
-    throw new Error("An unexpected error occurred.");
-  }
-};
+import axiosClient from "setup/configAxios";
 
 export const verifyApi = async (params) => {
   try {
-    const { data } = await axios.post(`https://your-api-url.com/verify-otp`, {
-      ...params,
-    });
+    console.log("Sending request with params:", params); // Debug log
+    const data = await axiosClient.post(`api/v1/auth/verifyOtp`, params);
     return { error: null, data };
   } catch (error) {
-    const code = error.response.status;
+    console.error("API Error:", error);
+    console.log("API ne:", params);
 
-    if (code == 403) {
-      error.response.data = "You do not have permission";
-    } else if (code == 500) {
-      error.response.data = "Server have problems";
-    } else if (code == 400) {
-      error.response.data = "Bad request";
+    if (error.code === "ERR_NETWORK") {
+      return { error: "BE Server is not running", data: null };
     }
 
-    return handleApiError(error);
+    const status = error.response?.status;
+    let errorMessage = "Something went wrong";
+    if (status === 403) {
+      errorMessage = "You do not have permission";
+    } else if (status === 500) {
+      errorMessage = "Server has problems";
+    } else if (status === 400) {
+      errorMessage = "Bad request";
+    }
+
+    return { error: errorMessage, data: null };
   }
 };
