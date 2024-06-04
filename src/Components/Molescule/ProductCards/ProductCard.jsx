@@ -2,6 +2,7 @@ import Text from "../../Atom/Text/Text"
 import "./ProductCards.css"
 function ProductCard({
     status,
+    img,
     content,
     forType,
     className,
@@ -14,7 +15,7 @@ function ProductCard({
             onClick={onClick}>
             <div className="product-card-detail">
                 <div className="product-img">
-                    <img src="https://images.rawpixel.com/image_png_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvcHUyMzMxNjM5LWltYWdlXzItbDBqOXFvd3IucG5n.png" className="img" />
+                    <img src={img} alt="" />
                 </div>
                 <div className="product-card-current">
                     <Text
