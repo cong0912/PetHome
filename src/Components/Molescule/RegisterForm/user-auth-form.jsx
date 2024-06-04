@@ -1,13 +1,12 @@
 import React from "react";
 import { registerUser } from "lib/api/register-api";
 import { cn } from "lib/utils.js";
-import { Input } from "components/ui/input";
-import { Button } from "components/ui/button";
+import { Input } from "Components/ui/input";
+import { Button } from "Components/ui/button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
 import { z } from "zod";
 import {
   Form,
@@ -16,14 +15,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "components/ui/form";
+} from "Components/ui/form";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "components/ui/select";
+} from "Components/ui/select";
 
 // check chuan form dien thoai viet nam
 const phoneRegex = new RegExp(/(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/);
