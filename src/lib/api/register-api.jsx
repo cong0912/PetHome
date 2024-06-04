@@ -1,35 +1,31 @@
-import axios from "axios";
-import { handleApiError } from "./user-api";
+import axiosClient from "setup/configAxios";
 export const registerUser = async (params) => {
   try {
-    const { data } = await axios.post(
-      "http://localhost:5000/api/v1/auth/register",
-      {
-        name: params.username,
-        phone: params.phone,
-        email: params.email,
-        password: params.password,
-        dob: params.dob,
-        sex: params.sex,
-      }
-    );
+    const data = await axiosClient.post("api/v1/auth/register", {
+      name: params.name,
+      phone: params.phone,
+      email: params.email,
+      password: params.password,
+      dob: params.dob,
+      sex: params.sex,
+    });
 
     return { error: null, data };
   } catch (error) {
     console.log(error);
-    if (error.code == "ERR_NETWORK") {
+    if (error.code === "ERR_NETWORK") {
       return { error: "BE Server is not running" };
     }
-    const code = error.response.status;
-
-    if (code == 403) {
-      error.response.data = "You do not have permission";
-    } else if (code == 500) {
-      error.response.data = "Server have problems";
-    } else if (code == 400) {
-      error.response.data = "Bad request";
+    const status = error.response?.status;
+    let errorMessage = "Something went wrong";
+    if (status === 403) {
+      errorMessage = "You do not have permission";
+    } else if (status === 500) {
+      errorMessage = "Server has problems";
+    } else if (status === 400) {
+      errorMessage = "Bad request";
     }
 
-    return handleApiError(error);
+    return { error: errorMessage, data: null };
   }
 };
