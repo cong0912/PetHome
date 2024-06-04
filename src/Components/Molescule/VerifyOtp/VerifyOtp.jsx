@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import OTPInput from "react-otp-input";
 import axios from "axios";
-import { Button } from "components/ui/button";
+import { Button } from "Components/ui/button";
 import { verifyApi } from "lib/api/user-api";
 
 const VerifyOtp = () => {
