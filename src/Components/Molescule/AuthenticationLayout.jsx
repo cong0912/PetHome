@@ -10,7 +10,9 @@ export default function AuthenticationLayout({ children }) {
           className="w-full h-full  "
         />
       </div>
-      <div className="flex-1 flex items-center justify-center">{children}</div>
+      <div className="flex-1 flex items-center justify-center  ">
+        {children}
+      </div>
     </div>
   );
 }
