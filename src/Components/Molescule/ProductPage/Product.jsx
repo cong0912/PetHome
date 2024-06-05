@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Product.scss";
 import ProductCard from "../ProductCards/ProductCard";
 
+// API Fake
 const products = [
     {
         status: "OUT OF STOCK",
@@ -45,8 +46,49 @@ const products = [
         forType: "Bánh thưởng",
         price: 80000,
     },
+    {
+        status: "OUT OF STOCK",
+        img: require("../../../assets/products/cho/thuc an/Banh cookie.png"), 
+        content: "BÁNH COOKIE YẾN MẠCH CHO CHÓ | 200gr",
+        forType: "Bánh thưởng",
+        price: 80000,
+    },
+    {
+        status: "OUT OF STOCK",
+        img: require("../../../assets/products/cho/thuc an/Banh cookie.png"), 
+        content: "BÁNH COOKIE YẾN MẠCH CHO CHÓ | 200gr",
+        forType: "Bánh thưởng",
+        price: 80000,
+    },
+    {
+        status: "OUT OF STOCK",
+        img: require("../../../assets/products/cho/thuc an/Banh cookie.png"), 
+        content: "BÁNH COOKIE YẾN MẠCH CHO CHÓ | 200gr",
+        forType: "Bánh thưởng",
+        price: 80000,
+    },
+    {
+        status: "In Stock",
+        img: require("../../../assets/products/cho/thuc an/Banh cookie.png"), 
+        content: "BÁNH COOKIE YẾN MẠCH CHO CHÓ | 200gr",
+        forType: "Bánh thưởng",
+        price: 80000,
+    },
+    {
+        status: "In Stock",
+        img: require("../../../assets/products/cho/thuc an/Banh cookie.png"), 
+        content: "BÁNH COOKIE YẾN MẠCH CHO CHÓ | 200gr",
+        forType: "Bánh thưởng",
+        price: 80000,
+    },
+    {
+        status: "In Stock",
+        img: require("../../../assets/products/cho/thuc an/Banh cookie.png"), 
+        content: "BÁNH COOKIE YẾN MẠCH CHO CHÓ | 200gr",
+        forType: "Bánh thưởng",
+        price: 80000,
+    },
 
-    // Add more products as needed
 ];
 
 function ProductPage() {
