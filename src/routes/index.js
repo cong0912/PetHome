@@ -4,6 +4,7 @@ import VerifiOTP from "Components/Molescule/VerifyOtp";
 import Register from "Components/Molescule/RegisterForm/index.jsx";
 import GioiThieu from "Components/Molescule/GioiThieu/GioiThieu";
 import Contact from "Components/Molescule/Contact/Contact";
+import ProductPage from "Components/Molescule/ProductPage/Product";
 
 // const role = localStorage.getItem("role");
 const publicRoute = [
@@ -12,6 +13,7 @@ const publicRoute = [
   { path: "/login", component: LoginForm, layout: null },
   { path: "/verify", component: VerifiOTP, layout: null },
   { path: "/contact", component: Contact, layout: DefaultLayout },
+  { path: "/product", component: ProductPage, layout: DefaultLayout },
 ];
 
 const privateRoute = [];
