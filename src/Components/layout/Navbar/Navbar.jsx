@@ -90,8 +90,8 @@ function Navbar() {
 
                 {isDanhChoChoOpen && (
                   <ul className="dropdown">
-                    <li>Thức ăn cho chó</li>
-                    <li>Phụ kiện cho chó</li>
+                    <li><Link to="/dog-food">Thức ăn cho chó</Link></li>
+                    <li><Link to="/dog-product">Phụ kiện cho chó</Link></li>
                   </ul>
                 )}
               </li>
@@ -106,8 +106,8 @@ function Navbar() {
 
                 {isDanhChoMeoOpen && (
                   <ul className="dropdown">
-                    <li>Thức ăn cho mèo</li>
-                    <li>Phụ kiện cho mèo</li>
+                    <li><Link to="/cat-food">Thức ăn cho mèo</Link></li>
+                    <li><Link to="/cat-product">Phụ kiện cho mèo</Link></li>
                   </ul>
                 )}
               </li>
