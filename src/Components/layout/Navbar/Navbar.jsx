@@ -75,7 +75,7 @@ function Navbar() {
           onMouseLeave={() => setIsCuaHangOpen(false)}
         >
           <div className="dropdown-icon">
-            <Link to="/product">Cửa Hàng</Link> <ArrowDropDownIcon />
+            <Link to="/general-product">Cửa Hàng</Link> <ArrowDropDownIcon />
           </div>
 
           {isCuaHangOpen && (
