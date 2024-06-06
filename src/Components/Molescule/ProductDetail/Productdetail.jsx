@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { TextField } from '@mui/material';
-import { useState } from "react";
-import "./Productdetail.scss"
 import { useParams } from "react-router-dom";
 import MyAxios from "../../../setup/configAxios";
+import "./Productdetail.scss"
 
-function Productdetail() {
+function ProductDetail() {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -13,46 +12,66 @@ function Productdetail() {
     const [quantity, setQuantity] = useState(1);
 
     const handleQuantityChange = (event) => {
-        setQuantity(Number(event.target.value));
+        const value = Number(event.target.value);
+        if (value <= product.quantity && value >= 1) {
+            setQuantity(value);
+        }
     };
 
-    const handleIncrement = () => {
-        setQuantity(quantity + 1);
-    };
     useEffect(() => {
         MyAxios.get(`http://localhost:5000/api/v1/products/${id}`)
             .then((response) => {
-                console.log(response);
-                setProduct(response.data); 
+                setProduct(response.data);
                 setLoading(false);
             })
             .catch((error) => {
                 setError(error);
                 setLoading(false);
             });
-    }, []);
-    return (
-       product? ( <div className="product-detail-container">
-       <div className="product-information">
-           <h1 className="info-name">{product.name}</h1>
-           <p>{product.price}</p>
-           <p>availability{product.quantity}</p>
-           <div>
-               <div>
-                   <TextField
-                       type="number"
-                       value={quantity}
-                       onChange={handleQuantityChange}
-                       inputProps={{ min: 1, step: 1 }}
-                   />
-                   <button onClick={handleIncrement}>+</button>
-               </div>
-               <p className="">Thêm vào giỏ hàng</p>
-           </div>
-       </div>
-     <img src={product.image} alt="" srcset="" />
+    }, [id]);
+    
 
-   </div>):(<>KHONG TIM THAY SAN PHAM</>)
-    )
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error.message}</div>;
+
+    return (
+        product ? (
+            <div className="bg-[#f9f6f6]" >
+                <div className="product-detail-container">
+                    <div className="product-information">
+                        <h1 className="info-name mb-7">{product.name}</h1>
+                        <p className="info-price">{product.price} đ</p>
+                        <p className="info-availability"><span className="font-bold text-black">Availability:</span> <span className="text-[#77a464]">còn {product.quantity} sản phẩm</span> </p>
+
+                        <div className="flex gap-10">
+                            <div >
+                                <TextField
+                                    type="number"
+                                    value={quantity}
+                                    onChange={handleQuantityChange}
+                                    className="quantity-section"
+                                />
+                            </div>
+
+                            <button className="add-to-cart-btn">Add to Cart</button>
+
+                        </div>
+
+                    </div>
+                    <img className="product-image"
+                        src={product.image} alt={product.name} />
+                </div>
+                <div className="w-100% flex">
+                    <div className="product-des">
+                        <p className="text-[#273172] font-bold text-xl mb-5">MÔ TẢ SẢN PHẨM</p>
+                        {product.des}
+                    </div>
+                </div>
+            </div>
+        ) : (
+            <div>Product not found</div>
+        )
+    );
 }
-export default Productdetail
+
+export default ProductDetail;
