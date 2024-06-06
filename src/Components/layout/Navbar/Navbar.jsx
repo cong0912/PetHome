@@ -8,7 +8,7 @@ function Navbar() {
   const [isDichVuOpen, setIsDichVuOpen] = useState(false);
   const [isCuaHangOpen, setIsCuaHangOpen] = useState(false);
   const [isSpaOpen, setIsSpaOpen] = useState(false);
-  const [isDichVuTaiNhaOpen, setIsDichVuTaiNhaOpen] = useState(false);
+  // const [isDichVuTaiNhaOpen, setIsDichVuTaiNhaOpen] = useState(false);
   const [isDanhChoChoOpen, setIsDanhChoChoOpen] = useState(false);
   const [isDanhChoMeoOpen, setIsDanhChoMeoOpen] = useState(false);
 
@@ -20,7 +20,7 @@ function Navbar() {
       />
 
       <ul>
-        <li>Trang Chủ</li>
+        <li><Link to="/">Trang Chủ</Link></li>
         <li>
           {" "}
           <Link to="/introduction"> Giới Thiệu </Link>{" "}
@@ -51,7 +51,7 @@ function Navbar() {
                   </ul>
                 )}
               </li>
-              <li
+              {/* <li
                 onMouseEnter={() => setIsDichVuTaiNhaOpen(true)}
                 onMouseLeave={() => setIsDichVuTaiNhaOpen(false)}
               >
@@ -65,7 +65,7 @@ function Navbar() {
                     <li>Cắt, tỉa tại nhà</li>
                   </ul>
                 )}
-              </li>
+              </li> */}
               <li>Khách sạn thú cưng</li>
             </ul>
           )}

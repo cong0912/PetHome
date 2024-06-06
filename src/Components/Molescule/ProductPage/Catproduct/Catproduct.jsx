@@ -3,7 +3,7 @@ import "./Catproduct.scss";
 
 import { Link } from "react-router-dom";
 import ProductCard from "Components/Molescule/ProductCards/ProductCard";
-import axios from "axios";
+import MyAxios from "../../../../setup/configAxios";
 
 function Catproduct() {
     const [products, setProducts] = useState([]);
@@ -13,9 +13,9 @@ function Catproduct() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        axios.get("http://localhost:5000/api/v1/products?type=product&name=other&species=cat")
+        MyAxios.get("http://localhost:5000/api/v1/products?type=product&name=other&species=cat")
             .then((response) => {
-                setProducts(response.data.data); // Update state with the data array
+                setProducts(response.data); 
                 setLoading(false);
             })
             .catch((error) => {
