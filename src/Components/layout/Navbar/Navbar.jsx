@@ -85,7 +85,7 @@ function Navbar() {
                 onMouseLeave={() => setIsDanhChoChoOpen(false)}
               >
                 <div className="dropdown-icon">
-                  Dành cho chó <ArrowDropDownIcon />
+                 <Link to="/dog-product-general"> Dành cho chó <ArrowDropDownIcon /></Link>
                 </div>
 
                 {isDanhChoChoOpen && (
@@ -101,7 +101,7 @@ function Navbar() {
               >
                 <div className="dropdown-icon">
                   {" "}
-                  Dành cho mèo <ArrowDropDownIcon />
+                  <Link to="/cat-product-general">Dành cho mèo <ArrowDropDownIcon /></Link>
                 </div>
 
                 {isDanhChoMeoOpen && (
