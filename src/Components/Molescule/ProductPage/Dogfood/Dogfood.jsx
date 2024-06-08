@@ -3,6 +3,7 @@ import "./Dogfood.scss";
 
 import { Link } from "react-router-dom";
 import ProductCard from "Components/Molescule/ProductCards/ProductCard";
+import axios from "axios";
 
 function Dogfood() {
     const [products, setProducts] = useState([]);
@@ -12,15 +13,9 @@ function Dogfood() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch("http://localhost:5000/api/v1/products?type=product&name=food&species=dog")
+        axios.get("http://localhost:5000/api/v1/products?type=product&name=food&species=dog")
             .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return response.json();
-            })
-            .then((data) => {
-                setProducts(data.data); // Update state with the data array
+                setProducts(response.data.data); // Update state with the data array
                 setLoading(false);
             })
             .catch((error) => {

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import "./Catproduct.scss";
+import "./Dogeneral.scss";
 
 import { Link } from "react-router-dom";
 import ProductCard from "Components/Molescule/ProductCards/ProductCard";
 import MyAxios from "../../../../setup/configAxios";
 
-function Catproduct() {
+function DogGeneral() {
     const [products, setProducts] = useState([]);
     const [minPrice, setMinPrice] = useState(18000);
     const [maxPrice, setMaxPrice] = useState(495000);
@@ -13,9 +13,9 @@ function Catproduct() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        MyAxios.get("http://localhost:5000/api/v1/products?type=product&name=other&species=cat")
+        MyAxios.get("http://localhost:5000/api/v1/products?type=product&species=dog")
             .then((response) => {
-                setProducts(response.data); 
+                setProducts(response.data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -38,7 +38,7 @@ function Catproduct() {
 
     return (
         <div>
-            <div className="cat-hero">
+            <div className="dog-hero">
                 {/* hero section */}
             </div>
             <div className="product-page">
@@ -81,4 +81,4 @@ function Catproduct() {
     );
 }
 
-export default Catproduct;
+export default DogGeneral;

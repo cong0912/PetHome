@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Catfood.scss";
 import { Link } from "react-router-dom";
 import ProductCard from "Components/Molescule/ProductCards/ProductCard";
+import MyAxios from "../../../../setup/configAxios";
 
 function Catfood() {
     const [products, setProducts] = useState([]);
@@ -11,15 +12,9 @@ function Catfood() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch("http://localhost:5000/api/v1/products?type=product&name=food&species=cat")
+        MyAxios.get("http://localhost:5000/api/v1/products?type=product&name=food&species=cat")
             .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return response.json();
-            })
-            .then((data) => {
-                setProducts(data.data); // Update state with the data array
+                setProducts(response.data); 
                 setLoading(false);
             })
             .catch((error) => {

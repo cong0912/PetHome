@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import "./Catproduct.scss";
-
+import "./Product.scss";
 import { Link } from "react-router-dom";
 import ProductCard from "Components/Molescule/ProductCards/ProductCard";
-import MyAxios from "../../../../setup/configAxios";
+import axios from "axios";
 
-function Catproduct() {
+function Product() {
     const [products, setProducts] = useState([]);
     const [minPrice, setMinPrice] = useState(18000);
     const [maxPrice, setMaxPrice] = useState(495000);
@@ -13,9 +12,9 @@ function Catproduct() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        MyAxios.get("http://localhost:5000/api/v1/products?type=product&name=other&species=cat")
+        axios.get("http://localhost:5000/api/v1/products?type=product")
             .then((response) => {
-                setProducts(response.data); 
+                setProducts(response.data.data); // Update state with the data array
                 setLoading(false);
             })
             .catch((error) => {
@@ -81,4 +80,4 @@ function Catproduct() {
     );
 }
 
-export default Catproduct;
+export default Product;
