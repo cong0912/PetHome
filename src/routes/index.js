@@ -10,6 +10,7 @@ import Dogfood from "Components/Molescule/ProductPage/Dogfood/Dogfood";
 import Catfood from "Components/Molescule/ProductPage/Catfood/Catfood";
 import Dogproduct from "Components/Molescule/ProductPage/Dogproduct/Dogproduct";
 import Catproduct from "Components/Molescule/ProductPage/Catproduct/Catproduct";
+import HomePage from "Components/Pages/HomePage/HomePage";
 // const role = localStorage.getItem("role");
 const publicRoute = [
   { path: "/register", component: Register, layout: null },
@@ -21,7 +22,7 @@ const publicRoute = [
   { path: "/cat-food", component: Catfood, layout: DefaultLayout },
   { path: "/dog-product", component: Dogproduct, layout: DefaultLayout },
   { path: "/cat-product", component: Catproduct, layout: DefaultLayout },
-  { path: "/", component: Test, layout: DefaultLayout },
+  { path: "/", component: HomePage, layout: DefaultLayout },
   { path: "*", component: ErrorPage, layout: null },
 ];
 
