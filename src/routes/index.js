@@ -14,6 +14,8 @@ import CatGeneral from "Components/Molescule/ProductPage/CatGeneral/CatGeneral";
 import DogGeneral from "Components/Molescule/ProductPage/DogGeneral/DogGeneral";
 import Product from "Components/Molescule/ProductPage/Product.jsx/Product";
 import Productdetail from "Components/Molescule/ProductDetail/Productdetail";
+import Services from "Components/Molescule/Services/Services";
+import ServicesDetail from "Components/Molescule/ServicesDetail/ServicesDetail";
 // const role = localStorage.getItem("role");
 const publicRoute = [
   { path: "/register", component: Register, layout: null },
@@ -25,12 +27,24 @@ const publicRoute = [
   { path: "/cat-food", component: Catfood, layout: DefaultLayout },
   { path: "/dog-product", component: Dogproduct, layout: DefaultLayout },
   { path: "/cat-product", component: Catproduct, layout: DefaultLayout },
+
   { path: "/", component: HomePage, layout: DefaultLayout },
-  { path: "/cat-product-general", component: CatGeneral, layout: DefaultLayout },
-  { path: "/dog-product-general", component: DogGeneral, layout: DefaultLayout },
+  {
+    path: "/cat-product-general",
+    component: CatGeneral,
+    layout: DefaultLayout,
+  },
+  {
+    path: "/dog-product-general",
+    component: DogGeneral,
+    layout: DefaultLayout,
+  },
+
   { path: "/general-product", component: Product, layout: DefaultLayout },
   { path: "/product/:id", component: Productdetail, layout: DefaultLayout },
   { path: "*", component: ErrorPage, layout: null },
+  { path: "/services", component: Services, layout: DefaultLayout },
+  { path: "/services/:id", component: ServicesDetail, layout: DefaultLayout },
 ];
 const privateRoute = [];
 export { publicRoute, privateRoute };
