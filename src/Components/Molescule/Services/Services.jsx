@@ -2,7 +2,11 @@ import React from "react";
 import DefaultService from "./components/DefaultService";
 import ComboCard from "./components/ComboCard";
 import { Skeleton } from "Components/ui/skeleton";
-import { getAllCombo } from "lib/api/services-api";
+import {
+  getAllCombo,
+  AscendingSort,
+  DescendingSort,
+} from "lib/api/services-api";
 import { useState, useEffect } from "react";
 import {
   Select,
@@ -15,12 +19,40 @@ import {
 export default function Services() {
   const [comboCard, setComboCard] = useState();
   const [isLoading, setIsLoading] = useState(false);
-
+  const [sortOder, setSortOder] = useState("system");
   useEffect(() => {
-    getAllCombos();
-  }, []);
+    if (sortOder === "asc") {
+      AscendingSorts();
+    } else if (sortOder === "des") {
+      DescendingSortS();
+    } else {
+      getAllCombos();
+    }
+  }, [sortOder]);
   const getAllCombos = () => {
     getAllCombo()
+      .then((data) => {
+        setComboCard(data);
+        console.log(data);
+        setIsLoading(true);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  const AscendingSorts = () => {
+    AscendingSort()
+      .then((data) => {
+        setComboCard(data);
+        console.log(data);
+        setIsLoading(true);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  const DescendingSortS = () => {
+    DescendingSort()
       .then((data) => {
         setComboCard(data);
         console.log(data);
@@ -35,14 +67,14 @@ export default function Services() {
       <DefaultService />
       <div className="flex flex-col items-center mx-auto max-w-screen-lg m-10">
         <div className="mb-7 self-end">
-          <Select>
+          <Select onValueChange={setSortOder}>
             <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Theme" />
+              <SelectValue placeholder="sắp xếp" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="light">Light</SelectItem>
-              <SelectItem value="dark">Dark</SelectItem>
-              <SelectItem value="system">System</SelectItem>
+              <SelectItem value="system">mặc định</SelectItem>
+              <SelectItem value="asc">tăng dần</SelectItem>
+              <SelectItem value="des">giảm dần</SelectItem>
             </SelectContent>
           </Select>
         </div>
