@@ -43,6 +43,8 @@ const publicRoute = [
   { path: "/general-product", component: Product, layout: DefaultLayout },
   { path: "/product/:id", component: Productdetail, layout: DefaultLayout },
   { path: "*", component: ErrorPage, layout: null },
+  { path: "/services", component: Services, layout: DefaultLayout },
+  { path: "/services/:id", component: ServicesDetail, layout: DefaultLayout },
 ];
 const privateRoute = [];
 export { publicRoute, privateRoute };
