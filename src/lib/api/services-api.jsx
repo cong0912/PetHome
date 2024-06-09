@@ -30,3 +30,13 @@ export const DescendingSort = async () => {
     console.error(error);
   }
 };
+export const DetailService = async (id) => {
+  try {
+    const response = await axiosClient.get(
+      `http://localhost:5000/api/v1/products/${id}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

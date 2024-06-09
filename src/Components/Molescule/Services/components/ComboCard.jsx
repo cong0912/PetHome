@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -34,7 +35,9 @@ export default function ComboCard({ combo }) {
           </form>
         </CardContent>
         <CardFooter className="flex justify-center">
-          <Button className="bg-[#222a63]">Detail</Button>
+          <Link to={`/services/${combo._id}`}>
+            <Button className="bg-[#222a63]">Detail</Button>
+          </Link>
         </CardFooter>
       </Card>
     </div>

@@ -15,7 +15,7 @@ import DogGeneral from "Components/Molescule/ProductPage/DogGeneral/DogGeneral";
 import Product from "Components/Molescule/ProductPage/Product.jsx/Product";
 import Productdetail from "Components/Molescule/ProductDetail/Productdetail";
 import Services from "Components/Molescule/Services/Services";
-
+import ServicesDetail from "Components/Molescule/ServicesDetail/ServicesDetail";
 // const role = localStorage.getItem("role");
 const publicRoute = [
   { path: "/register", component: Register, layout: null },
@@ -28,6 +28,7 @@ const publicRoute = [
   { path: "/dog-product", component: Dogproduct, layout: DefaultLayout },
   { path: "/cat-product", component: Catproduct, layout: DefaultLayout },
   { path: "/services", component: Services, layout: DefaultLayout },
+  { path: "/services/:id", component: ServicesDetail, layout: DefaultLayout },
   {
     path: "/cat-product-general",
     component: CatGeneral,
