@@ -5,14 +5,16 @@ import HomeIcon from '@mui/icons-material/Home';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SearchIcon from '@mui/icons-material/Search';
 import React, { useState } from "react";
-import "./Header.css"
+import "./Header.scss"
 import Text from "../../Atom/Text/Text";
+import MyAxios from "../../../setup/configAxios";
 
 
 function Header() {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [searchExpanded, setSearchExpanded] = useState(false);
     const [searchText, setSearchText] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -27,8 +29,22 @@ function Header() {
     };
 
     const handleSearchChange = (event) => {
-        setSearchText(event.target.value);
+        const text = event.target.value;
+        setSearchText(text);
+        if (text) {
+            MyAxios.get(`http://localhost:5000/api/v1/products/search?name=${text}`)
+                .then(response => {
+                    setSearchResults(response.data);
+                })
+                .catch(error => {
+                    console.error("Error fetching search results", error);
+                    setSearchResults([]);
+                });
+        } else {
+            setSearchResults([]);
+        }
     };
+
 
     return (
         <div>
@@ -63,6 +79,23 @@ function Header() {
                                             placeholder="Search..."
                                             className="header-search-input"
                                         />
+                                        {searchResults.length > 0 && (
+
+                                            <div className="search-results">
+                                                {searchResults.map(result => (
+                                                    <div key={result.id} className="search-result-item">
+                                                        <a href={`/product/${result._id}`}>
+                                                            <div className="flex gap-5">
+                                                                <img src={result.image} className="w-[40px]"/>
+                                                                {result.name}
+                                                            </div>
+
+                                                        </a>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+
                                     </div>
                                 )}
                                 <IconButton onClick={handleSearchClick} className={"header-color"}>

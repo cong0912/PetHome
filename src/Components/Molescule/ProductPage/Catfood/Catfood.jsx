@@ -3,6 +3,8 @@ import "./Catfood.scss";
 import { Link } from "react-router-dom";
 import ProductCard from "Components/Molescule/ProductCards/ProductCard";
 import MyAxios from "../../../../setup/configAxios";
+import { motion } from "framer-motion";
+import petCover from "assets/images/pet-cover.webp";
 
 function Catfood() {
     const [products, setProducts] = useState([]);
@@ -14,7 +16,7 @@ function Catfood() {
     useEffect(() => {
         MyAxios.get("http://localhost:5000/api/v1/products?type=product&name=food&species=cat")
             .then((response) => {
-                setProducts(response.data); 
+                setProducts(response.data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -37,8 +39,32 @@ function Catfood() {
 
     return (
         <div>
-            <div className="cat-hero">
-                {/* hero section */}
+            <div className="flex justify-center items-center flex-row space-x-4">
+                <div>
+                    <motion.h1
+                        initial={{ x: "-100%", opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 1 }}
+                        className="text-6xl text-[#222a63] font-bold"
+                    >
+                        PET HOME
+                    </motion.h1>
+                    <motion.h1
+                        initial={{ x: "100%", opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 1 }}
+                        className="text-4xl text-[#4c4c4c] font-bold "
+                    >
+                        thực phẩm cho mèo
+                    </motion.h1>
+                </div>
+                <div>
+                    <img
+                        src={petCover}
+                        alt="Pet Cover"
+                        className="w-[50vw] hidden md:block"
+                    />
+                </div>
             </div>
             <div className="product-page">
                 <div className="filter-section">
