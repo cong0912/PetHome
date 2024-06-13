@@ -14,10 +14,13 @@ function Navbar() {
 
   return (
     <div className="navbar-header">
-      <img
-        className="logo"
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/1a99a9f8361ca8fbc284488c05211431929308018cbb774be9071d5f7e678c8f?apiKey=b18136557b87444da5ca24a814c472b7&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/1a99a9f8361ca8fbc284488c05211431929308018cbb774be9071d5f7e678c8f?apiKey=b18136557b87444da5ca24a814c472b7&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/1a99a9f8361ca8fbc284488c05211431929308018cbb774be9071d5f7e678c8f?apiKey=b18136557b87444da5ca24a814c472b7&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/1a99a9f8361ca8fbc284488c05211431929308018cbb774be9071d5f7e678c8f?apiKey=b18136557b87444da5ca24a814c472b7&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/1a99a9f8361ca8fbc284488c05211431929308018cbb774be9071d5f7e678c8f?apiKey=b18136557b87444da5ca24a814c472b7&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/1a99a9f8361ca8fbc284488c05211431929308018cbb774be9071d5f7e678c8f?apiKey=b18136557b87444da5ca24a814c472b7&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/1a99a9f8361ca8fbc284488c05211431929308018cbb774be9071d5f7e678c8f?apiKey=b18136557b87444da5ca24a814c472b7&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/1a99a9f8361ca8fbc284488c05211431929308018cbb774be9071d5f7e678c8f?apiKey=b18136557b87444da5ca24a814c472b7&"
-      />
+      <Link to="/">
+        <img
+          className="logo"
+          src="https://cdn.builder.io/api/v1/image/assets/TEMP/1a99a9f8361ca8fbc284488c05211431929308018cbb774be9071d5f7e678c8f?apiKey=b18136557b87444da5ca24a814c472b7&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/1a99a9f8361ca8fbc284488c05211431929308018cbb774be9071d5f7e678c8f?apiKey=b18136557b87444da5ca24a814c472b7&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/1a99a9f8361ca8fbc284488c05211431929308018cbb774be9071d5f7e678c8f?apiKey=b18136557b87444da5ca24a814c472b7&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/1a99a9f8361ca8fbc284488c05211431929308018cbb774be9071d5f7e678c8f?apiKey=b18136557b87444da5ca24a814c472b7&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/1a99a9f8361ca8fbc284488c05211431929308018cbb774be9071d5f7e678c8f?apiKey=b18136557b87444da5ca24a814c472b7&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/1a99a9f8361ca8fbc284488c05211431929308018cbb774be9071d5f7e678c8f?apiKey=b18136557b87444da5ca24a814c472b7&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/1a99a9f8361ca8fbc284488c05211431929308018cbb774be9071d5f7e678c8f?apiKey=b18136557b87444da5ca24a814c472b7&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/1a99a9f8361ca8fbc284488c05211431929308018cbb774be9071d5f7e678c8f?apiKey=b18136557b87444da5ca24a814c472b7&"
+        />
+      </Link>
+
 
       <ul>
         <li><Link to="/">Trang Chủ</Link></li>
@@ -85,7 +88,7 @@ function Navbar() {
                 onMouseLeave={() => setIsDanhChoChoOpen(false)}
               >
                 <div className="dropdown-icon">
-                 <Link to="/dog-product-general"> Dành cho chó <ArrowDropDownIcon /></Link>
+                  <Link to="/dog-product-general"> Dành cho chó <ArrowDropDownIcon /></Link>
                 </div>
 
                 {isDanhChoChoOpen && (
