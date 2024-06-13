@@ -16,6 +16,8 @@ import Product from "Components/Molescule/ProductPage/Product.jsx/Product";
 import Productdetail from "Components/Molescule/ProductDetail/Productdetail";
 import Services from "Components/Molescule/Services/Services";
 import ServicesDetail from "Components/Molescule/ServicesDetail/ServicesDetail";
+import Order from "Components/Molescule/Order/Order";
+import Cart from "Components/Molescule/Cart/Cart";
 // const role = localStorage.getItem("role");
 const publicRoute = [
   { path: "/register", component: Register, layout: null },
@@ -45,6 +47,8 @@ const publicRoute = [
   { path: "*", component: ErrorPage, layout: null },
   { path: "/services", component: Services, layout: DefaultLayout },
   { path: "/services/:id", component: ServicesDetail, layout: DefaultLayout },
+  { path: "/order", component: Order, layout: DefaultLayout },
+  { path: "/shopping-cart", component: Cart, layout: DefaultLayout },
 ];
 const privateRoute = [];
 export { publicRoute, privateRoute };

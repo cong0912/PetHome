@@ -1,0 +1,63 @@
+.container {
+  margin-left: 7rem;
+  .title {
+    margin-top: 3rem;
+    font-size: 2.5rem;
+    padding-bottom: 4rem;
+  }
+  .content {
+    display: flex;
+    .order-info-left {
+      flex: 2;
+      margin-right: 3rem;
+      .input-text {
+        padding: 0.7em;
+        height: auto;
+        border-width: 1px;
+        border-style: solid;
+        border-color: #c7c5c5;
+        border-radius: 2px;
+        box-shadow: none;
+        box-sizing: border-box;
+        transition: all 0.2s linear;
+        width: 100%;
+      }
+      .text {
+        font-size: 1.1rem;
+        padding-bottom: 0.3rem;
+        font-weight: 490;
+      }
+      .content-title {
+        padding-bottom: 2rem;
+        font-size: 1.2rem;
+        padding: 20px 0 14px;
+        margin: 0 0 20px;
+        border-bottom: 1px solid #ebebeb;
+        .text {
+          color: #222222;
+          font-weight: 600;
+          font-size: 1.4rem;
+        }
+      }
+      .phone-email-info {
+        display: flex;
+        .phone-info {
+          .input-text {
+            width: 22rem;
+          }
+          margin-right: 3rem;
+        }
+        .email-info {
+          .input-text {
+            width: 23rem;
+          }
+        }
+      }
+      .address-info {
+      }
+    }
+    .order-info-right {
+      flex: 2.3;
+    }
+  }
+}
