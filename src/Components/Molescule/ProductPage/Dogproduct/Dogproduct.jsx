@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./Dogproduct.scss";
-
 import { Link } from "react-router-dom";
 import ProductCard from "Components/Molescule/ProductCards/ProductCard";
 import axios from "axios";
 import { motion } from "framer-motion";
 import petCover from "assets/images/pet-cover.webp";
+import Pagination from '@mui/material/Pagination';
+import { Box } from '@mui/material';
 
 function Dogproduct() {
     const [products, setProducts] = useState([]);
@@ -13,11 +14,13 @@ function Dogproduct() {
     const [maxPrice, setMaxPrice] = useState(495000);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const productsPerPage = 9; // Number of products per page
 
     useEffect(() => {
         axios.get("http://localhost:5000/api/v1/products?type=product&name=other&species=dog")
             .then((response) => {
-                setProducts(response.data.data); // Update state with the data array
+                setProducts(response.data.data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -29,6 +32,16 @@ function Dogproduct() {
     const filteredProducts = products.filter(
         (product) => product.price >= minPrice && product.price <= maxPrice
     );
+
+    // Slice the products based on current page and productsPerPage
+    const startIndex = (currentPage - 1) * productsPerPage;
+    const paginatedProducts = filteredProducts.slice(startIndex, startIndex + productsPerPage);
+    const totalPages = Math.max(1, Math.ceil(filteredProducts.length / productsPerPage));
+
+    const handlePageChange = (event, value) => {
+        setCurrentPage(value);
+        window.scrollTo(0, 0);
+    };
 
     if (loading) {
         return <div>Loading...</div>;
@@ -54,7 +67,7 @@ function Dogproduct() {
                         initial={{ x: "100%", opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ duration: 1 }}
-                        className="text-4xl text-[#4c4c4c] font-bold "
+                        className="text-4xl text-[#4c4c4c] font-bold"
                     >
                         phụ kiện cho chó
                     </motion.h1>
@@ -84,13 +97,12 @@ function Dogproduct() {
                         value={maxPrice}
                         onChange={(e) => setMaxPrice(Number(e.target.value))}
                     />
-                    <button className="filter-button">Lọc</button>
                     <p>
                         Giá {minPrice.toLocaleString()} đ — {maxPrice.toLocaleString()} đ
                     </p>
                 </div>
                 <div className="product-list">
-                    {filteredProducts.map((product) => (
+                    {paginatedProducts.map((product) => (
                         <Link to={`/product/${product._id}`} key={product._id}>
                             <ProductCard
                                 status={product.status}
@@ -103,6 +115,16 @@ function Dogproduct() {
                     ))}
                 </div>
             </div>
+            <Box display="flex" justifyContent="center" mt={4} ml={30}>
+                <Pagination
+                    size="large"
+                    count={totalPages}
+                    page={currentPage}
+                    variant="outlined"
+                    onChange={handlePageChange}
+                    color="primary"
+                />
+            </Box>
         </div>
     );
 }
