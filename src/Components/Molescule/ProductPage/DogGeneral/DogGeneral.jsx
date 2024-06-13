@@ -6,6 +6,9 @@ import ProductCard from "Components/Molescule/ProductCards/ProductCard";
 import MyAxios from "../../../../setup/configAxios";
 import { motion } from "framer-motion";
 import petCover from "assets/images/pet-cover.webp";
+import Pagination from '@mui/material/Pagination';
+import { Box } from '@mui/material'; // Import Box for layout
+
 
 function DogGeneral() {
     const [products, setProducts] = useState([]);
@@ -13,7 +16,9 @@ function DogGeneral() {
     const [maxPrice, setMaxPrice] = useState(495000);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
+    const [currentPage, setCurrentPage] = useState(1); // Track the current page
+    const productsPerPage = 9; // Number of products per page
+    
     useEffect(() => {
         MyAxios.get("http://localhost:5000/api/v1/products?type=product&species=dog")
             .then((response) => {
@@ -37,36 +42,45 @@ function DogGeneral() {
     if (error) {
         return <div>Error: {error.message}</div>;
     }
+  // Calculate pagination
+  const startIndex = (currentPage - 1) * productsPerPage;
+  const paginatedProducts = filteredProducts.slice(startIndex, startIndex + productsPerPage);
+  const totalPages = Math.max(1, Math.ceil(filteredProducts.length / productsPerPage));
+
+  const handlePageChange = (event, value) => {
+      setCurrentPage(value);
+      window.scrollTo(0, 0);
+  };
 
     return (
         <div>
-      <div className="flex justify-center items-center flex-row space-x-4">
-        <div>
-          <motion.h1
-            initial={{ x: "-100%", opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 1 }}
-            className="text-6xl text-[#222a63] font-bold"
-          >
-            PET HOME
-          </motion.h1>
-          <motion.h1
-            initial={{ x: "100%", opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 1 }}
-            className="text-4xl text-[#4c4c4c] font-bold "
-          >
-            mọi sản phẩm cho chó
-          </motion.h1>
-        </div>
-        <div>
-          <img
-            src={petCover}
-            alt="Pet Cover"
-            className="w-[50vw] hidden md:block"
-          />
-        </div>
-      </div>
+            <div className="flex justify-center items-center flex-row space-x-4">
+                <div>
+                    <motion.h1
+                        initial={{ x: "-100%", opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 1 }}
+                        className="text-6xl text-[#222a63] font-bold"
+                    >
+                        PET HOME
+                    </motion.h1>
+                    <motion.h1
+                        initial={{ x: "100%", opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 1 }}
+                        className="text-4xl text-[#4c4c4c] font-bold "
+                    >
+                        mọi sản phẩm cho chó
+                    </motion.h1>
+                </div>
+                <div>
+                    <img
+                        src={petCover}
+                        alt="Pet Cover"
+                        className="w-[50vw] hidden md:block"
+                    />
+                </div>
+            </div>
             <div className="product-page">
                 <div className="filter-section">
                     <h3>Lọc theo giá</h3>
@@ -103,6 +117,16 @@ function DogGeneral() {
                     ))}
                 </div>
             </div>
+            <Box display="flex" justifyContent="center" mt={4} ml={30}>
+                <Pagination
+                    size="large"
+                    count={totalPages}
+                    page={currentPage}
+                    variant="outlined"
+                    onChange={handlePageChange}
+                    color="primary"
+                />
+            </Box>
         </div>
     );
 }
