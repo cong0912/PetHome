@@ -1,8 +1,7 @@
-import { Link } from "react-router-dom";
 import PetDog from "../../../assets/images/PetDog.png";
-import Google from "../../../assets/images/Logo-google-icon-PNG.png";
+
 import { useEffect, useState } from "react";
-import axios from "axios";
+
 import MyAxios from "../../../setup/configAxios";
 
 const initFormValue = {
@@ -82,8 +81,9 @@ const LoginForm = () => {
         }
         localStorage.setItem("access_token", response.data.access_token);
         localStorage.setItem("refresh_token", response.data.refresh_token);
+        localStorage.setItem("userId", response.data.id);
         console.log(response.message);
-        // window.location.href = "/";
+        window.location.href = "/";
       } else {
         setLoginFail(true);
         console.log("fails");

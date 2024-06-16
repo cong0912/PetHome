@@ -2,6 +2,7 @@ import { useContext } from "react";
 import styles from "./Cart.module.scss";
 import { Link } from "react-router-dom";
 import { CartContext } from "context/CartContext";
+import { Delete } from "@mui/icons-material";
 
 const CartItem = (props) => {
   const { id, name, price, image } = props.data;
@@ -33,7 +34,7 @@ const CartItem = (props) => {
             <div>{name}</div>
           </Link>
           <div className={styles["Delete"]}>
-            {/* <FontAwesomeIcon icon={faTrash} onClick={() => deleteFromCart(id)} className={styles["trash"]} /> */}
+            <Delete onClick={() => deleteFromCart(id)} className={styles["trash"]} />
           </div>
         </span>
         <span className={styles["Price"]}>{price.toLocaleString()}đ</span>

@@ -1,6 +1,54 @@
+import { useEffect, useState } from "react";
 import styles from "./Order.module.scss";
+import Myaxios from "setup/configAxios";
+import axios from "axios";
+import OrderList from "./OrderList/OrderList";
 
 const Order = () => {
+  // userId
+  const userId = localStorage.getItem("userId");
+  // cartDetails
+  let shopCart = localStorage.getItem("shopCart");
+  if (shopCart) {
+    let data = JSON.parse(shopCart);
+    data.forEach((item) => {
+      let cartDetails = {
+        productId: item.id,
+        quantity: item.value,
+      };
+    });
+  }
+  // get Province and districts
+
+  const [provinces, setProvinces] = useState([]);
+  const [districts, setDistricts] = useState([]);
+
+  //GET DATA PROVINCES AND
+  useEffect(() => {
+    // Lấy tỉnh thành
+    const getProvinces = async () => {
+      try {
+        const response = await axios.get("https://esgoo.net/api-tinhthanh/1/0.htm");
+        setProvinces(response.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getProvinces();
+  }, []);
+
+  const handleProvinceChange = async (e) => {
+    const selectedProvinceId = e.target.value;
+    const dis = provinces.find((a) => a.full_name == selectedProvinceId);
+    // Lấy quận huyện
+    try {
+      const response = await axios.get(`https://esgoo.net/api-tinhthanh/2/${dis.id}.htm`);
+      setDistricts(response.data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <div className={styles["container"]}>
       <div className={styles["title"]}>Thanh toán</div>
@@ -28,10 +76,17 @@ const Order = () => {
             <div className={styles["address-info"]}>
               <div className={styles["provice-info"]}>
                 <p className={styles["text"]}>Tỉnh/Thành phố</p>
-                <select id="province" className={styles["select"]}>
+                <select id="province" className={styles["select"]} onChange={handleProvinceChange}>
                   <option disabled value="">
                     Select Provinces ...
                   </option>
+                  {provinces.map((province) => {
+                    return (
+                      <option key={province.id} value={province.full_name}>
+                        {province.full_name}
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
               <div className={styles["dictrict-info"]}>
@@ -40,6 +95,13 @@ const Order = () => {
                   <option disabled value="">
                     Select Dictricts ...
                   </option>
+                  {districts.map((district) => {
+                    return (
+                      <option key={district.id} value={district.full_name}>
+                        {district.full_name}
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
             </div>
@@ -49,30 +111,7 @@ const Order = () => {
             </div>
           </div>
           <div className={styles["order-info-right"]}>
-            <div className={styles["order-info-right-title"]}>
-              <h3>Đơn hàng của bạn</h3>
-            </div>
-            <div className={styles["order-info-right-review"]}>
-              <table className={styles["table-products"]}>
-                <thead>
-                  <tr>
-                    <th>Sản phẩm</th>
-                    <th>Tạm tính</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Tên sản phẩm</td>
-                    <td>Giá sản phẩm</td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr></tr>
-                  <tr></tr>
-                </tfoot>
-              </table>
-            </div>
-            <div className={styles["order-info-right"]}></div>
+            <OrderList />
           </div>
         </div>
       </form>

@@ -96,62 +96,74 @@
       font-size: 15px;
     }
     .Delete {
-      color: #cd9b32;
+      color: #1e73be;
       font-size: 150%;
+
+      &:hover {
+        color: rgb(71, 67, 67);
+      }
     }
   }
-  .cart {
-    .image-head {
-      width: 100%;
+
+  .btn-checkout {
+    height: 100%;
+    width: 13.5%;
+    background: transparent;
+    border-color: #273172;
+    background-color: #273172;
+    text-align: center;
+    line-height: 40px;
+    border: 1px solid #555554;
+    border-radius: 5px;
+    margin-left: 77%;
+    padding-bottom: 7px;
+    margin-bottom: 50px;
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+    &:hover {
+      background-color: #1e73be;
+      color: whitesmoke;
     }
-    .title {
-      height: 100%;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding-top: 200px;
-      padding-bottom: 170px;
-      color: var(--main-color);
-      margin-top: -400px;
-      h1 {
-        font-size: 40px;
-        margin-bottom: 12px;
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3rem;
+    .discount {
+      margin-left: 10rem;
+      padding: 1.3rem;
+      margin-right: 31rem;
+      .input-code {
+        float: left;
+        box-sizing: border-box;
+        border: 2px solid #ccc8cb;
+        padding: 8px 6px 8px;
+        margin: 0 4px 0 0;
+        outline: 0;
+        line-height: 1;
+      }
+      button {
+        margin-left: 2rem;
+        padding: 8px 40px 8px 40px;
+        display: inline-block;
+        width: auto;
+        border-radius: 2px;
+        color: #ffffff;
+        border-color: #273172;
+        background-color: #273172;
       }
     }
-    .SubTotal {
-      display: flex;
-      margin-left: 79%;
-      font-size: 20px;
-      margin-bottom: 24px;
+    .total {
       .text {
-        color: rgb(6, 6, 6);
-        margin-right: 10px;
-        font-weight: 600;
+        font-size: 1.4rem;
+        margin-right: 0.4rem;
+        font-weight: 700;
       }
       .value {
-        color: #cd9a2b;
-        font-weight: 900;
-      }
-    }
-    .btn-checkout {
-      height: 100%;
-      width: 13.5%;
-      background: transparent;
-      color: var(--main-color);
-      text-align: center;
-      line-height: 40px;
-      border: 1px solid #cd9b32;
-      border-radius: 5px;
-      margin-left: 77%;
-      padding-bottom: 7px;
-      margin-bottom: 50px;
-      font-size: 15px;
-      font-weight: 700;
-      &:hover {
-        background-color: var(--main-color);
-        color: whitesmoke;
+        font-size: 1.4rem;
+        font-weight: 700;
       }
     }
   }

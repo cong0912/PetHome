@@ -47,6 +47,35 @@ const Cart = () => {
           </div>
         )}
       </div>
+      {hasItemsInCart && (
+        <div className={styles["footer"]}>
+          <div className={styles["discount"]}>
+            <input type="text" name="code" value={""} placeholder="Mã ưu đãi" className={styles["input-code"]} />
+            <button type="submit" className={styles["ap-dung"]}>
+              Áp dụng
+            </button>
+          </div>
+          <div className={styles["total"]}>
+            <span className={styles["text"]}>Tổng cộng:</span>
+            <span className={styles["value"]}>{total.toLocaleString()}đ</span>
+          </div>
+        </div>
+      )}
+
+      {hasItemsInCart && (
+        <button
+          className={styles["btn-checkout"]}
+          onClick={() => {
+            if (localStorage.getItem("access_token") == null) {
+              window.location.href = "/login";
+            } else {
+              window.location.href = "/order";
+            }
+          }}
+        >
+          Tiến hành thanh toán{" "}
+        </button>
+      )}
     </div>
   );
 };
