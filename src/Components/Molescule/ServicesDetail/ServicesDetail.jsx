@@ -13,11 +13,7 @@ export default function ServicesDetail() {
     const fetchDetailService = async () => {
       try {
         const data = await DetailService(id);
-        if (Array.isArray(data) && data.length > 0) {
-          setCard(data[0]);
-        } else {
-          console.error("Data format is incorrect", data);
-        }
+        setCard(data);
       } catch (error) {
         console.error("Error:", error);
       } finally {
