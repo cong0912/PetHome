@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import MyAxios from "../../../setup/configAxios";
 import "./Productdetail.scss";
 import { CartContext } from "context/CartContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function ProductDetail() {
   const { id } = useParams();
@@ -20,11 +22,15 @@ function ProductDetail() {
       setQuantity(value);
     }
   };
+
   const handleAddToCart = () => {
     for (let i = 0; i < quantity; i++) {
       addToCart(id);
     }
+    toast.success(`${product.name} đã thêm vào giỏ hàng`, {
+    });
   };
+
   useEffect(() => {
     MyAxios.get(`http://localhost:5000/api/v1/products/${id}`)
       .then((response) => {
@@ -42,6 +48,7 @@ function ProductDetail() {
 
   return product ? (
     <div className="bg-[#f9f6f6]">
+      <ToastContainer />
       <div className="product-detail-container">
         <div className="product-information">
           <h1 className="info-name mb-7">{product.name}</h1>

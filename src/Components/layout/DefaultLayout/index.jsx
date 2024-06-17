@@ -1,10 +1,10 @@
 import Footer from "../Footer/Footer";
-import Header from "../Header/Header";
+import HeaderAfterLogin from "../Header/HeaderAfterLogin";
 import Navbar from "../Navbar/Navbar";
 export default function DefaultLayout({ children }) {
   return (
     <div>
-      <Header />
+      <HeaderAfterLogin />
       <Navbar />
       <div>{children}</div>
       <Footer />

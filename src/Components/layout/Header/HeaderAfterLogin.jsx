@@ -16,13 +16,13 @@ import HomeIcon from "@mui/icons-material/Home";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SearchIcon from "@mui/icons-material/Search";
 import { Link, useNavigate } from "react-router-dom";
-import "./Header.scss";
+import "./HeaderAfterLogin.scss";
 import Text from "../../Atom/Text/Text";
 
-function Header() {
+function HeaderAfterLogin() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [searchExpanded, setSearchExpanded] = useState(false);
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState('')
   const navigate = useNavigate();
 
   const handleMenu = (event) => {
@@ -135,4 +135,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default HeaderAfterLogin;
