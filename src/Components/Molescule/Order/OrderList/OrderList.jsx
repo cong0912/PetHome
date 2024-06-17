@@ -83,14 +83,10 @@ const OrderList = () => {
             <span className={styles["content-footer-estimated-title"]}>Tạm tính :</span>
             <span className={styles["content-footer-estimated-price"]}>{totalPrice.toLocaleString()}đ</span>
           </div>
-          <div className={styles["content-footer-ship"]}>
-            <span className={styles["content-footer-ship-title"]}>Giao hàng :</span>
-            <span className={styles["content-footer-ship-price"]}>{totalQuantity >= 3 ? "0$" : "7$"}</span>
-          </div>
           <div className={styles["divider"]}></div>
           <div className={styles["content-footer-total"]}>
             <span className={styles["content-footer-total-title"]}>Tổng tiền :</span>
-            {/* <span className={styles["content-footer-total-price"]}>{totalPrice + ship}$</span> */}
+            <span className={styles["content-footer-total-price"]}>{totalPrice.toLocaleString()}đ</span>
           </div>
         </div>
       </div>
