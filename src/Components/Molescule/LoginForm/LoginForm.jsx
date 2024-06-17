@@ -68,10 +68,13 @@ const LoginForm = () => {
   // Post API
   const loginUser = async (email, password) => {
     try {
-      const response = await MyAxios.post("http://localhost:5000/api/v1/auth/login", {
-        email,
-        password,
-      });
+      const response = await MyAxios.post(
+        "http://localhost:5000/api/v1/auth/login",
+        {
+          email,
+          password,
+        }
+      );
       console.log("response", response);
       const { access_token, refresh_token } = response.data;
 
@@ -82,7 +85,9 @@ const LoginForm = () => {
         localStorage.setItem("access_token", response.data.access_token);
         localStorage.setItem("refresh_token", response.data.refresh_token);
         localStorage.setItem("userId", response.data.id);
+        localStorage.setItem("userRole", response.data.role);
         console.log(response.message);
+
         window.location.href = "/";
       } else {
         setLoginFail(true);
@@ -139,7 +144,9 @@ const LoginForm = () => {
           <div className="w-full flex flex-col max-w-[550px]">
             <div className="w-full flex flex-col mb-2">
               <h3 className="text-4xl font-semibold mb-2">Login</h3>
-              <p className="text-base mb-2">Welcome Back! Please fill your details.</p>
+              <p className="text-base mb-2">
+                Welcome Back! Please fill your details.
+              </p>
             </div>
             <form className="w-full flex flex-col" onSubmit={handleLogin}>
               <input
@@ -152,7 +159,9 @@ const LoginForm = () => {
                 required
                 autoComplete="email"
               />
-              {formError.email && <div className="text-red-500 text-sm">{formError.email}</div>}
+              {formError.email && (
+                <div className="text-red-500 text-sm">{formError.email}</div>
+              )}
               <input
                 type="password"
                 name="password"
@@ -163,7 +172,9 @@ const LoginForm = () => {
                 required
                 autoComplete="current-password"
               />
-              {formError.password && <div className="text-red-500 text-sm">{formError.password}</div>}
+              {formError.password && (
+                <div className="text-red-500 text-sm">{formError.password}</div>
+              )}
               <div className="w-full flex items-center justify-between">
                 <div className="w-full flex items-center">
                   <input
@@ -192,13 +203,17 @@ const LoginForm = () => {
             </form>
             <div className="w-full flex items-center justify-center relative py-2">
               <div className="w-full h-[1px] bg-black"></div>
-              <p className="text-lg absolute text-black/80 bg-[#f5f5f5] px-2">or</p>
+              <p className="text-lg absolute text-black/80 bg-[#f5f5f5] px-2">
+                or
+              </p>
             </div>
           </div>
           <div className="w-full flex items-center justify-center">
             <p className="text-sm font-normal text-black">
               Don't have a account ?{" "}
-              <span className="font-semibold underline underline-offset-2 cursor-pointer">Sign up for free ?</span>
+              <span className="font-semibold underline underline-offset-2 cursor-pointer">
+                Sign up for free ?
+              </span>
             </p>
           </div>
         </div>

@@ -19,7 +19,8 @@ import ServicesDetail from "Components/Molescule/ServicesDetail/ServicesDetail";
 import Order from "Components/Molescule/Order/Order";
 import Cart from "Components/Molescule/Cart/Cart";
 import ProductSearch from "Components/Molescule/ProductPage/ProductSearch/ProductSearch";
-// const role = localStorage.getItem("role");
+import StaffPage from "Components/Molescule/Staff/StaffPage";
+const role = localStorage.getItem("userRole");
 const publicRoute = [
   { path: "/register", component: Register, layout: null },
   { path: "/introduction", component: GioiThieu, layout: DefaultLayout },
@@ -52,5 +53,8 @@ const publicRoute = [
   { path: "/order", component: Order, layout: DefaultLayout },
   { path: "/shopping-cart", component: Cart, layout: DefaultLayout },
 ];
+if (role == "STAFF") {
+  publicRoute.push({ path: "/staff", component: StaffPage, layout: null });
+}
 const privateRoute = [];
 export { publicRoute, privateRoute };
