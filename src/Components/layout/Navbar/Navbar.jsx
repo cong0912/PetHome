@@ -21,9 +21,10 @@ function Navbar() {
         />
       </Link>
 
-
       <ul>
-        <li><Link to="/">Trang Chủ</Link></li>
+        <li>
+          <Link to="/">Trang Chủ</Link>
+        </li>
         <li>
           {" "}
           <Link to="/introduction"> Giới Thiệu </Link>{" "}
@@ -33,7 +34,9 @@ function Navbar() {
           onMouseLeave={() => setIsDichVuOpen(false)}
         >
           <div className="dropdown-icon">
-            Dịch Vụ <ArrowDropDownIcon />
+            <Link to={"/services"}>
+              Dịch Vụ <ArrowDropDownIcon />
+            </Link>
           </div>
 
           {isDichVuOpen && (
@@ -88,13 +91,20 @@ function Navbar() {
                 onMouseLeave={() => setIsDanhChoChoOpen(false)}
               >
                 <div className="dropdown-icon">
-                  <Link to="/dog-product-general"> Dành cho chó <ArrowDropDownIcon /></Link>
+                  <Link to="/dog-product-general">
+                    {" "}
+                    Dành cho chó <ArrowDropDownIcon />
+                  </Link>
                 </div>
 
                 {isDanhChoChoOpen && (
                   <ul className="dropdown">
-                    <li><Link to="/dog-food">Thức ăn cho chó</Link></li>
-                    <li><Link to="/dog-product">Phụ kiện cho chó</Link></li>
+                    <li>
+                      <Link to="/dog-food">Thức ăn cho chó</Link>
+                    </li>
+                    <li>
+                      <Link to="/dog-product">Phụ kiện cho chó</Link>
+                    </li>
                   </ul>
                 )}
               </li>
@@ -104,13 +114,19 @@ function Navbar() {
               >
                 <div className="dropdown-icon">
                   {" "}
-                  <Link to="/cat-product-general">Dành cho mèo <ArrowDropDownIcon /></Link>
+                  <Link to="/cat-product-general">
+                    Dành cho mèo <ArrowDropDownIcon />
+                  </Link>
                 </div>
 
                 {isDanhChoMeoOpen && (
                   <ul className="dropdown">
-                    <li><Link to="/cat-food">Thức ăn cho mèo</Link></li>
-                    <li><Link to="/cat-product">Phụ kiện cho mèo</Link></li>
+                    <li>
+                      <Link to="/cat-food">Thức ăn cho mèo</Link>
+                    </li>
+                    <li>
+                      <Link to="/cat-product">Phụ kiện cho mèo</Link>
+                    </li>
                   </ul>
                 )}
               </li>
@@ -118,7 +134,10 @@ function Navbar() {
             </ul>
           )}
         </li>
-        <li> <Link to="/contact">Liên Hệ</Link></li>
+        <li>
+          {" "}
+          <Link to="/contact">Liên Hệ</Link>
+        </li>
       </ul>
       <div className="navbar-booking">
         <p>ONLINE BOOKING</p>
