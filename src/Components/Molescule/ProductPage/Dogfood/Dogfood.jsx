@@ -7,6 +7,13 @@ import ProductCard from "Components/Molescule/ProductCards/ProductCard";
 import axios from "axios";
 import MyAxios from "setup/configAxios";
 import Pagination from '@mui/material/Pagination';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "Components/ui/select";
 import { Box } from '@mui/material'; // Import Box for layout
 
 function Dogfood() {
@@ -18,18 +25,53 @@ function Dogfood() {
   const [currentPage, setCurrentPage] = useState(1); // Track the current page
   const productsPerPage = 9; // Number of products per page
 
+  const [sortOder, setSortOder] = useState("system");
   useEffect(() => {
-    MyAxios.get("http://localhost:5000/api/v1/products?type=product&name=food&species=dog")
+    if (sortOder === "asc") {
+      AscendingSorts();
+    } else if (sortOder === "des") {
+      DescendingSortS();
+    } else {
+      getAll();
+    }
+  }, [sortOder]);
+  const getAll = () => {
+    MyAxios.get("api/v1/products?type=product&name=food&species=dog")
       .then((response) => {
-        setProducts(response.data); // Update state with the data array
+        setProducts(response.data);
         setLoading(false);
       })
       .catch((error) => {
         setError(error);
         setLoading(false);
       });
-  }, []);
-
+  };
+  const AscendingSorts = () => {
+    MyAxios.get(
+      "api/v1/products/sort?type=product&name=food&species=dog&sort=asc"
+    )
+      .then((response) => {
+        setProducts(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error);
+        setLoading(false);
+      });
+  };
+  const DescendingSortS = () => {
+    MyAxios.get(
+      "api/v1/products/sort?type=product&name=food&species=dog&sort=desc"
+    )
+      .then((response) => {
+        setProducts(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error);
+        setLoading(false);
+      });
+  };
   const filteredProducts = products.filter((product) => product.price >= minPrice && product.price <= maxPrice);
 
   if (loading) {
@@ -76,6 +118,20 @@ function Dogfood() {
             alt="Pet Cover"
             className="w-[50vw] hidden md:block"
           />
+        </div>
+      </div>
+      <div className="sort-product">
+        <div className="">
+          <Select onValueChange={setSortOder}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="sắp xếp" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="system">mặc định</SelectItem>
+              <SelectItem value="asc">tăng dần</SelectItem>
+              <SelectItem value="des">giảm dần</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
       </div>
       <div className="product-page">

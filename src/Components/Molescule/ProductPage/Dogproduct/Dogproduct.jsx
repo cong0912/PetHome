@@ -2,10 +2,17 @@ import React, { useState, useEffect } from "react";
 import "./Dogproduct.scss";
 import { Link } from "react-router-dom";
 import ProductCard from "Components/Molescule/ProductCards/ProductCard";
-import axios from "axios";
+import MyAxios from "../../../../setup/configAxios";
 import { motion } from "framer-motion";
 import petCover from "assets/images/pet-cover.webp";
 import Pagination from '@mui/material/Pagination';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "Components/ui/select";
 import { Box } from '@mui/material';
 
 function Dogproduct() {
@@ -17,17 +24,53 @@ function Dogproduct() {
     const [currentPage, setCurrentPage] = useState(1);
     const productsPerPage = 9; // Number of products per page
 
+    const [sortOder, setSortOder] = useState("system");
     useEffect(() => {
-        axios.get("http://localhost:5000/api/v1/products?type=product&name=other&species=dog")
+        if (sortOder === "asc") {
+            AscendingSorts();
+        } else if (sortOder === "des") {
+            DescendingSortS();
+        } else {
+            getAll();
+        }
+    }, [sortOder]);
+    const getAll = () => {
+        MyAxios.get("api/v1/products?type=product&name=other&species=dog")
             .then((response) => {
-                setProducts(response.data.data);
+                setProducts(response.data);
                 setLoading(false);
             })
             .catch((error) => {
                 setError(error);
                 setLoading(false);
             });
-    }, []);
+    };
+    const AscendingSorts = () => {
+        MyAxios.get(
+            "api/v1/products/sort?type=product&name=other&species=dog&sort=asc"
+        )
+            .then((response) => {
+                setProducts(response.data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                setError(error);
+                setLoading(false);
+            });
+    };
+    const DescendingSortS = () => {
+        MyAxios.get(
+            "api/v1/products/sort?type=product&name=other&species=dog&sort=desc"
+        )
+            .then((response) => {
+                setProducts(response.data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                setError(error);
+                setLoading(false);
+            });
+    };
 
     const filteredProducts = products.filter(
         (product) => product.price >= minPrice && product.price <= maxPrice
@@ -78,6 +121,20 @@ function Dogproduct() {
                         alt="Pet Cover"
                         className="w-[50vw] hidden md:block"
                     />
+                </div>
+            </div>
+            <div className="sort-product">
+                <div className="">
+                    <Select onValueChange={setSortOder}>
+                        <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder="sắp xếp" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="system">mặc định</SelectItem>
+                            <SelectItem value="asc">tăng dần</SelectItem>
+                            <SelectItem value="des">giảm dần</SelectItem>
+                        </SelectContent>
+                    </Select>
                 </div>
             </div>
             <div className="product-page">
