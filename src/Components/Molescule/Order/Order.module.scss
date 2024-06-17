@@ -55,6 +55,15 @@
         }
       }
       .address-info {
+        display: flex;
+        gap: 50px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        .select {
+          border: 1px solid #ebebeb;
+          width: 22rem;
+          padding: 10px 0px 10px 0px;
+        }
       }
     }
     .order-info-right {
