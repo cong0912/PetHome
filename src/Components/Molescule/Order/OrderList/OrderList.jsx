@@ -17,7 +17,6 @@ const OrderList = () => {
 
     // Lấy dữ liệu từ Local Storage
     const cartData = JSON.parse(localStorage.getItem("shopCart"));
-    console.log("da", cartData);
 
     const updatedCartItems = [];
     let totalQuantity = 0;
@@ -48,7 +47,8 @@ const OrderList = () => {
 
     setOrderItems(updatedCartItems);
   }, [productsReady]);
-  console.log("or", orderItems);
+  let ship = 12000;
+  let total = totalPrice + ship;
   return (
     <div className={styles["order-in4"]}>
       <div className={styles["order"]}>
@@ -72,7 +72,7 @@ const OrderList = () => {
                 </div>
               </div>
               <div className={styles["right-content"]}>
-                <div className={styles["description"]}>{item.price.toLocaleString()}đ</div>
+                <div className={styles["description"]}>{(item.price * item.quantity).toLocaleString()}đ</div>
               </div>
             </div>
           ))}
@@ -80,13 +80,17 @@ const OrderList = () => {
         <div className={styles["divider"]}></div>
         <div className={styles["content-footer"]}>
           <div className={styles["content-footer-estimated"]}>
-            <span className={styles["content-footer-estimated-title"]}>Tạm tính :</span>
+            <span className={styles["content-footer-estimated-title"]}>Tạm tính</span>
             <span className={styles["content-footer-estimated-price"]}>{totalPrice.toLocaleString()}đ</span>
+          </div>
+          <div className={styles["content-footer-estimated"]}>
+            <span className={styles["content-footer-estimated-title"]}>Giao hàng</span>
+            <span className={styles["content-footer-estimated-price"]}>{ship.toLocaleString()}đ</span>
           </div>
           <div className={styles["divider"]}></div>
           <div className={styles["content-footer-total"]}>
-            <span className={styles["content-footer-total-title"]}>Tổng tiền :</span>
-            <span className={styles["content-footer-total-price"]}>{totalPrice.toLocaleString()}đ</span>
+            <span className={styles["content-footer-total-title"]}>Tổng tiền</span>
+            <span className={styles["content-footer-total-price"]}>{total.toLocaleString()}đ</span>
           </div>
         </div>
       </div>
