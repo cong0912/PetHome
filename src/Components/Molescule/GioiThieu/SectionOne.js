@@ -36,7 +36,7 @@ const SectionOne = () => (
             </div>
             <div>
                 <Text
-                    content={"Đội ngũ Pet Service"}
+                    content={"Đội ngũ PET HOME"}
                     className={"font-sans text-4xl font-extrabold"}
                 />
             </div>
@@ -46,7 +46,7 @@ const SectionOne = () => (
             </div>
             <div>
                 <Text
-                    content={"Tại sao lại chọn PET SERVICE ?"}
+                    content={"Tại sao lại chọn PET HOME ?"}
                     className={"font-sans text-4xl font-extrabold"}
                 />
             </div>
@@ -65,7 +65,7 @@ const SectionOne = () => (
 
             </div>
             <div>
-                <p className="text-sm font-semibold mb-7">PET SERVICE CAM KẾT</p>
+                <p className="text-sm font-semibold mb-7">PET HOME CAM KẾT</p>
                 <p className="text-sm font-light mb-5">- ĐEM LẠI DỊCH VỤ TỐT NHẤT VỚI GIÁ TỐT NHẤT</p>
                 <p className="text-sm font-light mb-5">- ĐỘI NGŨ CHĂM SÓC KHÁCH HÀNG CHUYÊN NGHIỆP</p>
                 <p className="text-sm font-light mb-5">- NHÂN VIÊN ĐẾN TẠI NHÀ</p>
