@@ -4,7 +4,7 @@ import { publicRoute } from "./routes/index";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import StaffPage from "Components/Molescule/Staff/StaffPage";
 function App() {
   return (
     <div className="App">
@@ -14,7 +14,9 @@ function App() {
             {publicRoute.map((route, index) => {
               const Page = route.component;
               let Layout = DefaultLayout;
-              if (route.layout == null) {
+              if (route.layout == StaffPage) {
+                Layout = StaffPage;
+              } else if (route.layout == null) {
                 Layout = Fragment;
               }
               return (

@@ -20,6 +20,7 @@ import Order from "Components/Molescule/Order/Order";
 import Cart from "Components/Molescule/Cart/Cart";
 import ProductSearch from "Components/Molescule/ProductPage/ProductSearch/ProductSearch";
 import StaffPage from "Components/Molescule/Staff/StaffPage";
+import DataTable from "Components/Molescule/Staff/components/data-table";
 const role = localStorage.getItem("userRole");
 const publicRoute = [
   { path: "/register", component: Register, layout: null },
@@ -54,7 +55,7 @@ const publicRoute = [
   { path: "/shopping-cart", component: Cart, layout: DefaultLayout },
 ];
 if (role == "STAFF") {
-  publicRoute.push({ path: "/staff", component: StaffPage, layout: null });
+  publicRoute.push({ path: "/staff", component: DataTable, layout: StaffPage });
 }
 const privateRoute = [];
 export { publicRoute, privateRoute };
