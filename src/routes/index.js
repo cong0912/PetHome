@@ -57,6 +57,11 @@ const publicRoute = [
 ];
 if (role == "STAFF") {
   publicRoute.push({ path: "/staff", component: ListOrder, layout: StaffPage });
+  publicRoute.push({
+    path: "/staff/list-order",
+    component: ListOrder,
+    layout: StaffPage,
+  });
 }
 const privateRoute = [];
 export { publicRoute, privateRoute };
