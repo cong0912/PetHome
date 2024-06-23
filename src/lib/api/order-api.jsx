@@ -11,7 +11,7 @@ const getAllOrder = async () => {
 const confirmOrder = async (params) => {
   try {
     const response = await axiosClient.post(
-      `http://localhost:5000/api/v1/orders/confirm`,
+      `api/v1/orders/confirm`,
 
       {
         orderId: params,
@@ -23,9 +23,12 @@ const confirmOrder = async (params) => {
     console.error(error);
   }
 };
-const cancelOrder = async () => {
+const cancelOrder = async (params) => {
   try {
-    const response = await axiosClient.post(`api/v1/orders/cancel`);
+    const response = await axiosClient.post(`api/v1/orders/cancel`, {
+      orderId: params,
+      reason: "hết tiền test",
+    });
     return response.data;
   } catch (error) {
     console.error(error);
