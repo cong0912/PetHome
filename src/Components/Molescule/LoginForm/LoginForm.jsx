@@ -88,7 +88,15 @@ const LoginForm = () => {
         localStorage.setItem("userRole", response.data.role);
         console.log(response.message);
 
-        window.location.href = "/";
+        const userRole = localStorage.getItem("userRole");
+        if (userRole === "STAFF") {
+          window.location.href = "/staff";
+        } else if (userRole === "CUSTOMER") {
+          window.location.href = "/";
+        } else {
+          // Handle other roles or unexpected cases
+          console.log("Unknown user role:", userRole);
+        }
       } else {
         setLoginFail(true);
         console.log("fails");
