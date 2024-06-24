@@ -143,7 +143,8 @@ function HeaderAfterLogin() {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={() => navigate('/profile')}>Profile</MenuItem>
+              <MenuItem onClick={() => navigate('/profile')}>Hồ sơ</MenuItem>
+              <MenuItem onClick={() => navigate('/pet-info')}>Danh sách thú cưng</MenuItem>
               <MenuItem onClick={() => { /* Handle logout logic here */ }}>Log Out</MenuItem>
             </Menu></>) : <button onClick={() => navigate('/login')}>Login</button>}
         </Toolbar>
