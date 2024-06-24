@@ -20,6 +20,7 @@ import Order from "Components/Molescule/Order/Order";
 import Cart from "Components/Molescule/Cart/Cart";
 import ProductSearch from "Components/Molescule/ProductPage/ProductSearch/ProductSearch";
 import StaffPage from "Components/Molescule/Staff/StaffPage";
+import Petinfo from "Components/Molescule/PetInfo/PetInfo";
 const role = localStorage.getItem("userRole");
 const publicRoute = [
   { path: "/register", component: Register, layout: null },
@@ -52,6 +53,7 @@ const publicRoute = [
   { path: "/services/:id", component: ServicesDetail, layout: DefaultLayout },
   { path: "/order", component: Order, layout: DefaultLayout },
   { path: "/shopping-cart", component: Cart, layout: DefaultLayout },
+  { path: "/pet-info", component: Petinfo, layout: DefaultLayout },
 ];
 if (role == "STAFF") {
   publicRoute.push({ path: "/staff", component: StaffPage, layout: null });
