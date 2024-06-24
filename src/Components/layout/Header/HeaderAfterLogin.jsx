@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   AppBar,
   Box,
@@ -18,6 +18,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Link, useNavigate } from "react-router-dom";
 import "./HeaderAfterLogin.scss";
 import { CartContext } from "context/CartContext";
+import MyAxios from "setup/configAxios";
 
 function HeaderAfterLogin() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -25,6 +26,10 @@ function HeaderAfterLogin() {
   const [searchText, setSearchText] = useState("");
   const { cartItem } = useContext(CartContext);
   const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useState();
+
+
+
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -54,6 +59,18 @@ function HeaderAfterLogin() {
 
   // Calculate total items in the cart
   const totalCartItems = cartItem.reduce((acc, item) => acc + item.value, 0);
+
+  const access_token = localStorage.getItem("access_token")
+
+
+  const getUserInfo = () => {
+    const userId = localStorage.getItem("userId");
+    MyAxios.get(`http://localhost:5000/api/v1/user/${userId}`)
+      .then((res) => {
+        setUserInfo(res.data);
+      })
+  }
+
 
   return (
     <Box sx={{ flexGrow: 1 }} className="header-container">
@@ -94,7 +111,8 @@ function HeaderAfterLogin() {
               <ShoppingCartIcon fontSize="large" className={"header-color"} />
             </Badge>
           </Link>
-          <Stack direction="row" spacing={4}>
+
+          {access_token ? (<>  <Stack direction="row" spacing={4}>
             <Stack direction="row" alignItems={"center"} spacing={1}>
               <IconButton onClick={handleMenu} sx={{ p: 0 }}>
                 <Avatar
@@ -105,29 +123,29 @@ function HeaderAfterLogin() {
                 />
               </IconButton>
               <Typography variant="subtitle2" className="text-white">
-                {"Pham Trung Hieu"}
+                {/* {userInfo.name} */}
               </Typography>
             </Stack>
           </Stack>
 
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={() => navigate('/profile')}>Profile</MenuItem>
-            <MenuItem onClick={() => { /* Handle logout logic here */ }}>Log Out</MenuItem>
-          </Menu>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={() => navigate('/profile')}>Profile</MenuItem>
+              <MenuItem onClick={() => { /* Handle logout logic here */ }}>Log Out</MenuItem>
+            </Menu></>) : <button onClick={() => navigate('/login')}>Login</button>}
         </Toolbar>
       </AppBar>
     </Box>
