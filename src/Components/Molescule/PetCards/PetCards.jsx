@@ -24,9 +24,9 @@ function PetCard({
                     <img src={img} alt={name} />
                 </div>
                 <div className="flex-grow">
-                    <div className="pet-card-name mr-44 mb-4">
+                    <div className="pet-card-name mr-10 mb-4">
                         <Text
-                            content={"Name: "}
+                            content={"Tên thú cưng: "}
                             className={"font-bold text-lg"}
                         />
                         <Text
@@ -37,61 +37,61 @@ function PetCard({
                     <div className="grid grid-cols-2 gap-1">
                         <div className="flex-row ">
                             <Text
-                                content={"Service status: "}
+                                content={"Trạng thái: "}
                                 className={"font-bold text-lg"}
                             />
                             <Text
-                                className="pet-card-species"
+                                className="pet-card-species text-lg"
                                 content={status}
                             />
                         </div>
                         <div className="flex-row">
                             <Text
-                                content={"Species: "}
+                                content={"Loại: "}
                                 className={"font-bold text-lg"}
                             />
                             <Text
-                                className="pet-card-species"
+                                className="pet-card-species text-lg"
                                 content={species}
                             />
                         </div>
                         <div className="flex-row">
                             <Text
-                                content={"Sex: "}
+                                content={"Giới tính: "}
                                 className={"font-bold text-lg"}
                             />
                             <Text
-                                className="pet-card-sex"
+                                className="pet-card-sex text-lg"
                                 content={sex}
                             />
                         </div>
                         <div className="flex-row">
                             <Text
-                                content={"Breed: "}
+                                content={"Giống loài: "}
                                 className={"font-bold text-lg"}
                             />
                             <Text
-                                className="pet-card-breed"
+                                className="pet-card-breed text-lg"
                                 content={breed}
                             />
                         </div>
                         <div className="flex-row">
                             <Text
-                                content={"Age: "}
+                                content={"Tuổi: "}
                                 className={"font-bold text-lg"}
                             />
                             <Text
-                                className="pet-card-age"
+                                className="pet-card-age text-lg" 
                                 content={age}
                             />
                         </div>
                         <div className="flex-row">
                             <Text
-                                content={"Weight: "}
+                                content={"Cân nặng: "}
                                 className={"font-bold text-lg"}
                             />
                             <Text
-                                className="pet-card-weight"
+                                className="pet-card-weight text-lg"
                                 content={weight}
                             />
                         </div>

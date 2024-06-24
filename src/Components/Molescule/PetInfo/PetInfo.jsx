@@ -3,6 +3,7 @@ import styles from "./Petinfo.module.scss";
 import MyAxios from "setup/configAxios";
 import PetCard from "../PetCards/PetCards";
 import { Modal, ModalBody, ModalHeader } from "Components/Atom/Modal/Modal";
+import { toast } from "react-toastify";
 const Petinfo = () => {
   const [petlist, setPetList] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -11,7 +12,7 @@ const Petinfo = () => {
   const [formData, setFormData] = useState({
     name: "",
     species: "",
-    sex: "",
+    sex: "Đực",
     breed: "",
     age: "",
     weight: "",
@@ -68,6 +69,8 @@ const Petinfo = () => {
 
     try {
       const response = await MyAxios.post("http://localhost:5000/api/v1/pet", data);
+      toast.success(` Đã thêm thú cưng vào danh sách `, {
+      });
       console.log(response.data);
       setAddShow(false);
       setFormData({
