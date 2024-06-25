@@ -1,7 +1,7 @@
 import PetDog from "../../../assets/images/PetDog.png";
 
 import { useEffect, useState } from "react";
-
+import { Link } from "react-router-dom";
 import MyAxios from "../../../setup/configAxios";
 
 const initFormValue = {
@@ -219,9 +219,11 @@ const LoginForm = () => {
           <div className="w-full flex items-center justify-center">
             <p className="text-sm font-normal text-black">
               Don't have a account ?{" "}
-              <span className="font-semibold underline underline-offset-2 cursor-pointer">
-                Sign up for free ?
-              </span>
+              <Link to="/register">
+                <span className="font-semibold underline underline-offset-2 cursor-pointer">
+                  Sign up for free ?
+                </span>
+              </Link>
             </p>
           </div>
         </div>
