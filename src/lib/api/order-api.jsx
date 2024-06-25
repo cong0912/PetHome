@@ -23,11 +23,11 @@ const confirmOrder = async (params) => {
     console.error(error);
   }
 };
-const cancelOrder = async (params) => {
+const cancelOrder = async (params, reason) => {
   try {
     const response = await axiosClient.post(`api/v1/orders/cancel`, {
       orderId: params,
-      reason: "hết tiền test",
+      reason: reason,
     });
     return response.data;
   } catch (error) {
