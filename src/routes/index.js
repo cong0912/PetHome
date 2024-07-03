@@ -24,6 +24,7 @@ import Petinfo from "Components/Molescule/PetInfo/PetInfo";
 import ListOrder from "Components/Molescule/Staff/ListOrder/ListOrder";
 import OrderHistory from "Components/Molescule/OrderHistory/OrderHistory";
 import UserProfile from "Components/Molescule/UserProfile/UserProfile";
+
 const role = localStorage.getItem("userRole");
 const publicRoute = [
   { path: "/register", component: Register, layout: null },
