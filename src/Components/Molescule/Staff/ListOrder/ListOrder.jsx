@@ -99,7 +99,9 @@ const ListOrder = () => {
 
   return (
     <div style={{ height: 400, width: "100%" }}>
-      <h1 className="font-semibold text-2xl pb-4">Danh sách đơn hàng</h1>
+      <h1 className="font-bold font-mainText3 text-xl pb-4">
+        Danh sách đơn hàng
+      </h1>
       <DataTable rows={rows} columns={columns} />
     </div>
   );

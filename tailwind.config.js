@@ -54,7 +54,10 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        mainColer: "#222a63",
+
+        mainColer: "#f4f8fb",
+        textColer: "#58bbf9",
+        bgColer: "#ffffff",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -74,6 +77,11 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+      fontFamily: {
+        mainText: ["Beiruti", "sans-serif"],
+        mainText2: ["Cabin Sketch", "sans-serif"],
+        mainText3: ["Nunito", "sans-serif"],
       },
     },
   },

@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import HomeIcon from "assets/icons/nav-menu-icons/HomeIcon";
 import CalendarTodayIcon from "assets/icons/nav-menu-icons/CalendarTodayIcon";
 import PawIcon from "assets/icons/nav-menu-icons/paw";
 import CartIcon from "assets/icons/nav-menu-icons/CartIcon";
 import LeftAngle from "assets/icons/nav-menu-icons/leftAngle";
+
 const Sidebar = () => {
   const navigate = useNavigate();
+  const [selectedButton, setSelectedButton] = useState(1);
 
   const handleLogout = () => {
     localStorage.removeItem("access_token");
@@ -16,27 +18,58 @@ const Sidebar = () => {
     navigate("/login");
   };
 
+  const handleButtonClick = (buttonId) => {
+    setSelectedButton(buttonId);
+  };
+
   return (
-    <div className="h-screen w-64 bg-matext-mainColer text-gray-400 ">
+    <div className="h-screen w-64 text-black font-mainText3">
       <nav className="mt-1 p-3 flex justify-evenly flex-col">
         <div>
-          <div className="p-2 flex items-center rounded transition duration-200 hover:bg-[#b0d8ff] hover:text-mainColer">
-            <CalendarTodayIcon />
-            <a className="py-2.5 px-4 w-full">Danh sách đặt chổ</a>
-          </div>
-
-          <div className="p-2 flex items-center rounded transition duration-200 hover:bg-[#b0d8ff] hover:text-mainColer">
+          <Link to="/staff/list-booking">
+            <div
+              className={`p-2 flex items-center rounded transition duration-200 ${
+                selectedButton === 1
+                  ? "bg-bgColer text-textColer font-semibold"
+                  : "hover:font-semibold hover:bg-bgColer hover:text-textColer"
+              }`}
+              onClick={() => handleButtonClick(1)}
+            >
+              <CalendarTodayIcon />
+              <a className="py-2.5 px-4 w-full">Danh sách đặt chổ</a>
+            </div>
+          </Link>
+          <div
+            className={`p-2 flex items-center rounded transition duration-200 ${
+              selectedButton === 2
+                ? "bg-bgColer text-textColer font-semibold"
+                : "hover:font-semibold hover:bg-bgColer hover:text-textColer"
+            }`}
+            onClick={() => handleButtonClick(2)}
+          >
             <HomeIcon />
             <a className="py-2.5 px-4 w-full">Danh sách dịch vụ</a>
           </div>
-
-          <div className="p-2 flex items-center rounded transition duration-200 hover:bg-[#b0d8ff] hover:text-mainColer ">
+          <div
+            className={`p-2 flex items-center rounded transition duration-200 ${
+              selectedButton === 3
+                ? "bg-bgColer text-textColer font-semibold"
+                : "hover:font-semibold hover:bg-bgColer hover:text-textColer"
+            }`}
+            onClick={() => handleButtonClick(3)}
+          >
             <PawIcon />
             <a className="py-2.5 px-4 w-full">Danh sách sản phẩm</a>
           </div>
-
           <Link to="/staff/list-order">
-            <div className="p-2 flex items-center rounded transition duration-200 hover:bg-[#b0d8ff] hover:text-mainColer ">
+            <div
+              className={`p-2 flex items-center rounded transition duration-200 ${
+                selectedButton === 4
+                  ? "bg-bgColer text-textColer font-semibold"
+                  : "hover:font-semibold hover:bg-bgColer hover:text-textColer"
+              }`}
+              onClick={() => handleButtonClick(4)}
+            >
               <CartIcon />
               <a className="py-2.5 px-4 w-full">Danh sách đơn hàng</a>
             </div>
@@ -44,7 +77,7 @@ const Sidebar = () => {
         </div>
         {/* Logout button */}
         <div
-          className="p-2 flex items-center rounded transition duration-200 hover:bg-[#b0d8ff] hover:text-mainColer cursor-pointer "
+          className="p-2 flex items-center rounded transition duration-200 hover:bg-bgColer hover:text-textColer cursor-pointer"
           onClick={handleLogout}
         >
           <LeftAngle />
