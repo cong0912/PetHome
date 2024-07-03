@@ -8,7 +8,7 @@ import {
   Stack,
   Toolbar,
   Typography,
-  Badge
+  Badge,
 } from "@mui/material";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import Avatar from "@mui/material/Avatar";
@@ -19,7 +19,6 @@ import { Link, useNavigate } from "react-router-dom";
 import "./HeaderAfterLogin.scss";
 import { CartContext } from "context/CartContext";
 import MyAxios from "setup/configAxios";
-
 function HeaderAfterLogin() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [searchExpanded, setSearchExpanded] = useState(false);
@@ -27,9 +26,6 @@ function HeaderAfterLogin() {
   const { cartItem } = useContext(CartContext);
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState();
-
-
-
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -60,17 +56,22 @@ function HeaderAfterLogin() {
   // Calculate total items in the cart
   const totalCartItems = cartItem.reduce((acc, item) => acc + item.value, 0);
 
-  const access_token = localStorage.getItem("access_token")
-
+  const access_token = localStorage.getItem("access_token");
 
   const getUserInfo = () => {
     const userId = localStorage.getItem("userId");
-    MyAxios.get(`http://localhost:5000/api/v1/user/${userId}`)
-      .then((res) => {
-        setUserInfo(res.data);
-      })
-  }
+    MyAxios.get(`http://localhost:5000/api/v1/user/${userId}`).then((res) => {
+      setUserInfo(res.data);
+    });
+  };
 
+  const handleLogout = () => {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userRole");
+    navigate("/login");
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }} className="header-container">
@@ -112,41 +113,49 @@ function HeaderAfterLogin() {
             </Badge>
           </Link>
 
-          {access_token ? (<>  <Stack direction="row" spacing={4}>
-            <Stack direction="row" alignItems={"center"} spacing={1}>
-              <IconButton onClick={handleMenu} sx={{ p: 0 }}>
-                <Avatar
-                  alt="User Avatar"
-                  src={
-                    "https://t4.ftcdn.net/jpg/04/22/57/65/360_F_422576509_8MxGhSGZ4otQPtV6FyqO2FPrgNRTlEXj.jpg"
-                  }
-                />
-              </IconButton>
-              <Typography variant="subtitle2" className="text-white">
-                {/* {userInfo.name} */}
-              </Typography>
-            </Stack>
-          </Stack>
-
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={() => navigate('/profile')}>Hồ sơ</MenuItem>
-              <MenuItem onClick={() => navigate('/pet-info')}>Danh sách thú cưng</MenuItem>
-              <MenuItem onClick={() => { /* Handle logout logic here */ }}>Log Out</MenuItem>
-            </Menu></>) : <button onClick={() => navigate('/login')}>Login</button>}
+          {access_token ? (
+            <>
+              {" "}
+              <Stack direction="row" spacing={4}>
+                <Stack direction="row" alignItems={"center"} spacing={1}>
+                  <IconButton onClick={handleMenu} sx={{ p: 0 }}>
+                    <Avatar
+                      alt="User Avatar"
+                      src={
+                        "https://t4.ftcdn.net/jpg/04/22/57/65/360_F_422576509_8MxGhSGZ4otQPtV6FyqO2FPrgNRTlEXj.jpg"
+                      }
+                    />
+                  </IconButton>
+                  <Typography variant="subtitle2" className="text-white">
+                    {/* {userInfo.name} */}
+                  </Typography>
+                </Stack>
+              </Stack>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={() => navigate("/profile")}>Hồ sơ</MenuItem>
+                <MenuItem onClick={() => navigate("/pet-info")}>
+                  Danh sách thú cưng
+                </MenuItem>
+                <MenuItem onClick={handleLogout}>Log Out</MenuItem>
+              </Menu>
+            </>
+          ) : (
+            <button onClick={() => navigate("/login")}>Login</button>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
