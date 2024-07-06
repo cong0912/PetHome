@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import DataTable from "../components/data-table";
 import { getAllOrder, confirmOrder, cancelOrder } from "lib/api/order-api";
 import { DropAction } from "../components/DropAction";
-
+import Loading from "Components/ui/loading";
 const ListOrder = () => {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -54,10 +54,6 @@ const ListOrder = () => {
     }
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   const columns = [
     { field: "id", headerName: "Stt", width: 80 },
     { field: "idOrder", headerName: "ID đơn hàng", width: 220 },
@@ -102,7 +98,7 @@ const ListOrder = () => {
       <h1 className="font-bold font-mainText3 text-xl pb-4">
         Danh sách đơn hàng
       </h1>
-      <DataTable rows={rows} columns={columns} />
+      {loading ? <Loading /> : <DataTable rows={rows} columns={columns} />}
     </div>
   );
 };
