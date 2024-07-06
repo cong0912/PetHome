@@ -9,10 +9,10 @@ export default function CartIcoin() {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      class="lucide lucide-shopping-cart"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="lucide lucide-shopping-cart"
     >
       <circle cx="8" cy="21" r="1" />
       <circle cx="19" cy="21" r="1" />

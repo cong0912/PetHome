@@ -14,7 +14,7 @@ export default function ComboCard({ combo }) {
     <div className="">
       <Card className="w-[300px]">
         <CardHeader>
-          {<img className="w-full mb-4" src={combo.image}></img>}
+          {<img className="w-full mb-4 rounded-sm" src={combo.image}></img>}
           <CardTitle className=" text-center"> {combo.name}</CardTitle>
           <CardDescription></CardDescription>
         </CardHeader>

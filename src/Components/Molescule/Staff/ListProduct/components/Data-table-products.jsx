@@ -37,93 +37,64 @@ import {
   TableRow,
 } from "Components/ui/table";
 
-const data = [
-  {
-    id: "m5gr84i9",
-    amount: 316,
-    status: "success",
-    email: "ken99@yahoo.com",
-  },
-  {
-    id: "3u1reuv4",
-    amount: 242,
-    status: "success",
-    email: "Abe45@gmail.com",
-  },
-  {
-    id: "derv1ws0",
-    amount: 837,
-    status: "processing",
-    email: "Monserrat44@gmail.com",
-  },
-  {
-    id: "5kma53ae",
-    amount: 874,
-    status: "success",
-    email: ["Silas22@gmail.com", "Silas22@gmail.com"],
-  },
-  {
-    id: "bhqecj4p",
-    amount: 721,
-    status: "failed",
-    email: "carmella@hotmail.com",
-  },
-];
-
 export const columns = [
   {
-    accessorKey: "stt",
-    header: "Stt",
-    cell: ({ row }) => <div className="capitalize ">{row.getValue("stt")}</div>,
-  },
-  {
     accessorKey: "id",
-    header: "Id đặt chổ",
-    cell: ({ row }) => <div className="capitalize ">{row.getValue("id")}</div>,
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
+    header: "Stt",
     cell: ({ row }) => (
-      <div className="capitalize ">{row.getValue("status")}</div>
+      <div className="capitalize  font-mainText3 ">{row.getValue("id")}</div>
     ),
   },
   {
-    accessorKey: "email",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Email
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+    accessorKey: "idOrder",
+    header: "ID đơn hàng",
+    cell: ({ row }) => (
+      <div className="capitalize  font-mainText3 ">
+        {row.getValue("idOrder")}
+      </div>
+    ),
   },
   {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
+    accessorKey: "product",
+    header: "Sản phẩm",
+    cell: ({ row }) => (
+      <div className="capitalize  font-mainText3 ">
+        {row.getValue("product")}
+      </div>
+    ),
+  },
+  {
+    accessorKey: "total",
+    header: "Tổng giá",
+    cell: ({ row }) => (
+      <div className="font-bold font-mainText3  ">
+        {row.getValue("total")} vnđ
+      </div>
+    ),
+  },
+  {
+    accessorKey: "status",
+    header: "Trạng thái",
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
-
-      // Format the amount as a dollar amount
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount);
-
-      return <div className="text-right font-medium">{formatted}</div>;
+      const statuss = row.getValue("status");
+      const statusClass =
+        statuss === "Processing"
+          ? "text-yellow-400"
+          : statuss === "In Transit"
+          ? "text-green-400"
+          : "";
+      return (
+        <div className={`capitalize font-bold font-mainText3 ${statusClass} `}>
+          {statuss}
+        </div>
+      );
     },
   },
+
   {
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const payment = row.original;
-
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -142,25 +113,21 @@ export const columns = [
               <X className="mr-2 h-4 w-4 text-red-600" />
               <span>Hủy</span>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <CirclePlus className="mr-2 h-4 w-4 text-blue-600" />
-              <span>thêm lồng</span>
-            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
     },
+    className: "bg-green-500",
   },
 ];
 
-export function DataTableDemo({ res, key }) {
+export function DataTableProducts({ res }) {
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [columnVisibility, setColumnVisibility] = React.useState({});
   const [rowSelection, setRowSelection] = React.useState({});
-
   const table = useReactTable({
-    data,
+    data: res,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -180,50 +147,14 @@ export function DataTableDemo({ res, key }) {
 
   return (
     <div className="w-full">
-      <div className="flex items-center py-4">
-        <Input
-          placeholder="Filter emails..."
-          value={table.getColumn("email")?.getFilterValue() ?? ""}
-          onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns <ChevronDown className="ml-2 h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
       <div className="rounded-md border">
         <Table>
-          <TableHeader>
+          <TableHeader className="rounded-md bg-textColer">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} className="  text-white">
                       {header.isPlaceholder
                         ? null
                         : flexRender(

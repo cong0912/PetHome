@@ -9,10 +9,10 @@ const PawIcon = ({ ...props }) => {
       viewBox="0 0 23 23"
       fill="none"
       stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      class="lucide lucide-paw-print"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="lucide lucide-paw-print"
     >
       <circle cx="11" cy="4" r="2" />
       <circle cx="18" cy="8" r="2" />
