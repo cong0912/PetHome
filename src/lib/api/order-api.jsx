@@ -25,7 +25,7 @@ const confirmOrder = async (params) => {
 };
 const cancelOrder = async (params, reason) => {
   try {
-    const response = await axiosClient.post(`api/v1/orders/cancel`, {
+    const response = await axiosClient.post(`api/v1/orders/staff/cancel`, {
       orderId: params,
       reason: reason,
     });

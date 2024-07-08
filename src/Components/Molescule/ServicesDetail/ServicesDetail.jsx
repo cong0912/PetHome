@@ -100,10 +100,7 @@ export default function ServicesDetail() {
             {card && card.name}
           </h1>
           <p className="font-bold mb-3">{card && card.price} vnđ</p>
-          <p className="mb-3">
-            <b>Availability: </b>
-            {card && card.status}
-          </p>
+
           {isLoggedIn && pets.length > 0 ? (
             <div className="mb-7 self-end">
               <Select onValueChange={setSelectedPet}>

@@ -27,7 +27,7 @@ import UserProfile from "Components/Molescule/UserProfile/UserProfile";
 import ListBooking from "Components/Molescule/Staff/ListBooking/ListBooking";
 import ListProduct from "Components/Molescule/Staff/ListProduct/ListProduct";
 import ListService from "Components/Molescule/Staff/ListService/ListService";
-import DetailOrder from "Components/Molescule/Staff/DetailOrder/DetailOrder";
+import DetailBooking from "Components/Molescule/Staff/DetailBooking/DetailBooking";
 const role = localStorage.getItem("userRole");
 const publicRoute = [
   { path: "/register", component: Register, layout: null },
@@ -92,7 +92,7 @@ if (role == "STAFF") {
   });
   publicRoute.push({
     path: "/staff/list-booking/:id",
-    component: DetailOrder,
+    component: DetailBooking,
     layout: StaffPage,
   });
 }
