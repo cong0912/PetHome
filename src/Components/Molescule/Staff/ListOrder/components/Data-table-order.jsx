@@ -1,6 +1,5 @@
-import { useState } from "react";
-// import CancelBooking from "./CancelBooking";
-import { CancelBooking } from "./CancelBooking";
+"use client";
+import * as React from "react";
 import {
   flexRender,
   getCoreRowModel,
@@ -28,7 +27,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "Components/ui/dropdown-menu";
-import { Input } from "Components/ui/input";
+import { CancelOrder } from "./CancelOrder";
+import { ConfirmOrder } from "./ConfirmOrder";
 import {
   Table,
   TableBody,
@@ -37,7 +37,7 @@ import {
   TableHeader,
   TableRow,
 } from "Components/ui/table";
-import { Link } from "react-router-dom";
+
 export const columns = [
   {
     accessorKey: "id",
@@ -47,19 +47,17 @@ export const columns = [
     ),
   },
   {
-    accessorKey: "idBooking",
-    header: "ID đặt dịch chổ",
+    accessorKey: "idOrder",
+    header: "ID đơn hàng",
     cell: ({ row }) => (
-      <Link to={`/staff/list-booking/${row.getValue("idBooking")}`}>
-        <div className="capitalize  font-mainText3 hover:text-textColer">
-          {row.getValue("idBooking")}
-        </div>
-      </Link>
+      <div className="capitalize  font-mainText3 ">
+        {row.getValue("idOrder")}
+      </div>
     ),
   },
   {
     accessorKey: "product",
-    header: "Tên dịch vụ",
+    header: "Sản phẩm",
     cell: ({ row }) => (
       <div className="capitalize  font-mainText3 ">
         {row.getValue("product")}
@@ -67,39 +65,24 @@ export const columns = [
     ),
   },
   {
-    accessorKey: "timeStartService",
-    header: "Thời gian bắt đầu",
+    accessorKey: "total",
+    header: "Tổng giá",
     cell: ({ row }) => (
-      <div className="capitalize  font-mainText3 ">
-        {row.getValue("timeStartService")}
+      <div className="font-bold font-mainText3  ">
+        {row.getValue("total")} vnđ
       </div>
     ),
   },
   {
     accessorKey: "status",
-    header: ({ column }) => {
-      return (
-        <div
-          className="flex cursor-pointer items-center justify-center"
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Trạng thái
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </div>
-      );
-    },
+    header: "Trạng thái",
     cell: ({ row }) => {
       const statuss = row.getValue("status");
       const statusClass =
         statuss === "Processing"
           ? "text-yellow-400"
-          : statuss === "Processed"
-          ? "text-cyan-400"
-          : statuss === "Cancelled"
-          ? "text-red-500"
-          : statuss === "Completed"
-          ? "text-green-500"
+          : statuss === "In Transit"
+          ? "text-green-400"
           : "";
       return (
         <div className={`capitalize font-bold font-mainText3 ${statusClass} `}>
@@ -113,10 +96,6 @@ export const columns = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const statuss = row.getValue("status");
-      if (statuss === "Cancelled" || statuss === "Complete") {
-        return null;
-      }
       return (
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
@@ -127,22 +106,12 @@ export const columns = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            {statuss === "Processed" && (
-              <>
-                <DropdownMenuItem>
-                  <CheckCheck className="mr-2 h-4 w-4 text-green-600" />
-                  <span>Xác nhận</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                  <CancelBooking bookingId={row.getValue("idBooking")} />
-                </DropdownMenuItem>
-              </>
-            )}
-            {statuss === "Processing" && (
-              <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                <CancelBooking bookingId={row.getValue("idBooking")} />
-              </DropdownMenuItem>
-            )}
+            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+              <ConfirmOrder orderId={row.getValue("idOrder")} />
+            </DropdownMenuItem>
+            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+              <CancelOrder orderId={row.getValue("idOrder")} />
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
@@ -151,12 +120,11 @@ export const columns = [
   },
 ];
 
-export function DataTableBooking({ res }) {
-  const [sorting, setSorting] = useState([]);
-  const [columnFilters, setColumnFilters] = useState([]);
-  const [columnVisibility, setColumnVisibility] = useState({});
-  const [rowSelection, setRowSelection] = useState({});
-
+export function DataTableOrder({ res }) {
+  const [sorting, setSorting] = React.useState([]);
+  const [columnFilters, setColumnFilters] = React.useState([]);
+  const [columnVisibility, setColumnVisibility] = React.useState({});
+  const [rowSelection, setRowSelection] = React.useState({});
   const table = useReactTable({
     data: res,
     columns,
@@ -252,7 +220,6 @@ export function DataTableBooking({ res }) {
           </Button>
         </div>
       </div>
-      <CancelBooking bookingId={res.idBooking} />
     </div>
   );
 }

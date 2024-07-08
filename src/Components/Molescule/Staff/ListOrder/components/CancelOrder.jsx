@@ -12,13 +12,13 @@ import { Input } from "Components/ui/input";
 import { Label } from "Components/ui/label";
 import { X } from "lucide-react";
 import { useState } from "react";
-import { cancelBooking } from "lib/api/cage-api";
+import { cancelOrder } from "lib/api/order-api";
 import { toast } from "react-toastify";
-export function CancelBooking({ bookingId }) {
+export function CancelOrder({ orderId }) {
   const [reason, setReason] = useState("");
   const handleSubmit = async () => {
     try {
-      const response = await cancelBooking(bookingId, reason);
+      const response = await cancelOrder(orderId, reason);
       if (response.status === "error") {
         toast.error(`Error: ${response.message}`, {
           position: "top-left",
@@ -35,7 +35,7 @@ export function CancelBooking({ bookingId }) {
       });
       console.error("Error confirming cage:", error);
     }
-    console.log("Cancellation reason:", reason);
+    console.log(" reason:", reason);
   };
   return (
     <Dialog>
