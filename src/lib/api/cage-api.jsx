@@ -22,4 +22,16 @@ const confirmCage = async (bookingId, selectedCageId) => {
     console.error(error);
   }
 };
-export { getEmptyCage, confirmCage };
+const cancelBooking = async (bookingId, reason) => {
+  try {
+    const response = await axiosClient.post(`api/v1/service/staff/cancel`, {
+      serviceRecordId: bookingId,
+      reason: reason,
+    });
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+export { getEmptyCage, confirmCage, cancelBooking };
