@@ -1,25 +1,32 @@
 import React from "react";
-import { DataTableDemo } from "../components/data";
-import Card from "./components/Card";
+// import Card from "./components/Card";
+import { DataTableBooking } from "./components/Data-table-booking";
 import { useState, useEffect } from "react";
-import { getAllCombo } from "lib/api/services-api";
+import { getAllBookingService } from "lib/api/services-api";
 import Loading from "Components/ui/loading";
 export default function ListBooking() {
   const [loading, setLoading] = useState(true);
-  const [card, setCard] = useState();
+  const [booking, setBooking] = useState();
   useEffect(() => {
-    const getAllCard = async () => {
+    const getAllBooking = async () => {
       try {
-        const data = await getAllCombo();
-        setCard(data);
-        console.log(data);
+        const data = await getAllBookingService();
+        const data2 = data.map((order, index) => ({
+          id: index + 1,
+          idBooking: order._id,
+          product: order.product.name,
+          timeStartService: order.timeStartService,
+          status: order.status,
+          action: "",
+        }));
+        setBooking(data2);
       } catch (error) {
         console.log("err", error);
       } finally {
         setLoading(false);
       }
     };
-    getAllCard();
+    getAllBooking();
   }, []);
   return (
     <div>
@@ -28,12 +35,8 @@ export default function ListBooking() {
       </h1>
       {loading ? (
         <Loading />
-      ) : card && card.length >= 1 ? (
-        <>
-          {card.map((res, index) => (
-            <Card res={res} index={index} />
-          ))}
-        </>
+      ) : booking && booking.length >= 1 ? (
+        <DataTableBooking res={booking} />
       ) : (
         <p>không có đặt chỗ</p>
       )}

@@ -72,3 +72,24 @@ export const CreateServiceBooking = async (bookingData) => {
     return { error: errorMessage, data: null };
   }
 };
+
+export const getAllBookingService = async () => {
+  try {
+    const response = await axiosClient.get(
+      `http://localhost:5000/api/v1/service`
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+export const getDetailBookingService = async (id) => {
+  try {
+    const response = await axiosClient.get(
+      `http://localhost:5000/api/v1/service/${id}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
