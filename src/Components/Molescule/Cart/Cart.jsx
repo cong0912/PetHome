@@ -41,7 +41,7 @@ const Cart = () => {
             />
             <h1>This Cart is Empty</h1>
             <h2>Go to the store page to choose to buy products!!</h2>
-            <Link to={"general-product"}>
+            <Link to={"/general-product"}>
               <button className={styles["btn-shop"]}>Shopping now</button>
             </Link>
           </div>

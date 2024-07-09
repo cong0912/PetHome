@@ -3,10 +3,13 @@ import styles from "./Order.module.scss";
 import MyAxios from "setup/configAxios";
 import axios from "axios";
 import OrderList from "./OrderList/OrderList";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Order = () => {
   // cartDetails
   const [cartDetails, setCartDetails] = useState([]);
+  const navigate = useNavigate();
 
   // Load cart details from local storage
   useEffect(() => {
@@ -105,22 +108,19 @@ const Order = () => {
       paymentMethod: paymentMethod,
       cartDetails,
     };
-    console.log("data", dataToSend);
 
     try {
       const response = await MyAxios.post("http://localhost:5000/api/v1/orders", dataToSend);
 
-      if (response.status === 200) {
-        console.log("Dữ liệu đã được gửi thành công!");
+      if (response.status === "success") {
+        navigate("/order-success");
       } else {
-        console.error("Gửi dữ liệu thất bại");
+        toast.error(`Đặt hàng thất bại: ${response.message || "Unknown error"}`);
       }
     } catch (error) {
       console.error("Lỗi khi gửi dữ liệu", error);
     }
   };
-
-  console.log("ca", cartDetails);
 
   return userInfo ? (
     <div className={styles["container"]}>

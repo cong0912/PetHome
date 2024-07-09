@@ -28,6 +28,7 @@ import ListBooking from "Components/Molescule/Staff/ListBooking/ListBooking";
 import ListProduct from "Components/Molescule/Staff/ListProduct/ListProduct";
 import ListService from "Components/Molescule/Staff/ListService/ListService";
 import DetailBooking from "Components/Molescule/Staff/DetailBooking/DetailBooking";
+import OrderSuccess from "Components/Molescule/Order/OrderSuccess/OrderSuccess";
 const role = localStorage.getItem("userRole");
 const publicRoute = [
   { path: "/register", component: Register, layout: null },
@@ -56,6 +57,7 @@ const publicRoute = [
   { path: "/product/search", component: ProductSearch, layout: DefaultLayout },
   { path: "/product/:id", component: Productdetail, layout: DefaultLayout },
   { path: "*", component: ErrorPage, layout: null },
+  { path: "/order-success", component: OrderSuccess, layout: null },
   { path: "/services", component: Services, layout: DefaultLayout },
   { path: "/services/:id", component: ServicesDetail, layout: DefaultLayout },
   { path: "/order", component: Order, layout: DefaultLayout },
