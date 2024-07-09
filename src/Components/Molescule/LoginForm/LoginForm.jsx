@@ -194,9 +194,11 @@ const LoginForm = () => {
                 >
                   Log in
                 </button>
-                <button className="w-full text-[#060606] my-2 bg-white border-2 border-black rounded-md p-4 text-center flex items-center justify-center cursor-pointer">
-                  Register
-                </button>
+                <Link to="/register">
+                  <button className="w-full text-[#060606] my-2 bg-white border-2 border-black rounded-md p-4 text-center flex items-center justify-center cursor-pointer">
+                    Register
+                  </button>
+                </Link>
               </div>
             </form>
             <div className="w-full flex items-center justify-center relative py-2">

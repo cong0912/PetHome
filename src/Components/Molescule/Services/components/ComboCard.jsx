@@ -1,13 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "Components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "Components/ui/card";
 import { Button } from "Components/ui/button";
 export default function ComboCard({ combo }) {
   return (
@@ -28,8 +21,9 @@ export default function ComboCard({ combo }) {
         <CardContent>
           <form>
             <div className="grid w-full items-center gap-4">
+              {combo.status == "In stock"}
               <p>
-                TRẠNG THÁI: <b>{combo.status}</b>
+                TRẠNG THÁI: <b>Khả dụng</b>
               </p>
             </div>
           </form>
