@@ -34,4 +34,26 @@ const cancelBooking = async (bookingId, reason) => {
     console.error(error);
   }
 };
-export { getEmptyCage, confirmCage, cancelBooking };
+const completeBooking = async (bookingId) => {
+  try {
+    const response = await axiosClient.post(`api/v1/service/completed`, {
+      serviceRecordId: bookingId,
+    });
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+const inProgress = async (bookingId) => {
+  try {
+    const response = await axiosClient.post(`api/v1/service/inProgress`, {
+      serviceRecordId: bookingId,
+    });
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+export { getEmptyCage, confirmCage, cancelBooking, inProgress ,completeBooking};

@@ -64,7 +64,7 @@ export function CreateServiceBookings({ productId }) {
       toast.error(`Error: ${error.response.message}`, {
         position: "top-left",
       });
-      setIsOpen(false);
+      setIsOpen(true);
     }
   };
 

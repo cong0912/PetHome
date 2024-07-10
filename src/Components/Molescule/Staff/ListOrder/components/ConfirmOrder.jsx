@@ -8,13 +8,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "Components/ui/dialog";
-import { Input } from "Components/ui/input";
-import { Label } from "Components/ui/label";
 import { CheckCheck } from "lucide-react";
 import { toast } from "react-toastify";
 import { confirmOrder } from "lib/api/order-api";
+import { useState } from "react";
 export function ConfirmOrder({ orderId }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const handleSubmit = async () => {
+    setIsLoading(true);
     try {
       const response = await confirmOrder(orderId);
       console.log("hehe", response);
@@ -22,20 +24,24 @@ export function ConfirmOrder({ orderId }) {
         toast.success(`Confirm success: ${response.message}`, {
           position: "top-right",
         });
+        setIsOpen(false);
       } else {
         toast.error(`Error: ${response.message}`, {
           position: "top-left",
         });
+        setIsOpen(true);
       }
     } catch (error) {
       toast.error(`Error: ${error.message}`, {
         position: "top-left",
       });
       console.error("Error confirming cage:", error);
+      setIsOpen(true);
     }
+    setIsLoading(false);
   };
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <button className="flex items-center justify-center">
           <CheckCheck className="mr-2 h-4 w-4 text-green-600" />
@@ -59,7 +65,7 @@ export function ConfirmOrder({ orderId }) {
             className="bg-green-500 hover:bg-green-900"
             type="submit"
           >
-            Xác nhận
+            {isLoading ? "Loading..." : "Xác nhận "}
           </Button>
         </DialogFooter>
       </DialogContent>

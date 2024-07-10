@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "Components/ui/button";
 import { useParams } from "react-router-dom";
-import { toast } from "react-toastify";
 import { DetailService } from "lib/api/services-api";
 import { Skeleton } from "Components/ui/skeleton";
-import Loading from "Components/ui/loading";
 import { CreateServiceBookings } from "./components/CreateServiceBooking";
-import DateTimePicker from "./components/DateTimePicker";
-import { format } from "date-fns";
 export default function ServicesDetail() {
   const [card, setCard] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -35,12 +31,6 @@ export default function ServicesDetail() {
 
     fetchDetailService();
   }, [id]);
-  const handel = (e) => {
-    const newDateTime = new Date(e.target.value);
-    console.log("da", newDateTime);
-  };
-  const currentDateTime = new Date();
-  const minDateTime = format(currentDateTime, "yyyy-MM-dd'T'HH:mm");
   return (
     <>
       {isLoading ? (
@@ -61,11 +51,7 @@ export default function ServicesDetail() {
                 {card && card.name}
               </h1>
               <p className="font-bold mb-3">{card && card.price} vnđ</p>
-              <input
-                type="datetime-local"
-                min={minDateTime}
-                onChange={handel}
-              ></input>
+
               {isLoggedIn ? (
                 <CreateServiceBookings productId={id} />
               ) : (
