@@ -64,6 +64,7 @@ export const columns = [
       </div>
     ),
   },
+
   {
     accessorKey: "total",
     header: "Tổng giá",

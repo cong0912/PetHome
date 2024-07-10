@@ -9,12 +9,14 @@ import {
   DialogTrigger,
 } from "Components/ui/dialog";
 import { CheckCheck } from "lucide-react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { completeBooking } from "lib/api/cage-api";
 import { toast } from "react-toastify";
+import { DataContext } from "context/DataContext";
 export function CompleteBooking({ bookingId }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { fetchBookingData } = useContext(DataContext);
   const handleSubmit = async () => {
     setIsLoading(true);
     try {
@@ -29,6 +31,7 @@ export function CompleteBooking({ bookingId }) {
           position: "top-right",
         });
         setIsOpen(false);
+        fetchBookingData();
       }
       console.log(response);
     } catch (error) {
