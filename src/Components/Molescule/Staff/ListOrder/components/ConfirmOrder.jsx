@@ -11,10 +11,12 @@ import {
 import { CheckCheck } from "lucide-react";
 import { toast } from "react-toastify";
 import { confirmOrder } from "lib/api/order-api";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { DataContext } from "context/DataContext";
 export function ConfirmOrder({ orderId }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { getAllOrderS } = useContext(DataContext);
   const handleSubmit = async () => {
     setIsLoading(true);
     try {
@@ -25,6 +27,7 @@ export function ConfirmOrder({ orderId }) {
           position: "top-right",
         });
         setIsOpen(false);
+        getAllOrderS();
       } else {
         toast.error(`Error: ${response.message}`, {
           position: "top-left",

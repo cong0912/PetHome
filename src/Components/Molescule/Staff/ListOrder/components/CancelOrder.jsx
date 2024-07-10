@@ -11,13 +11,15 @@ import {
 import { Input } from "Components/ui/input";
 import { Label } from "Components/ui/label";
 import { X } from "lucide-react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { cancelOrder } from "lib/api/order-api";
 import { toast } from "react-toastify";
+import { DataContext } from "context/DataContext";
 export function CancelOrder({ orderId }) {
   const [reason, setReason] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { getAllOrderS } = useContext(DataContext);
   const handleSubmit = async () => {
     setIsLoading(true);
     try {
@@ -32,6 +34,7 @@ export function CancelOrder({ orderId }) {
           position: "top-right",
         });
         setIsOpen(false);
+        getAllOrderS();
       }
       console.log(response);
     } catch (error) {
