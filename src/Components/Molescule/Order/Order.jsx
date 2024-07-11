@@ -1,19 +1,21 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./Order.module.scss";
 import MyAxios from "setup/configAxios";
 import axios from "axios";
 import OrderList from "./OrderList/OrderList";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { CartContext } from "context/CartContext";
 
 const Order = () => {
   // cartDetails
   const [cartDetails, setCartDetails] = useState([]);
   const navigate = useNavigate();
+  const shopCart = localStorage.getItem("shopCart");
+  const { setcartItem } = useContext(CartContext);
 
   // Load cart details from local storage
   useEffect(() => {
-    const shopCart = localStorage.getItem("shopCart");
     if (shopCart) {
       const data = JSON.parse(shopCart);
       const details = data.map((item) => ({
@@ -113,6 +115,8 @@ const Order = () => {
       const response = await MyAxios.post("http://localhost:5000/api/v1/orders", dataToSend);
 
       if (response.status === "success") {
+        localStorage.removeItem("shopCart");
+        setcartItem([]);
         navigate("/order-success");
       } else {
         toast.error(`Đặt hàng thất bại: ${response.message || "Unknown error"}`);
