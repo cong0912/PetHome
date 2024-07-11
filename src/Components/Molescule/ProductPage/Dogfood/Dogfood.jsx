@@ -72,7 +72,9 @@ function Dogfood() {
         setLoading(false);
       });
   };
-  const filteredProducts = products.filter((product) => product.price >= minPrice && product.price <= maxPrice);
+  const filteredProducts = products.filter(
+    (product) => product.price >= minPrice && product.price <= maxPrice && product.status !== "Disabled"
+);
 
   if (loading) {
     return <div>Loading...</div>;
