@@ -131,6 +131,7 @@ export const CartContextProvider = (props) => {
     updateCartItemQuantity,
     calculateTotalPrice,
     calculateTotalQuantity,
+    setcartItem,
   };
   return <CartContext.Provider value={contextValue}> {props.children}</CartContext.Provider>;
 };
