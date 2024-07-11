@@ -71,8 +71,8 @@ function CatGeneral() {
       });
   };
   const filteredProducts = products.filter(
-    (product) => product.price >= minPrice && product.price <= maxPrice
-  );
+    (product) => product.price >= minPrice && product.price <= maxPrice && product.status !== "Disabled"
+);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -163,7 +163,7 @@ function CatGeneral() {
           </p>
         </div>
         <div className="product-list">
-          {products.map((product) => (
+          {filteredProducts.map((product) => (
             <Link to={`/product/${product._id}`} key={product._id}>
               <ProductCard
                 status={product.status}

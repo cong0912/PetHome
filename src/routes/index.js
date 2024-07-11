@@ -29,6 +29,9 @@ import ListProduct from "Components/Molescule/Staff/ListProduct/ListProduct";
 import ListService from "Components/Molescule/Staff/ListService/ListService";
 import DetailBooking from "Components/Molescule/Staff/DetailBooking/DetailBooking";
 import OrderSuccess from "Components/Molescule/Order/OrderSuccess/OrderSuccess";
+import Dashboard from "Components/Molescule/Admin/components/DashBoard/DashBoard";
+import AdminPage from "Components/Molescule/Admin/AdminPage";
+import AccountList from "Components/Molescule/Admin/components/AccountList/AccountList";
 const role = localStorage.getItem("userRole");
 const publicRoute = [
   { path: "/register", component: Register, layout: null },
@@ -66,6 +69,18 @@ const publicRoute = [
   { path: "/order-history", component: OrderHistory, layout: DefaultLayout },
   { path: "/profile", component: UserProfile, layout: DefaultLayout },
 ];
+if (role == "ADMIN") {
+  publicRoute.push({
+    path: "/dashboard",
+    component: Dashboard,
+    layout: AdminPage,
+  });
+  publicRoute.push({
+    path: "/accounts",
+    component: AccountList,
+    layout: AdminPage,
+  });
+}
 if (role == "STAFF") {
   publicRoute.push({
     path: "/staff",

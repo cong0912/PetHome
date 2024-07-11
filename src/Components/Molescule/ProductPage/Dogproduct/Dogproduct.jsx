@@ -73,7 +73,7 @@ function Dogproduct() {
     };
 
     const filteredProducts = products.filter(
-        (product) => product.price >= minPrice && product.price <= maxPrice
+        (product) => product.price >= minPrice && product.price <= maxPrice && product.status !== "Disabled"
     );
 
     // Slice the products based on current page and productsPerPage

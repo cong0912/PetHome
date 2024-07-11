@@ -5,15 +5,15 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
 
 const AdminSidebar = () => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
-    // const handleLogout = () => {
-    //     localStorage.removeItem("access_token");
-    //     localStorage.removeItem("refresh_token");
-    //     localStorage.removeItem("userId");
-    //     localStorage.removeItem("userRole");
-    //     navigate("/login");
-    // };
+    const handleLogout = () => {
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("userRole");
+        navigate("/login");
+    };
     return (
         <div className="flex flex-col w-64 h-screen bg-gray-800 text-gray-100">
             <div className="flex items-center justify-center h-16 border-b border-gray-700">
@@ -28,13 +28,13 @@ const AdminSidebar = () => {
                     <DashboardIcon className="mr-3" />
                     <span>Dashboard</span>
                 </li>
-                {/* <div
+                <div
                     className="flex items-center p-4 text-gray-100  hover:bg-gray-700 cursor-pointer"
                     onClick={handleLogout}
                 >
                     <LogoutIcon className="mr-3" />
                     <span>Log Out</span>
-                </div> */}
+                </div>
             </ul>
         </div>
     );
