@@ -18,7 +18,7 @@ import { Box } from '@mui/material'; // Import Box for layout
 
 function Catfood() {
     const [products, setProducts] = useState([]);
-    const [minPrice, setMinPrice] = useState(18000);
+    const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(495000);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -151,14 +151,14 @@ function Catfood() {
                     <h3>Lọc theo giá</h3>
                     <input
                         type="range"
-                        min="18000"
+                        min="0"
                         max="495000"
                         value={minPrice}
                         onChange={(e) => setMinPrice(Number(e.target.value))}
                     />
                     <input
                         type="range"
-                        min="18000"
+                        min="0"
                         max="495000"
                         value={maxPrice}
                         onChange={(e) => setMaxPrice(Number(e.target.value))}

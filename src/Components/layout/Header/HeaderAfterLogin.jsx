@@ -80,7 +80,7 @@ function HeaderAfterLogin() {
           <div className="header-info">
             <div className="header-phone">
               <LocalPhoneIcon fontSize="large" className={"header-color"} />
-              <Typography className="header-color">09123678754</Typography>
+              <Typography className="header-color">19009999999</Typography>
             </div>
             <div className="header-address">
               <HomeIcon fontSize="large" className={"header-color"} />

@@ -28,6 +28,7 @@ function ProductDetail() {
       addToCart(id);
     }
     toast.success(`${product.name} đã thêm vào giỏ hàng`, {
+      autoClose: 100
     });
   };
 
