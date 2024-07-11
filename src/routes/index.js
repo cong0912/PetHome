@@ -29,6 +29,8 @@ import ListProduct from "Components/Molescule/Staff/ListProduct/ListProduct";
 import ListService from "Components/Molescule/Staff/ListService/ListService";
 import DetailBooking from "Components/Molescule/Staff/DetailBooking/DetailBooking";
 import OrderSuccess from "Components/Molescule/Order/OrderSuccess/OrderSuccess";
+import Booking from "Components/Molescule/Booking/Booking";
+import Payment from "Components/Molescule/Payment/Payment";
 const role = localStorage.getItem("userRole");
 const publicRoute = [
   { path: "/register", component: Register, layout: null },
@@ -65,6 +67,8 @@ const publicRoute = [
   { path: "/pet-info", component: Petinfo, layout: DefaultLayout },
   { path: "/order-history", component: OrderHistory, layout: DefaultLayout },
   { path: "/profile", component: UserProfile, layout: DefaultLayout },
+  { path: "/booking", component: Booking, layout: DefaultLayout },
+  { path: "/payment", component: Payment, layout: null },
 ];
 if (role == "STAFF") {
   publicRoute.push({

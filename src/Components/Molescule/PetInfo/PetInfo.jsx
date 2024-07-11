@@ -36,6 +36,10 @@ const Petinfo = () => {
   const handleAddShow = () => {
     setAddShow(true);
   };
+  const handleAddClose = () => {
+    setAddShow(false);
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -69,8 +73,7 @@ const Petinfo = () => {
 
     try {
       const response = await MyAxios.post("http://localhost:5000/api/v1/pet", data);
-      toast.success(` Đã thêm thú cưng vào danh sách `, {
-      });
+      toast.success(` Đã thêm thú cưng vào danh sách `, {});
       console.log(response.data);
       setAddShow(false);
       setFormData({
@@ -113,7 +116,7 @@ const Petinfo = () => {
         </div>
       </div>
       <div>
-        <Modal show={addshow} onHide={handleAddShow} size={"sm"}>
+        <Modal show={addshow} onHide={handleAddClose} size={"sm"}>
           <ModalHeader content={"Thêm thú cưng"} />
           <div className={styles["add-modal-frame"]}>
             <div className={styles["add-modal-container"]}>
