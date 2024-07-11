@@ -5,15 +5,9 @@ import ProductCard from "Components/Molescule/ProductCards/ProductCard";
 import MyAxios from "setup/configAxios";
 import { motion } from "framer-motion";
 import petCover from "assets/images/pet-cover.webp";
-import Pagination from '@mui/material/Pagination';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "Components/ui/select";
-import { Box } from '@mui/material'; // Import Box for layout
+import Pagination from "@mui/material/Pagination";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "Components/ui/select";
+import { Box } from "@mui/material"; // Import Box for layout
 
 function Product() {
   const [products, setProducts] = useState([]);
@@ -46,9 +40,7 @@ function Product() {
       });
   };
   const AscendingSorts = () => {
-    MyAxios.get(
-      "api/v1/products/sort?type=product&sort=asc"
-    )
+    MyAxios.get("api/v1/products/sort?type=product&sort=asc")
       .then((response) => {
         setProducts(response.data);
         setLoading(false);
@@ -59,9 +51,7 @@ function Product() {
       });
   };
   const DescendingSortS = () => {
-    MyAxios.get(
-      "api/v1/products/sort?type=product&sort=desc"
-    )
+    MyAxios.get("api/v1/products/sort?type=product&sort=desc")
       .then((response) => {
         setProducts(response.data);
         setLoading(false);
@@ -90,6 +80,7 @@ function Product() {
   const filteredProducts = products.filter(
     (product) => product.price >= minPrice && product.price <= maxPrice && product.status !== "Disabled"
 );
+
 
   // Calculate pagination
   const startIndex = (currentPage - 1) * productsPerPage;
@@ -131,11 +122,7 @@ function Product() {
           </motion.h1>
         </div>
         <div>
-          <img
-            src={petCover}
-            alt="Pet Cover"
-            className="w-[50vw] hidden md:block"
-          />
+          <img src={petCover} alt="Pet Cover" className="w-[50vw] hidden md:block" />
         </div>
       </div>
       <div className="sort-product">
@@ -188,7 +175,6 @@ function Product() {
             </Link>
           ))}
         </div>
-
       </div>
       <Box display="flex" justifyContent="center" mt={4} ml={30}>
         <Pagination
