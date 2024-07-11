@@ -10,15 +10,21 @@ export const DataProvider = ({ children }) => {
   const fetchBookingData = async () => {
     try {
       const data = await getAllBookingService();
-      const formattedData = data.map((order, index) => ({
-        id: index + 1,
-        idBooking: order._id,
-        product: order.product.name,
-        timeStartService: order.timeStartService,
-        status: order.status,
-        action: "",
-      }));
+      console.log("dt", data);
+      const formattedData = data.map((order, index) => {
+        console.log("ra", order);
+        return {
+          id: index + 1,
+          idBooking: order._id,
+          product: order?.product?.name,
+          timeStartService: order.timeStartService,
+          status: order.status,
+          action: "",
+        };
+      });
+
       setBooking(formattedData);
+      console.log("book", booking);
     } catch (error) {
       console.log("err", error);
     } finally {

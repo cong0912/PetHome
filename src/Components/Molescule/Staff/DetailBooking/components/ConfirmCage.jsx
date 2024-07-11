@@ -86,13 +86,13 @@ export function ConfirmCage({ bookingId }) {
               </SelectTrigger>
               {emptyCage && emptyCage.length >= 1 ? (
                 <>
-                  {emptyCage.map((res) => (
-                    <SelectContent>
-                      <SelectItem key={res._id} value={res._id}>
+                  <SelectContent>
+                    {emptyCage.map((res, index) => (
+                      <SelectItem key={index} value={res._id}>
                         {res.name}
                       </SelectItem>
-                    </SelectContent>
-                  ))}
+                    ))}
+                  </SelectContent>
                 </>
               ) : (
                 <SelectContent>

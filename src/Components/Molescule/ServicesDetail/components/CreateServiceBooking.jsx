@@ -55,7 +55,7 @@ export function CreateServiceBookings({ productId }) {
         });
         setIsOpen(true);
       } else {
-        toast.success(`Confirm success: ${response.message}`, {
+        toast.success(`Confirm success: ${response.response.message}`, {
           position: "top-right",
         });
         setIsOpen(false);

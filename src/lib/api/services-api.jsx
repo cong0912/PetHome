@@ -83,9 +83,8 @@ export const CreateServiceBooking = async (
 
 export const getAllBookingService = async () => {
   try {
-    const response = await axiosClient.get(
-      `http://localhost:5000/api/v1/service`
-    );
+    const response = await axiosClient.get(`api/v1/service`);
+    console.log("ok", response);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -93,9 +92,7 @@ export const getAllBookingService = async () => {
 };
 export const getDetailBookingService = async (id) => {
   try {
-    const response = await axiosClient.get(
-      `http://localhost:5000/api/v1/service/${id}`
-    );
+    const response = await axiosClient.get(`api/v1/service/${id}`);
     return response.data;
   } catch (error) {
     console.error(error);

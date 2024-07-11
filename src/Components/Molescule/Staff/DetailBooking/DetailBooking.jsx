@@ -49,21 +49,21 @@ export default function DetailBooking() {
               <img
                 src={bookingService.product.image}
                 alt={bookingService.product.name}
-                className="rounded"
+                className="rounded-md w-50 max-h-60"
               />
-              <div className="font-mainText3 ">
+              <div className="font-mainText3 w-[70%] ">
                 <h1 className="font-bold text-textColor text-xl text-textColer">
                   {bookingService.product.name}
                 </h1>
                 <h1>
                   <b>Thời gian bắt đầu:</b> {bookingService.timeStartService}
                 </h1>
-                <h1>
-                  <b>Trạng thái: </b>
-                  {bookingService.status}
-                </h1>
+
                 {bookingService.status === "Cancelled" ? (
-                  ""
+                  <h1 className="flex">
+                    <b>Trạng thái: </b>
+                    <p className="text-red-500">{bookingService.status}</p>
+                  </h1>
                 ) : bookingService.cage === null ? (
                   <div className="">
                     <p>
@@ -73,7 +73,13 @@ export default function DetailBooking() {
                     <ConfirmCage bookingId={id} />
                   </div>
                 ) : (
-                  <TableCage res={bookingService.cage} />
+                  <>
+                    <h1 className="flex">
+                      <b>Trạng thái: </b>
+                      <p className="text-green-500">{bookingService.status}</p>
+                    </h1>
+                    <TableCage res={bookingService.cage} />
+                  </>
                 )}
               </div>
             </div>
