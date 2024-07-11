@@ -77,7 +77,10 @@ function Product() {
     }
   };
 
-  const filteredProducts = products.filter((product) => product.price >= minPrice && product.price <= maxPrice);
+  const filteredProducts = products.filter(
+    (product) => product.price >= minPrice && product.price <= maxPrice && product.status !== "Disabled"
+);
+
 
   // Calculate pagination
   const startIndex = (currentPage - 1) * productsPerPage;

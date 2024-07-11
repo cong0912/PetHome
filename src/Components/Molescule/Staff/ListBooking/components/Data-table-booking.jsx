@@ -1,6 +1,8 @@
 import { useState } from "react";
 // import CancelBooking from "./CancelBooking";
 import { CancelBooking } from "./CancelBooking";
+import { InTransit } from "./InProgress";
+import { CompleteBooking } from "./CompleteBooking";
 import {
   flexRender,
   getCoreRowModel,
@@ -91,19 +93,33 @@ export const columns = [
     },
     cell: ({ row }) => {
       const statuss = row.getValue("status");
+      const statusText =
+        statuss === "Processing"
+          ? "Đang xử lí"
+          : statuss === "Processed"
+          ? "Đã xử lý"
+          : statuss === "Cancelled"
+          ? "Đã hủy"
+          : statuss === "Completed"
+          ? "Hoàn thành"
+          : statuss === "In Progress"
+          ? "Vận chuyển"
+          : statuss;
       const statusClass =
         statuss === "Processing"
-          ? "text-yellow-400"
+          ? "text-yellow-400 "
           : statuss === "Processed"
           ? "text-cyan-400"
           : statuss === "Cancelled"
           ? "text-red-500"
           : statuss === "Completed"
           ? "text-green-500"
+          : statuss === "In Progress"
+          ? "text-violet-500"
           : "";
       return (
         <div className={`capitalize font-bold font-mainText3 ${statusClass} `}>
-          {statuss}
+          {statusText}
         </div>
       );
     },
@@ -114,7 +130,7 @@ export const columns = [
     enableHiding: false,
     cell: ({ row }) => {
       const statuss = row.getValue("status");
-      if (statuss === "Cancelled" || statuss === "Complete") {
+      if (statuss === "Cancelled" || statuss === "Completed") {
         return null;
       }
       return (
@@ -129,9 +145,8 @@ export const columns = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             {statuss === "Processed" && (
               <>
-                <DropdownMenuItem>
-                  <CheckCheck className="mr-2 h-4 w-4 text-green-600" />
-                  <span>Xác nhận</span>
+                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                  <InTransit bookingId={row.getValue("idBooking")} />
                 </DropdownMenuItem>
                 <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
                   <CancelBooking bookingId={row.getValue("idBooking")} />
@@ -142,6 +157,16 @@ export const columns = [
               <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
                 <CancelBooking bookingId={row.getValue("idBooking")} />
               </DropdownMenuItem>
+            )}
+            {statuss === "In Progress" && (
+              <>
+                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                  <CompleteBooking bookingId={row.getValue("idBooking")} />
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                  <CancelBooking bookingId={row.getValue("idBooking")} />
+                </DropdownMenuItem>
+              </>
             )}
           </DropdownMenuContent>
         </DropdownMenu>
@@ -252,7 +277,6 @@ export function DataTableBooking({ res }) {
           </Button>
         </div>
       </div>
-      <CancelBooking bookingId={res.idBooking} />
     </div>
   );
 }

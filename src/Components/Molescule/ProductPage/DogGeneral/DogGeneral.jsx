@@ -75,7 +75,7 @@ function DogGeneral() {
     };
 
     const filteredProducts = products.filter(
-        (product) => product.price >= minPrice && product.price <= maxPrice
+        (product) => product.price >= minPrice && product.price <= maxPrice && product.status !== "Disabled"
     );
 
     if (loading) {
