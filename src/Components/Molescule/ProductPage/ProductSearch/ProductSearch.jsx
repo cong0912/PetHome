@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./ProductSearch.scss";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ProductCard from "Components/Molescule/ProductCards/ProductCard";
 import MyAxios from "../../../../setup/configAxios";
 import { motion } from "framer-motion";
@@ -14,7 +14,7 @@ function ProductSearch() {
     const query = useQuery();
     const searchQuery = query.get("query");
     const [products, setProducts] = useState([]);
-    const [minPrice, setMinPrice] = useState(18000);
+    const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(495000);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -81,14 +81,14 @@ function ProductSearch() {
                     <h3>Lọc theo giá</h3>
                     <input
                         type="range"
-                        min="18000"
+                        min="0"
                         max="495000"
                         value={minPrice}
                         onChange={(e) => setMinPrice(Number(e.target.value))}
                     />
                     <input
                         type="range"
-                        min="18000"
+                        min="0"
                         max="495000"
                         value={maxPrice}
                         onChange={(e) => setMaxPrice(Number(e.target.value))}
@@ -101,14 +101,16 @@ function ProductSearch() {
                 <div className="product-list">
                     {filteredProducts.length > 0 ? (
                         filteredProducts.map((product) => (
-                            <ProductCard
-                                key={product._id}
-                                status={product.status}
-                                img={product.image}
-                                content={product.name}
-                                forType={product.forType}
-                                price={`${product.price.toLocaleString()} đ`}
-                            />
+                            <Link to={`/product/${product._id}`} key={product._id}>
+                                <ProductCard
+                                    key={product._id}
+                                    status={product.status}
+                                    img={product.image}
+                                    content={product.name}
+                                    forType={product.forType}
+                                    price={`${product.price.toLocaleString()} đ`}
+                                />
+                            </Link>
                         ))
                     ) : (
                         <div className="no-products-message">Không tìm thấy sản phẩm</div>
