@@ -25,7 +25,7 @@ export default function TableCage({ res }) {
               <b>Ảnh: </b>
             </td>
             <td>
-              <img src={res.image} alt="" />
+              <img src={res.image} alt="" width={60} className="rounded-sm" />
             </td>
           </tr>
           <tr>

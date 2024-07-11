@@ -79,6 +79,18 @@ export const columns = [
     header: "Trạng thái",
     cell: ({ row }) => {
       const statuss = row.getValue("status");
+      const statusText =
+        statuss === "Processing"
+          ? "Đang xử lí"
+          : statuss === "Processed"
+          ? "Đã xử lý"
+          : statuss === "Cancelled"
+          ? "Đã hủy"
+          : statuss === "Completed"
+          ? "Hoàn thành"
+          : statuss === "In Progress"
+          ? "Vận chuyển"
+          : statuss;
       const statusClass =
         statuss === "Processing"
           ? "text-yellow-400"
@@ -87,7 +99,7 @@ export const columns = [
           : "";
       return (
         <div className={`capitalize font-bold font-mainText3 ${statusClass} `}>
-          {statuss}
+          {statusText}
         </div>
       );
     },

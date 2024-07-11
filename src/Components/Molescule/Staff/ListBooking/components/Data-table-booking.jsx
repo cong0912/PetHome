@@ -55,6 +55,7 @@ export const columns = [
       <Link to={`/staff/list-booking/${row.getValue("idBooking")}`}>
         <div className="capitalize  font-mainText3 hover:text-textColer">
           {row.getValue("idBooking")}
+          {console.log("row", row)}
         </div>
       </Link>
     ),

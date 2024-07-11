@@ -5,7 +5,7 @@ import { DataTableBooking } from "./components/Data-table-booking";
 
 export default function ListBooking() {
   const { booking, loading } = useContext(DataContext);
-
+  console.log(booking);
   return (
     <div>
       <h1 className="font-bold font-mainText3 text-xl pb-4">
