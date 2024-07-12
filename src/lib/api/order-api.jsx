@@ -34,4 +34,17 @@ const cancelOrder = async (orderId, reason) => {
     console.error(error);
   }
 };
-export { getAllOrder, confirmOrder, cancelOrder };
+
+const completeOrder = async (orderId) => {
+  try {
+    const response = await axiosClient.post(`api/v1/orders/completed`, {
+      orderId: orderId,
+    });
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export { getAllOrder, confirmOrder, cancelOrder, completeOrder };

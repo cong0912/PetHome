@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MyAxios from "setup/configAxios";
-
 const UserProfile = () => {
   const [user, setUser] = useState({});
   const [error, setError] = useState(null);
@@ -52,7 +51,10 @@ const UserProfile = () => {
           <div className="flex flex-col space-y-4">
             <div className="flex flex-col sm:flex-row sm:space-x-4">
               <div className="w-full">
-                <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">
+                <label
+                  htmlFor="first_name"
+                  className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white"
+                >
                   Tên
                 </label>
                 <input
@@ -64,7 +66,10 @@ const UserProfile = () => {
                 />
               </div>
               <div className="w-full">
-                <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">
+                <label
+                  htmlFor="first_name"
+                  className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white"
+                >
                   Điện thoại
                 </label>
                 <input
@@ -77,7 +82,10 @@ const UserProfile = () => {
               </div>
             </div>
             <div className="mb-4">
-              <label htmlFor="email" className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">
+              <label
+                htmlFor="email"
+                className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white"
+              >
                 Email
               </label>
               <input
@@ -89,7 +97,10 @@ const UserProfile = () => {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="profession" className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">
+              <label
+                htmlFor="profession"
+                className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white"
+              >
                 Ngày sinh
               </label>
               <input
@@ -101,7 +112,10 @@ const UserProfile = () => {
               />
             </div>
             <div className="mb-6">
-              <label htmlFor="profession" className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">
+              <label
+                htmlFor="profession"
+                className="block mb-2 text-sm font-medium text-indigo-900 dark:text-white"
+              >
                 Địa chỉ
               </label>
               <input

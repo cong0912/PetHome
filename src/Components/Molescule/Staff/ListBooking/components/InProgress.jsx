@@ -12,12 +12,15 @@ import {
 import { Input } from "Components/ui/input";
 import { Label } from "Components/ui/label";
 import { X } from "lucide-react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { inProgress } from "lib/api/cage-api";
 import { toast } from "react-toastify";
+import { DataContext } from "context/DataContext";
+
 export function InTransit({ bookingId }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { fetchBookingData } = useContext(DataContext);
   const handleSubmit = async () => {
     setIsLoading(true);
     try {
@@ -32,6 +35,7 @@ export function InTransit({ bookingId }) {
           position: "top-right",
         });
         setIsOpen(false);
+        fetchBookingData();
       }
       console.log(response);
     } catch (error) {
@@ -48,15 +52,15 @@ export function InTransit({ bookingId }) {
       <DialogTrigger asChild>
         <button className="flex items-center justify-center">
           <Truck className="mr-2 h-4 w-4 text-violet-600" />
-          <span>Vận chuyển</span>
+          <span>Đang Tiến Hành</span>
         </button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle className="text-violet-500">Vận chuyển</DialogTitle>
+          <DialogTitle className="text-violet-500">Đang Tiến Hành</DialogTitle>
           <DialogDescription>
-            Bạn chắc chắn muốn xác nhận vận chuyển ?
+            Bạn chắc chắn muốn xác nhận Đang Tiến Hành ?
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4"></div>

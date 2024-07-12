@@ -104,7 +104,7 @@ export const columns = [
           : statuss === "Completed"
           ? "Hoàn thành"
           : statuss === "In Progress"
-          ? "Vận chuyển"
+          ? "Đang tiến hành"
           : statuss;
       const statusClass =
         statuss === "Processing"
@@ -163,9 +163,6 @@ export const columns = [
               <>
                 <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
                   <CompleteBooking bookingId={row.getValue("idBooking")} />
-                </DropdownMenuItem>
-                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                  <CancelBooking bookingId={row.getValue("idBooking")} />
                 </DropdownMenuItem>
               </>
             )}
