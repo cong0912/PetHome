@@ -9,37 +9,37 @@ import {
   DialogTrigger,
 } from "Components/ui/dialog";
 import { CircleCheckBig } from "lucide-react";
-import { useState, useContext } from "react";
-import { completeBooking } from "lib/api/cage-api";
 import { toast } from "react-toastify";
+import { completeOrder } from "lib/api/order-api";
+import { useState, useContext } from "react";
 import { DataContext } from "context/DataContext";
-export function CompleteBooking({ bookingId }) {
+export function CompleteOrders({ orderId }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { fetchBookingData } = useContext(DataContext);
+  const { getAllOrderS } = useContext(DataContext);
   const handleSubmit = async () => {
     setIsLoading(true);
     try {
-      const response = await completeBooking(bookingId);
-      if (response.status === "error") {
-        toast.error(`Error: ${response.message}`, {
-          position: "top-left",
-        });
-        setIsOpen(true);
-      } else {
+      const response = await completeOrder(orderId);
+      console.log("hehe", response);
+      if (response.status === "success") {
         toast.success(`Confirm success: ${response.message}`, {
           position: "top-right",
         });
         setIsOpen(false);
-        fetchBookingData();
+        getAllOrderS();
+      } else {
+        toast.error(`Error: ${response.message}`, {
+          position: "top-left",
+        });
+        setIsOpen(true);
       }
-      console.log(response);
     } catch (error) {
       toast.error(`Error: ${error.message}`, {
         position: "top-left",
       });
-      setIsOpen(true);
       console.error("Error confirming cage:", error);
+      setIsOpen(true);
     }
     setIsLoading(false);
   };
@@ -52,10 +52,14 @@ export function CompleteBooking({ bookingId }) {
         </button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] font-mainText3 ">
         <DialogHeader>
-          <DialogTitle className="text-green-500">Hoàn tất</DialogTitle>
-          <DialogDescription>Xác nhận Hoàn tất</DialogDescription>
+          <DialogTitle className="text-green-500">
+            Xác nhận Hoàn tất
+          </DialogTitle>
+          <DialogDescription>
+            Bạn có chắc chắn xác nhận Hoàn tất ?
+          </DialogDescription>
         </DialogHeader>
 
         <DialogFooter>
@@ -63,7 +67,6 @@ export function CompleteBooking({ bookingId }) {
             onClick={handleSubmit}
             className="bg-green-500 hover:bg-green-900"
             type="submit"
-            disabled={isLoading}
           >
             {isLoading ? "Loading..." : "Xác nhận "}
           </Button>

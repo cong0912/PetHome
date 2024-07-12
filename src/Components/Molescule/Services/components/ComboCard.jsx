@@ -1,8 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "Components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "Components/ui/card";
 import { Button } from "Components/ui/button";
 export default function ComboCard({ combo }) {
+  console.log(combo.image);
   return (
     <div className="">
       <Card className="w-[300px]">

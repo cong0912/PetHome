@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+import { CompleteOrders } from "./CompleteOrder";
 import {
   flexRender,
   getCoreRowModel,
@@ -88,14 +89,18 @@ export const columns = [
           ? "Đã hủy"
           : statuss === "Completed"
           ? "Hoàn thành"
-          : statuss === "In Progress"
-          ? "Vận chuyển"
+          : statuss === "In Transit"
+          ? "Đang vận chuyển"
           : statuss;
       const statusClass =
         statuss === "Processing"
           ? "text-yellow-400"
           : statuss === "In Transit"
+          ? "text-violet-400"
+          : statuss === "Completed"
           ? "text-green-400"
+          : statuss === "Cancelled"
+          ? "text-red-400"
           : "";
       return (
         <div className={`capitalize font-bold font-mainText3 ${statusClass} `}>
@@ -109,6 +114,10 @@ export const columns = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
+      const statuss = row.getValue("status");
+      if (statuss === "Cancelled" || statuss === "Completed") {
+        return null;
+      }
       return (
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
@@ -119,12 +128,28 @@ export const columns = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-              <ConfirmOrder orderId={row.getValue("idOrder")} />
-            </DropdownMenuItem>
-            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-              <CancelOrder orderId={row.getValue("idOrder")} />
-            </DropdownMenuItem>
+            {statuss === "In Transit" && (
+              <>
+                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                  <CompleteOrders orderId={row.getValue("idOrder")} />
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                  <CancelOrder orderId={row.getValue("idOrder")} />
+                </DropdownMenuItem>
+              </>
+            )}
+
+            {statuss === "Processing" && (
+              <>
+                {" "}
+                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                  <ConfirmOrder orderId={row.getValue("idOrder")} />
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                  <CancelOrder orderId={row.getValue("idOrder")} />
+                </DropdownMenuItem>
+              </>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       );
