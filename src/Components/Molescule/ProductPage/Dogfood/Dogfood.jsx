@@ -153,7 +153,6 @@ function Dogfood() {
             value={maxPrice}
             onChange={(e) => setMaxPrice(Number(e.target.value))}
           />
-          <button className="filter-button">Lọc</button>
           <p>
             Giá {minPrice.toLocaleString()} đ — {maxPrice.toLocaleString()} đ
           </p>

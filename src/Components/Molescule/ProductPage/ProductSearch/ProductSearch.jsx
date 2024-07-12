@@ -78,7 +78,7 @@ function ProductSearch() {
             </div>
             <div className="product-page">
                 <div className="filter-section">
-                    <h3>Lọc theo giá</h3>
+                    <h3 className="font-[#222222] font-bold">Lọc theo giá</h3>
                     <input
                         type="range"
                         min="0"
@@ -93,7 +93,6 @@ function ProductSearch() {
                         value={maxPrice}
                         onChange={(e) => setMaxPrice(Number(e.target.value))}
                     />
-                    <button className="filter-button">Lọc</button>
                     <p>
                         Giá {minPrice.toLocaleString()} đ — {maxPrice.toLocaleString()} đ
                     </p>

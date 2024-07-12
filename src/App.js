@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import StaffPage from "Components/Molescule/Staff/StaffPage";
+import AdminPage from "Components/Molescule/Admin/AdminPage";
 function App() {
   return (
     <div className="App">
@@ -16,6 +17,9 @@ function App() {
               let Layout = DefaultLayout;
               if (route.layout == StaffPage) {
                 Layout = StaffPage;
+              }
+              if (route.layout == AdminPage) {
+                Layout = AdminPage;
               } else if (route.layout == null) {
                 Layout = Fragment;
               }
