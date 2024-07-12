@@ -2,7 +2,7 @@ import React from 'react';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const AdminSidebar = () => {
     const navigate = useNavigate();
@@ -20,14 +20,18 @@ const AdminSidebar = () => {
                 <h2 className="text-2xl font-bold">Trang admin</h2>
             </div>
             <ul className="flex-grow">
-                <li className="flex items-center p-4 text-gray-100 hover:bg-gray-700 cursor-pointer">
-                    <ManageAccountsIcon className="mr-3" />
-                    <span>Quản lý tài khoản</span>
-                </li>
-                <li className="flex items-center p-4 text-gray-100  hover:bg-gray-700 cursor-pointer">
-                    <DashboardIcon className="mr-3" />
-                    <span>Dashboard</span>
-                </li>
+                <Link to="/admin/accounts">
+                    <li className="flex items-center p-4 text-gray-100 hover:bg-gray-700 cursor-pointer">
+                        <ManageAccountsIcon className="mr-3" />
+                        <span>Quản lý tài khoản</span>
+                    </li>
+                </Link>
+                <Link to="/admin/dashboard">
+                    <li className="flex items-center p-4 text-gray-100  hover:bg-gray-700 cursor-pointer">
+                        <DashboardIcon className="mr-3" />
+                        <span>Dashboard</span>
+                    </li>
+                </Link>
                 <div
                     className="flex items-center p-4 text-gray-100  hover:bg-gray-700 cursor-pointer"
                     onClick={handleLogout}

@@ -76,14 +76,20 @@ const publicRoute = [
   { path: "/booking", component: Booking, layout: DefaultLayout },
   { path: "/payment", component: Payment, layout: null },
 ];
+
 if (role == "ADMIN") {
   publicRoute.push({
-    path: "/dashboard",
+    path: "/admin",
+    component: AccountList,
+    layout: AdminPage,
+  });
+  publicRoute.push({
+    path: "/admin/dashboard",
     component: Dashboard,
     layout: AdminPage,
   });
   publicRoute.push({
-    path: "/accounts",
+    path: "/admin/accounts",
     component: AccountList,
     layout: AdminPage,
   });

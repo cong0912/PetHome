@@ -88,7 +88,10 @@ const LoginForm = () => {
         const userRole = localStorage.getItem("userRole");
         if (userRole === "STAFF") {
           window.location.href = "/staff";
-        } else if (userRole === "CUSTOMER") {
+        } else if (userRole === "ADMIN") {
+          window.location.href = "/admin";
+        }
+        else if (userRole === "CUSTOMER") {
           window.location.href = "/";
         } else {
           // Handle other roles or unexpected cases

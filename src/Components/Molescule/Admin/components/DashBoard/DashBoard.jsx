@@ -11,7 +11,7 @@ const Dashboard = () => {
     setTimeRange(range);
   };
 
-  // Dummy data for demonstration
+  // data giả
   const data = [
     { date: format(subDays(new Date(), 6), 'MM/dd/yyyy'), revenue: 4000 },
     { date: format(subDays(new Date(), 5), 'MM/dd/yyyy'), revenue: 3000 },
@@ -33,21 +33,21 @@ const Dashboard = () => {
             color="primary" 
             onClick={() => handleTimeRangeChange('day')}
           >
-            Daily
+            Hằng ngày
           </Button>
           <Button 
             variant={timeRange === 'week' ? 'contained' : 'outlined'} 
             color="primary" 
             onClick={() => handleTimeRangeChange('week')}
           >
-            Weekly
+            Theo tuần
           </Button>
           <Button 
             variant={timeRange === 'month' ? 'contained' : 'outlined'} 
             color="primary" 
             onClick={() => handleTimeRangeChange('month')}
           >
-            Monthly
+            Theo tháng
           </Button>
         </div>
 
