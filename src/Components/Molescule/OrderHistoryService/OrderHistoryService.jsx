@@ -1,35 +1,21 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
-import styles from "./OrderHistory.module.scss";
+import styles from "./OrderHistoryService.module.scss";
 import MyAxios from "setup/configAxios";
 import petCover from "../../../assets/images/pet-cover.webp";
 import { motion } from "framer-motion";
-import MoreiconHisoty from "./components/moreicoin";
-import { Input } from "Components/ui/input";
-import { toast } from "react-toastify";
-
 import {
   Modal,
   ModalBody,
   ModalFooter,
   ModalHeader,
 } from "Components/Atom/Modal/Modal";
-const OrderHistory = () => {
+const OrderHistoryService = () => {
   const [rows, setRows] = useState([]);
-  const [selectedProductId, setSelectedProductId] = useState(null);
-  const [deleteShow, setDeleteShow] = useState(false);
-  const [render, setRender] = useState(false);
-  const [reason, setReason] = useState("");
   const dataGridStyle = {
     fontSize: "10px", // Thay đổi kích thước font ở đây
   };
-  const handleDeleteShow = (id) => {
-    setSelectedProductId(id);
-    setDeleteShow(true);
-  };
-  const handleDeleteClose = () => {
-    setDeleteShow(false);
-  };
+
   useEffect(() => {
     const userId = localStorage.getItem("userId");
     //goi api
@@ -38,34 +24,8 @@ const OrderHistory = () => {
     ).then((res) => {
       setRows(res.data);
     });
-  }, [render]);
+  }, []);
   console.log(rows);
-
-  const handleDelete = async () => {
-    try {
-      const data = await MyAxios.post(
-        `http://localhost:5000/api/v1/orders/cancel`,
-        {
-          orderId: selectedProductId,
-          reason: reason,
-        }
-      );
-      if (data.status === "error") {
-        toast.error(`Error: ${data.message}`, {
-          position: "top-left",
-        });
-      } else {
-        toast.success(`Confirm success: ${data.message}`, {
-          position: "top-right",
-        });
-        setRender(!render);
-        setSelectedProductId(null);
-        setDeleteShow(false);
-      }
-    } catch (error) {
-      console.error("There was an error deleting the data!", error);
-    }
-  };
   const columns = [
     {
       field: "_id",
@@ -131,25 +91,6 @@ const OrderHistory = () => {
         return <div className={styles["status"]}>{params.row.status}</div>;
       },
     },
-
-    {
-      field: "",
-      headerName: "Action",
-      width: 80,
-      renderCell: (params) => {
-        return (
-          <>
-            {params.row.status === "Processing" ? (
-              <MoreiconHisoty
-                handleDelete={() => handleDeleteShow(params.row._id)}
-              />
-            ) : (
-              ""
-            )}
-          </>
-        );
-      },
-    },
   ];
   return (
     <div>
@@ -198,37 +139,16 @@ const OrderHistory = () => {
           />
         </div>
       </div>
-
-      <Modal show={deleteShow} onHide={handleDeleteClose} size={"sm"}>
-        <ModalHeader content={"Xác nhận Hủy"} />
-        <div className="m-5">
-          <ModalBody>Bạn có chắc chắn muốn Hủy sản phẩm này không?</ModalBody>
-          <Input
-            className="placeholder-gray-500 border mb-2"
-            placeholder="Nhập lí do hủy"
-            onChange={(e) => setReason(e.target.value)}
-          />
-          <ModalFooter>
-            <div className="flex justify-end items-center">
-              <button
-                className="bg-slate-700 p-2 text-white rounded-sm m-1"
-                onClick={handleDelete}
-              >
-                xác nhận
-              </button>
-
-              <button
-                className="bg-red-700 p-2 text-white rounded-sm m-1"
-                onClick={handleDeleteClose}
-              >
-                Hủy
-              </button>
-            </div>
-          </ModalFooter>
-        </div>
-      </Modal>
+      {/* <Modal show={deleteShow} onHide={handleDeleteClose} size={"sm"}>
+        <ModalHeader content={"Xác nhận xóa"} />
+        <ModalBody>Bạn có chắc chắn muốn xóa sản phẩm này không?</ModalBody>
+        <ModalFooter>
+          <button onClick={handleDelete}>Xóa</button>
+          <button onClick={handleDeleteClose}>Hủy</button>
+        </ModalFooter>
+      </Modal> */}
     </div>
   );
 };
 
-export default OrderHistory;
+export default OrderHistoryService;
