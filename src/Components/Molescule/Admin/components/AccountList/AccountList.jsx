@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, TextField } from '@mui/material';
 import BlockIcon from '@mui/icons-material/Block';
-
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const initialRows = [
   { id: "1", email: 'john@example.com', fullName: 'John Doe', role: 'Admin', disabled: false },
@@ -11,22 +11,28 @@ const initialRows = [
 
 const AccountList = () => {
   const [rows, setRows] = useState(initialRows);
-  const [disableRow, setDisableRow] = useState(null);
+  const [selectedRow, setSelectedRow] = useState(null);
   const [open, setOpen] = useState(false);
 
-  const handleDisable = (row) => {
-    setDisableRow(row);
+  const handleStatusChange = (row) => {
+    setSelectedRow(row);  
     setOpen(true);
-  };
+  };  
 
   const handleClose = () => {
     setOpen(false);
-    setDisableRow(null);
+    setSelectedRow(null);
   };
 
-  const handleConfirmDisable = () => {
-    setRows(rows.map((row) => (row.id === disableRow.id ? { ...row, disabled: true } : row)));
+  const handleConfirmStatusChange = () => {
+    setRows(rows.map((row) => 
+      (row.id === selectedRow.id ? { ...row, disabled: !row.disabled } : row)
+    ));
     handleClose();
+  };
+
+  const handleSelectionModelChange = (selection) => {
+    console.log('Selected rows:', selection);
   };
 
   const columns = [
@@ -47,10 +53,9 @@ const AccountList = () => {
       width: 150,
       getActions: (params) => [
         <GridActionsCellItem
-          icon={<BlockIcon />}
-          label="Disable"
-          onClick={() => handleDisable(params.row)}
-          disabled={params.row.disabled}
+          icon={params.row.disabled ? <CheckCircleIcon /> : <BlockIcon />}
+          label={params.row.disabled ? "Enable" : "Disable"}
+          onClick={() => handleStatusChange(params.row)}
         />,
       ],
     },
@@ -59,7 +64,7 @@ const AccountList = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-4">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-semibold mb-4">Account Management</h1>
+        <h1 className="text-3xl font-semibold mb-4">Quản lý tài khoản</h1>
         <div className=" p-4 rounded-md shadow-md">
           <div style={{ height: 400, width: '100%' }}>
             <DataGrid
@@ -67,21 +72,25 @@ const AccountList = () => {
               columns={columns}
               pageSize={5}
               rowsPerPageOptions={[5]}
+              checkboxSelection
+              onSelectionModelChange={handleSelectionModelChange}
               sx={{ backgroundColor: 'inherit' }}
             />
           </div>
         </div>
       </div>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Disable Account</DialogTitle>
+        <DialogTitle>{selectedRow?.disabled ? 'Enable Account' : 'Disable Account'}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to disable this account?
+            Bạn có muốn  {selectedRow?.disabled ? 'enable' : 'disable'} tài khoản này?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleConfirmDisable} color="primary">Disable</Button>
+          <Button onClick={handleClose}>Cancel</Button> 
+          <Button onClick={handleConfirmStatusChange} color="primary">
+            {selectedRow?.disabled ? 'Enable' : 'Disable'}
+          </Button>
         </DialogActions>
       </Dialog>
     </div>
