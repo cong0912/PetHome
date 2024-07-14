@@ -10,6 +10,7 @@ import ServiceCard from "Components/Molescule/ServiceCards/ServiceCards";
 import ProductCard from "Components/Molescule/ProductCards/ProductCard";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import CheckIcon from "@mui/icons-material/Check";
+import { Link } from "react-router-dom";
 const HomePage = () => {
   return (
     <div className={styles["container"]}>
@@ -23,7 +24,7 @@ const HomePage = () => {
             </div>
             <div className={styles["introduct-btn"]}>
               <div className={styles["introduct-btn-1"]}>
-                <button className={styles["introduct-btn-more"]}>Xem thêm</button>
+                <Link to="/services"><button className={styles["introduct-btn-more"]}>Xem thêm</button></Link>
               </div>
               <div className={styles["introduct-btn-2"]}>
                 <button className={styles["introduct-btn-booking"]}>Online Booking</button>
@@ -43,21 +44,25 @@ const HomePage = () => {
             </div>
           </div>
           <div className={styles["card"]}>
-            <ServiceCard
-              title="CHĂM SÓC"
-              detail={
-                "Chúng tối biết cách làm thế nào để thú cưng của bạn trở nên đẳng cấp và cá tính hơn. Với dịch vụ cắt tỉa lông thú cưng chúng tôi sẽ giúp các bé trở thành phiên bản hoàn hảo nhất..."
-              }
-              className={styles["services-care"]}
-            />
+            <Link to="/services" >
+              <ServiceCard
+                title="CHĂM SÓC"
+                detail={
+                  "Chúng tối biết cách làm thế nào để thú cưng của bạn trở nên đẳng cấp và cá tính hơn. Với dịch vụ cắt tỉa lông thú cưng chúng tôi sẽ giúp các bé trở thành phiên bản hoàn hảo nhất..."
+                }
+                className={styles["services-care"]}
+              /></Link>
 
-            <ServiceCard
-              title="CỬA HÀNG"
-              detail={
-                "Cùng với hơn 3.000 khách hàng đã luôn tin tưởng, đồng hành, chúng tôi luôn đặt ra những mục tiêu và thử thách mới. PET SERVICE cung cấp các sản phẩm, phụ kiện rất đa dạng..."
-              }
-              className={styles["services-shop"]}
-            />
+            <Link to="/general-product">
+              <ServiceCard
+                title="CỬA HÀNG"
+                detail={
+                  "Cùng với hơn 3.000 khách hàng đã luôn tin tưởng, đồng hành, chúng tôi luôn đặt ra những mục tiêu và thử thách mới. PET SERVICE cung cấp các sản phẩm, phụ kiện rất đa dạng..."
+                }
+                className={styles["services-shop"]}
+              />
+            </Link>
+
             <ServiceCard
               title="KHÁCH SẠN"
               detail={
@@ -74,11 +79,15 @@ const HomePage = () => {
               <div className={styles["introduct-body"]}>SẢN PHẨM</div>
               <div className={styles["introduct-footer"]}>NỔI BẬT</div>
               <div className={styles["introduct-btn"]}>
-                <button className={styles["introduct-btn-view"]}>Xem cửa hàng</button>
+                <Link to="/general-product">
+                  <button className={styles["introduct-btn-view"]}>Xem cửa hàng</button>
+                </Link>
+
               </div>
             </div>
           </div>
           <div className={styles["products-card"]}>
+
             <ProductCard
               img={p1}
               forType={"Cho Mèo"}
@@ -100,7 +109,7 @@ const HomePage = () => {
               </h3>
             </div>
             <div className={styles["introduct-btn"]}>
-              <button className={styles["introduct-btn-advise"]}>TƯ VẤN MIỄN PHÍ</button>
+              <Link to="/contact"><button className={styles["introduct-btn-advise"]}>TƯ VẤN MIỄN PHÍ</button></Link>
             </div>
           </div>
         </div>
@@ -111,7 +120,7 @@ const HomePage = () => {
               <div className={styles["text-body"]}>SPA CHO THÚ CƯNG</div>
               <div className={styles["text-footer"]}>CHUẨN 5 SAO</div>
               <div className={styles["service-spa-btn"]}>
-                <button className={styles["spa-btn-more"]}>Xem thêm</button>
+                <Link to="/services"><button className={styles["spa-btn-more"]}>Xem thêm</button></Link>
               </div>
             </div>
             <img className={styles["spa-img"]} src={chomeo} alt="anh cho meo" />
@@ -123,7 +132,7 @@ const HomePage = () => {
               <div className={styles["service-spa-title-body"]}>
                 <div className={styles["header"]}>KHÁM SỨC KHỎE MIỄN PHÍ</div>
                 <div className={styles["body"]}>
-                  Mọi hành động ở PET SERVICE đều bắt đầu từ sứ mệnh Trao gửi yêu thương. Do vậy, Spa đạt chuẩn với quy
+                  Mọi hành động ở PET HOME đều bắt đầu từ sứ mệnh Trao gửi yêu thương. Do vậy, Spa đạt chuẩn với quy
                   trình khắt khe sẽ mang lại sự thom tho và sạch sẽ cho thú cưng của bạn.
                 </div>
               </div>
@@ -176,10 +185,10 @@ const HomePage = () => {
             </div>
             <div className={styles["introduct-btn"]}>
               <div className={styles["introduct-btn-1"]}>
-                <button className={styles["introduct-btn-more"]}>Xem thêm</button>
+                <Link to="services"><button className={styles["introduct-btn-more"]}>Xem thêm</button></Link>
               </div>
               <div className={styles["introduct-btn-2"]}>
-                <button className={styles["introduct-btn-booking"]}>Đặt lịch ngay</button>
+                <Link to="services"><button className={styles["introduct-btn-booking"]}>Đặt lịch ngay</button></Link>
               </div>
             </div>
           </div>
@@ -194,7 +203,8 @@ const HomePage = () => {
           </h1>
           <button className={styles["service-hotline-btn"]}>
             <LocalPhoneIcon />
-            <span className={styles["hotline-text"]}> DỊCH VỤ THÚ CƯNG TẠI NHÀ - 24/7 </span>
+            <Link to="/contact"><span className={styles["hotline-text"]}> DỊCH VỤ THÚ CƯNG TẠI NHÀ - 24/7 </span></Link>
+            
           </button>
         </div>
         <div className={styles["service-cut"]}>
@@ -234,17 +244,19 @@ const HomePage = () => {
             </div>
             <div className={styles["introduct-btn"]}>
               <div className={styles["introduct-btn-1"]}>
-                <button className={styles["introduct-btn-more"]}>Xem thêm</button>
+                <Link to="/services"><button className={styles["introduct-btn-more"]}>Xem thêm</button></Link>
+                
               </div>
               <div className={styles["introduct-btn-2"]}>
-                <button className={styles["introduct-btn-booking"]}>Đặt lịch ngay</button>
+                <Link to="/services"><button className={styles["introduct-btn-booking"]}>Đặt lịch ngay</button></Link>
+                
               </div>
             </div>
           </div>
         </div>
         <div className={styles["service-combo"]}></div>
       </div>
-    </div>
+    </div >
   );
 };
 export default HomePage;

@@ -17,15 +17,15 @@ function ProductSearch() {
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(495000);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState(null);   
 
     useEffect(() => {
         if (searchQuery) {
             MyAxios
                 .get(`http://localhost:5000/api/v1/products/search?name=${searchQuery}`)
                 .then((response) => {
-                    setProducts(response.data); // Make sure to access the correct data property
-                    setLoading(false); // Set loading to false after fetching data
+                    setProducts(response.data); 
+                    setLoading(false); 
                 })
                 .catch((error) => {
                     setError(error);

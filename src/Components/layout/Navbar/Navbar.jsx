@@ -130,7 +130,6 @@ function Navbar() {
                   </ul>
                 )}
               </li>
-              <li>Chăm sóc sức khỏe</li>
             </ul>
           )}
         </li>
