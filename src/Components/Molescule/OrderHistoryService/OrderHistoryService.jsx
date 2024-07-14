@@ -4,6 +4,9 @@ import styles from "./OrderHistoryService.module.scss";
 import MyAxios from "setup/configAxios";
 import petCover from "../../../assets/images/pet-cover.webp";
 import { motion } from "framer-motion";
+import MoreiconHisotyService from "./components/moreicoin";
+import { Input } from "Components/ui/input";
+import { toast } from "react-toastify";
 import {
   Modal,
   ModalBody,
@@ -12,83 +15,118 @@ import {
 } from "Components/Atom/Modal/Modal";
 const OrderHistoryService = () => {
   const [rows, setRows] = useState([]);
+  const [selectedServiceId, setSelectedServiceId] = useState(null);
+  const [deleteShow, setDeleteShow] = useState(false);
+  const [render, setRender] = useState(false);
+  const [reason, setReason] = useState("");
   const dataGridStyle = {
     fontSize: "10px", // Thay đổi kích thước font ở đây
   };
-
+  const handleDeleteShow = (id) => {
+    setSelectedServiceId(id);
+    setDeleteShow(true);
+  };
+  const handleDeleteClose = () => {
+    setDeleteShow(false);
+  };
   useEffect(() => {
     const userId = localStorage.getItem("userId");
     //goi api
-    MyAxios.get(
-      `http://localhost:5000/api/v1/orders/history?userId=${userId}`
-    ).then((res) => {
+    MyAxios.post(`api/v1/service/serviceHistory`, {
+      userId: userId,
+    }).then((res) => {
       setRows(res.data);
     });
-  }, []);
-  console.log(rows);
+  }, [render]);
+
+  const handleDelete = async () => {
+    try {
+      const data = await MyAxios.post(
+        `http://localhost:5000/api/v1/service/cancel`,
+        {
+          serviceRecordId: selectedServiceId,
+          reason: reason,
+        }
+      );
+      if (data.status === "error") {
+        toast.error(`Error: ${data.message}`, {
+          position: "top-left",
+        });
+      } else {
+        toast.success(`Confirm success: ${data.message}`, {
+          position: "top-right",
+        });
+        setRender(!render);
+        setSelectedServiceId(null);
+        setDeleteShow(false);
+      }
+    } catch (error) {
+      console.error("There was an error deleting the data!", error);
+    }
+  };
+
+  console.log("rowewww", rows);
+
   const columns = [
     {
-      field: "_id",
-      headerName: "OrderID",
-      width: 120,
-      renderCell: (params) => {
-        return <div className={styles["id"]}>{params.row._id}</div>;
-      },
-    },
-    {
-      field: "order_info",
-      headerName: "Order Info",
-      width: 500,
+      field: "bookingid",
+      headerName: "BookingID",
+      width: 250,
       renderCell: (params) => {
         return (
-          <div className={styles["order-info"]}>
-            {params.row.orderDetails.map((detail) => (
-              <span key={detail.product._id}>
-                {detail.product.name} x{detail.quantity} ,
-              </span>
-            ))}
-          </div>
+          <div className={styles["id"]}>{params.row.serviceRecord._id}</div>
         );
       },
     },
     {
-      field: "orderdate",
-      headerName: "Date",
+      field: "name",
+      headerName: "Pet name",
       width: 120,
       renderCell: (params) => {
-        return <div className={styles["date"]}>{params.row.dateOrder}</div>;
+        return <div className={styles["id"]}>{params.row.petName}</div>;
       },
     },
+
     {
-      field: "shipping",
-      headerName: "Shipping Address",
-      width: 500,
+      field: "nameservice",
+      headerName: "Service name",
+      width: 400,
       renderCell: (params) => {
         return (
-          <div className={styles["address"]}>
-            <span>{params.row.shipping.addressShipping.street}</span> ,
-            <span>{params.row.shipping.addressShipping.district}</span> ,
-            <span>{params.row.shipping.addressShipping.city}</span>
+          <div className={styles["id"]}>
+            {params.row.serviceRecord.product.name}
           </div>
-        );
-      },
-    },
-    {
-      field: "totalPrice",
-      headerName: "Total",
-      width: 120,
-      renderCell: (params) => {
-        return (
-          <div className={styles["total-price"]}>{params.row.totalPrice}</div>
         );
       },
     },
     {
       field: "status",
-      headerName: "Order Status",
-      width: 100,
+      headerName: "Status",
+      width: 200,
       renderCell: (params) => {
-        return <div className={styles["status"]}>{params.row.status}</div>;
+        return (
+          <div className="font-bold">{params.row.serviceRecord.status}</div>
+        );
+      },
+    },
+    {
+      field: "",
+      headerName: "Action",
+      width: 80,
+      renderCell: (params) => {
+        return (
+          <>
+            {params.row.serviceRecord.status === "Processing" ? (
+              <MoreiconHisotyService
+                handleDelete={() =>
+                  handleDeleteShow(params.row.serviceRecord._id)
+                }
+              />
+            ) : (
+              ""
+            )}
+          </>
+        );
       },
     },
   ];
@@ -126,7 +164,7 @@ const OrderHistoryService = () => {
           <DataGrid
             rows={rows}
             columns={columns}
-            getRowId={(row) => row._id} // Specify the custom id field
+            getRowId={(row) => row.serviceRecord._id} // Specify the custom id field
             style={{ fontSize: "0.9rem" }}
             initialState={{
               pagination: {
@@ -139,14 +177,35 @@ const OrderHistoryService = () => {
           />
         </div>
       </div>
-      {/* <Modal show={deleteShow} onHide={handleDeleteClose} size={"sm"}>
-        <ModalHeader content={"Xác nhận xóa"} />
-        <ModalBody>Bạn có chắc chắn muốn xóa sản phẩm này không?</ModalBody>
-        <ModalFooter>
-          <button onClick={handleDelete}>Xóa</button>
-          <button onClick={handleDeleteClose}>Hủy</button>
-        </ModalFooter>
-      </Modal> */}
+
+      <Modal show={deleteShow} onHide={handleDeleteClose} size={"sm"}>
+        <ModalHeader content={"Xác nhận Hủy"} />
+        <div className="m-5">
+          <ModalBody>Bạn có chắc chắn muốn Hủy dịch vụ này không?</ModalBody>
+          <Input
+            className="placeholder-gray-500 border mb-2"
+            placeholder="Nhập lí do hủy"
+            onChange={(e) => setReason(e.target.value)}
+          />
+          <ModalFooter>
+            <div className="flex justify-end items-center">
+              <button
+                className="bg-slate-700 p-2 text-white rounded-sm m-1"
+                onClick={handleDelete}
+              >
+                xác nhận
+              </button>
+
+              <button
+                className="bg-red-700 p-2 text-white rounded-sm m-1"
+                onClick={handleDeleteClose}
+              >
+                Hủy
+              </button>
+            </div>
+          </ModalFooter>
+        </div>
+      </Modal>
     </div>
   );
 };

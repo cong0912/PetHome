@@ -48,6 +48,8 @@ export const DataProvider = ({ children }) => {
         status: order.status,
         action: "",
         image: order.orderDetails.map((detail) => detail.product.image),
+        statusPayment: order.payment.status,
+        paymentMethod: order.payment.paymentMethod,
       }));
       setOrder(data2);
     } catch (error) {

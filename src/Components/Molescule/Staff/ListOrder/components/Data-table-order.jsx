@@ -65,6 +65,22 @@ export const columns = [
       </div>
     ),
   },
+  {
+    accessorKey: "paymentMethod",
+    header: "Phương thức thanh toán",
+    cell: ({ row }) => {
+      const status = row.getValue("paymentMethod");
+      const statusText =
+        status === "OP"
+          ? "Chuyển khoản"
+          : status === "COD"
+          ? "Thanh toán tiền mặt"
+          : status;
+      return (
+        <div className="capitalize  font-mainText3 font-bold">{statusText}</div>
+      );
+    },
+  },
 
   {
     accessorKey: "total",
@@ -102,6 +118,31 @@ export const columns = [
           : statuss === "Cancelled"
           ? "text-red-400"
           : "";
+      return (
+        <div className={`capitalize font-bold font-mainText3 ${statusClass} `}>
+          {statusText}
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "statusPayment",
+    header: "Trạng thái thanh toán",
+    cell: ({ row }) => {
+      const status = row.getValue("statusPayment");
+      const statusText =
+        status === "PAID"
+          ? "Đã thanh toán"
+          : status === "UNPAID"
+          ? "Chưa thanh toán"
+          : status;
+
+      const statusClass =
+        status === "PAID"
+          ? "text-green-400"
+          : status === "UNPAID"
+          ? "text-gray-400"
+          : status;
       return (
         <div className={`capitalize font-bold font-mainText3 ${statusClass} `}>
           {statusText}
