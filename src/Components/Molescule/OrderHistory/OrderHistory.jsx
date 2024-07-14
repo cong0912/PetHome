@@ -128,7 +128,7 @@ const OrderHistory = () => {
       headerName: "Order Status",
       width: 100,
       renderCell: (params) => {
-        return <div className={styles["status"]}>{params.row.status}</div>;
+        return <div className="font-bold">{params.row.status}</div>;
       },
     },
 
