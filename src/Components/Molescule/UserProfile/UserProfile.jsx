@@ -46,6 +46,13 @@ const UserProfile = () => {
               >
                 Lịch sử đặt hàng
               </button>
+              <button
+                type="button"
+                className="py-3.5 px-7 text-base font-medium text-indigo-900 bg-white rounded-lg border border-indigo-200 hover:bg-indigo-100 hover:text-[#202142] focus:z-10 focus:ring-4 focus:ring-indigo-200 focus:outline-none"
+                onClick={() => navigate("/order-history-service")}
+              >
+                Lịch sử đặt dịch vụ
+              </button>
             </div>
           </div>
           <div className="flex flex-col space-y-4">
