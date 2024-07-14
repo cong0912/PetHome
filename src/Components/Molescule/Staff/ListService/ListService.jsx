@@ -151,7 +151,7 @@ const ListService = () => {
     {
       field: "name",
       headerName: "Sản phẩm",
-      width: 500,
+      width: 480,
       renderCell: (params) => {
         return <div className={styles["name"]}>{params.row.name}</div>;
       },
@@ -331,11 +331,21 @@ const ListService = () => {
       </Modal>
       <Modal show={deleteShow} onHide={handleDeleteClose} size={"sm"}>
         <ModalHeader content={"Xác nhận xóa"} />
-        <ModalBody>Bạn có chắc chắn muốn xóa dịch này không?</ModalBody>
-        <ModalFooter>
-          <button onClick={handleDelete}>Xóa</button>
-          <button onClick={handleDeleteClose}>Hủy</button>
-        </ModalFooter>
+        <div className={styles["delete-modal-frame"]}>
+          <div className={styles["delete-modal-title"]}>
+            <ModalBody>Bạn có chắc chắn muốn xóa sản phẩm này không?</ModalBody>
+          </div>
+          <div className={styles["delete-modal-btn"]}>
+            <ModalFooter>
+              <button className={styles["delete-btn"]} onClick={handleDelete}>
+                Xóa
+              </button>
+              <button className={styles["cancel-btn"]} onClick={handleDeleteClose}>
+                Hủy
+              </button>
+            </ModalFooter>
+          </div>
+        </div>
       </Modal>
 
       <Modal show={editShow} onHide={handleEditClose} size={"sm"}>
