@@ -6,13 +6,46 @@ import OrderList from "./OrderList/OrderList";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { CartContext } from "context/CartContext";
+import PaymentModal from "../Payment/Payment";
+import ModalPaymentSuccess from "Components/Atom/Modal/ModalPaymentSuccess";
 
 const Order = () => {
+  //key ngan hang
+  const API_KEY =
+    "AK_CS.27d2a180421011ef90c3c9ff66e60f20.O1uiC84aVvS8kerhrTluY6jt2MuL9SLqaHgIlCMZ4Gg7WVgo2bBedgEl7sRkcOGhuqWJFiMj";
+  const API_GET_PAID = "https://oauth.casso.vn/v2/transactions";
+
+  const checkPaid = async () => {
+    const res = await fetch(API_GET_PAID, {
+      headers: {
+        Authorization: `apikey ${API_KEY}`,
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+    const lastpaid = data.data.records[data.data.records.length - 1];
+    const lastPrice = lastpaid.amount;
+    console.log("lastPrice", lastPrice);
+    console.log("totalPrice", totalAmount);
+    if (lastPrice === totalAmount) {
+      <ModalPaymentSuccess />;
+      clearInterval(paymentInterval);
+      paymentInterval = null;
+      setOpenPayment(false);
+      await submitOrder();
+    }
+  };
   // cartDetails
   const [cartDetails, setCartDetails] = useState([]);
   const navigate = useNavigate();
   const shopCart = localStorage.getItem("shopCart");
   const { setcartItem } = useContext(CartContext);
+
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  const handleTotalAmountChange = (total) => {
+    setTotalAmount(total);
+  };
 
   // Load cart details from local storage
   useEffect(() => {
@@ -97,13 +130,33 @@ const Order = () => {
   };
   // payment
   const [paymentMethod, setPaymentMethod] = useState("");
+  const [openPayment, setOpenPayment] = useState(false);
 
   const handlePaymentMethodChange = (e) => {
     setPaymentMethod(e.target.value);
+    setOpenPayment(false);
   };
 
+  const handleClose = () => setOpenPayment(false);
+
+  const MY_BANK = {
+    BANK_ID: "MB",
+    ACCOUNT_NO: "0847123169",
+    ACCOUNT_NAME: "TRAN VU QUANG THAI",
+  };
+  let paymentInterval;
   const handleSubmitOrder = async (e) => {
     e.preventDefault();
+    if (paymentMethod === "OP") {
+      setOpenPayment(true); // Open the modal for QR payment
+      paymentInterval = setInterval(() => {
+        checkPaid();
+      }, 1000);
+      return;
+    }
+    await submitOrder();
+  };
+  const submitOrder = async () => {
     const dataToSend = {
       userId: localStorage.getItem("userId"),
       addressShipping: address,
@@ -125,7 +178,6 @@ const Order = () => {
       console.error("Lỗi khi gửi dữ liệu", error);
     }
   };
-
   return userInfo ? (
     <div className={styles["container"]}>
       <div className={styles["title"]}>Thanh toán</div>
@@ -245,9 +297,15 @@ const Order = () => {
                 </li>
               </ul>
             </div>
+            <PaymentModal
+              open={openPayment}
+              handleClose={handleClose}
+              bankDetails={MY_BANK}
+              totalPayment={totalAmount}
+            />
           </div>
           <div className={styles["order-info-right"]}>
-            <OrderList />
+            <OrderList onTotalAmountChange={handleTotalAmountChange} />
             <button type="submit" className={styles["order-button"]}>
               Đặt hàng{" "}
             </button>
