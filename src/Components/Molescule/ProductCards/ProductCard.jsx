@@ -1,6 +1,6 @@
 import React from "react";
 import Text from "../../Atom/Text/Text";
-import "./ProductCards.scss"
+import "./ProductCards.scss";
 
 function ProductCard({
     status,
@@ -11,6 +11,8 @@ function ProductCard({
     onClick,
     price,
 }) {
+    const displayStatus = status === "In stock" ? "Còn hàng" : status === "out of stock" ? "Hết hàng" : status;
+
     return (
         <div
             className={`product-card-container ${className}`}
@@ -22,7 +24,7 @@ function ProductCard({
                 <div className="product-card-current">
                     <Text
                         className="product-card-current-text"
-                        content={status}
+                        content={displayStatus}
                     />
                 </div>
                 <div>
