@@ -1,12 +1,12 @@
 import { useContext, useState, useEffect } from "react";
 import MyAxios from "setup/configAxios";
 import styles from "./OrderList.module.scss";
-const OrderList = () => {
+const OrderList = ({ onTotalAmountChange }) => {
   const [orderItems, setOrderItems] = useState([]);
   const [products, setProducts] = useState([]);
   const [productsReady, setProductsReady] = useState(false);
   const [totalQuantity, setTotalQuantity] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalPrices, setTotalPrice] = useState(0);
 
   useEffect(() => {
     // Gọi API để lấy danh sách sản phẩm
@@ -44,11 +44,11 @@ const OrderList = () => {
         }
       }
     }
-
     setOrderItems(updatedCartItems);
   }, [productsReady]);
   let ship = 12000;
-  let total = totalPrice + ship;
+  let total = totalPrices + ship;
+  onTotalAmountChange(total);
   return (
     <div className={styles["order-in4"]}>
       <div className={styles["order"]}>
@@ -81,7 +81,7 @@ const OrderList = () => {
         <div className={styles["content-footer"]}>
           <div className={styles["content-footer-estimated"]}>
             <span className={styles["content-footer-estimated-title"]}>Tạm tính</span>
-            <span className={styles["content-footer-estimated-price"]}>{totalPrice.toLocaleString()}đ</span>
+            <span className={styles["content-footer-estimated-price"]}>{totalPrices.toLocaleString()}đ</span>
           </div>
           <div className={styles["content-footer-estimated"]}>
             <span className={styles["content-footer-estimated-title"]}>Giao hàng</span>
