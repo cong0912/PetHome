@@ -23,7 +23,7 @@ const UserProfile = () => {
   return (
     <div className="bg-white min-h-screen flex items-center justify-center">
       <div className="w-full max-w-7xl px-6 py-4 md:p-8 rounded-lg shadow-md bg-white">
-        <h2 className="text-3xl font-bold text-[#161931] mb-6"> Profile</h2>
+        <h2 className="text-3xl font-bold text-[#161931] mb-6"> Hồ sơ</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="flex flex-col items-center space-y-6">
@@ -138,7 +138,7 @@ const UserProfile = () => {
                 type="submit"
                 className="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
               >
-                Save
+                Lưu
               </button>
             </div>
           </div>

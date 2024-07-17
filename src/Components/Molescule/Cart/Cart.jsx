@@ -6,7 +6,8 @@ import CartItem from "./CartItem";
 import { Link } from "react-router-dom";
 const Cart = () => {
   const productArray = ListProdcuts();
-  const { cartItem, calculateTotalPrice, calculateTotalQuantity } = useContext(CartContext);
+  const { cartItem, calculateTotalPrice, calculateTotalQuantity } =
+    useContext(CartContext);
   const total = calculateTotalPrice(cartItem, ListProdcuts());
   const totalQuantityInCart = calculateTotalQuantity(cartItem, productArray);
   const hasItemsInCart = Object.keys(cartItem).length > 0;
@@ -39,10 +40,13 @@ const Cart = () => {
               src="https://theme.hstatic.net/200000551679/1001042568/14/cart_empty_background.png?v=874"
               alt="empty cart"
             />
-            <h1>This Cart is Empty</h1>
-            <h2>Go to the store page to choose to buy products!!</h2>
+            <h1>Giỏ hàng này trống</h1>
+            <h2>Vào trang cửa hàng để chọn mua sản phẩm nhé!!</h2>
             <Link to={"/general-product"}>
-              <button className={styles["btn-shop"]}>Shopping now</button>
+              <button className={styles["btn-shop"]}>
+                {" "}
+                Mua sắm ngay bây giờ
+              </button>
             </Link>
           </div>
         )}
@@ -50,7 +54,13 @@ const Cart = () => {
       {hasItemsInCart && (
         <div className={styles["footer"]}>
           <div className={styles["discount"]}>
-            <input type="text" name="code" value={""} placeholder="Mã ưu đãi" className={styles["input-code"]} />
+            <input
+              type="text"
+              name="code"
+              value={""}
+              placeholder="Mã ưu đãi"
+              className={styles["input-code"]}
+            />
             <button type="submit" className={styles["ap-dung"]}>
               Áp dụng
             </button>

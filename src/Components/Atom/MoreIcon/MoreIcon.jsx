@@ -45,7 +45,7 @@ export default function Moreicon({ handleEdit, handleDelete, handleUnDelete }) {
           }}
         >
           <EditIcon className="mr-6" style={{ color: "green" }} />
-          Edit
+          Chỉnh sửa
         </MenuItem>
         <MenuItem
           onClick={() => {
@@ -54,7 +54,7 @@ export default function Moreicon({ handleEdit, handleDelete, handleUnDelete }) {
           }}
         >
           <ClearIcon className="mr-6" style={{ color: "red" }} />
-          Delete
+          Xóa
         </MenuItem>
         <MenuItem
           onClick={() => {
@@ -63,7 +63,7 @@ export default function Moreicon({ handleEdit, handleDelete, handleUnDelete }) {
           }}
         >
           <ClearIcon className="mr-6" style={{ color: "green" }} />
-          UNDelete
+          Hủy xóa
         </MenuItem>
       </Menu>
     </div>
