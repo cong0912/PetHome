@@ -90,8 +90,7 @@ const LoginForm = () => {
           window.location.href = "/staff";
         } else if (userRole === "ADMIN") {
           window.location.href = "/admin";
-        }
-        else if (userRole === "CUSTOMER") {
+        } else if (userRole === "CUSTOMER") {
           window.location.href = "/";
         } else {
           // Handle other roles or unexpected cases
@@ -150,8 +149,8 @@ const LoginForm = () => {
           </h1>
           <div className="w-full flex flex-col max-w-[550px]">
             <div className="w-full flex flex-col mb-2">
-              <h3 className="text-4xl font-semibold mb-2">Login</h3>
-              <p className="text-base mb-2">Welcome Back! Please fill your details.</p>
+              <h3 className="text-4xl font-semibold mb-2">Đăng nhập</h3>
+              <p className="text-base mb-2">Chào mừng bạn trở lại !! Vui lòng điền thông tin của bạn.</p>
             </div>
             <form className="w-full flex flex-col" onSubmit={handleLogin}>
               <input
@@ -187,7 +186,7 @@ const LoginForm = () => {
                   <p className="text-sm">Remember me</p>
                 </div>
                 <p className="text-sm font-medium whitespace-nowrap cursor-pointer underline underline-offset-2">
-                  Forgot Password?
+                  Quên mật khẩu?
                 </p>
               </div>
               <div className="w-full flex flex-col my-4">
@@ -195,11 +194,11 @@ const LoginForm = () => {
                   type="submit"
                   className="w-full text-white my-2 bg-[#060606] rounded-md p-4 text-center flex items-center justify-center cursor-pointer"
                 >
-                  Log in
+                  Đăng nhập
                 </button>
                 <Link to="/register">
                   <button className="w-full text-[#060606] my-2 bg-white border-2 border-black rounded-md p-4 text-center flex items-center justify-center cursor-pointer">
-                    Register
+                    Đăng kí
                   </button>
                 </Link>
               </div>

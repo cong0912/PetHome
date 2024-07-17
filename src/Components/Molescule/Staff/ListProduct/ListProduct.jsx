@@ -2,12 +2,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import styles from "./ListProduct.module.scss";
 import { useEffect, useRef, useState } from "react";
 import MyAxios from "setup/configAxios";
-import {
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-} from "Components/Atom/Modal/Modal";
+import { Modal, ModalBody, ModalFooter, ModalHeader } from "Components/Atom/Modal/Modal";
 import { toast } from "react-toastify";
 import Moreicon from "Components/Atom/MoreIcon/MoreIcon";
 const ListProduct = () => {
@@ -24,7 +19,7 @@ const ListProduct = () => {
     des: "",
     price: "",
     quantity: "",
-    nameCategory: "",
+    nameCategory: "other",
     species: "dog",
   });
   const [productDetails, setProductDetails] = useState({
@@ -45,6 +40,10 @@ const ListProduct = () => {
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    if (name === "quantity" && value < 0) {
+      toast.error("Số lượng không được âm");
+      return;
+    }
     setFormData({
       ...formData,
       [name]: value,
@@ -61,11 +60,8 @@ const ListProduct = () => {
   const handleEditShow = async (id) => {
     setSelectedProductId(id);
     try {
-      const response = await MyAxios.get(
-        `http://localhost:5000/api/v1/products/${id}`
-      );
-      const { name, des, price, quantity, nameCategory, species } =
-        response.data;
+      const response = await MyAxios.get(`http://localhost:5000/api/v1/products/${id}`);
+      const { name, des, price, quantity, nameCategory, species } = response.data;
       setProductDetails({
         name,
         des,
@@ -91,9 +87,13 @@ const ListProduct = () => {
       species: "dog",
     });
   };
-  const handleUpdateProduct = async () => {
-    const { name, des, price, quantity, nameCategory, species } =
-      productDetails;
+  const handleUpdateProduct = async (e) => {
+    e.preventDefault();
+    if (productDetails.quantity < 0) {
+      toast.error("Số lượng không được âm");
+      return;
+    }
+    const { name, des, price, quantity, nameCategory, species } = productDetails;
     const updatedData = {
       name,
       des,
@@ -106,9 +106,7 @@ const ListProduct = () => {
     try {
       await MyAxios.put(`http://localhost:5000/api/v1/products`, updatedData);
       toast.success(`Đã cập nhật sản phẩm`, {});
-      const updatedProductList = await MyAxios.get(
-        `http://localhost:5000/api/v1/products?type=product`
-      );
+      const updatedProductList = await MyAxios.get(`http://localhost:5000/api/v1/products?type=product`);
       setRows(updatedProductList.data);
       setEditShow(false);
       setSelectedProductId(null);
@@ -126,11 +124,9 @@ const ListProduct = () => {
   };
   useEffect(() => {
     //goi api
-    MyAxios.get(`http://localhost:5000/api/v1/products?type=product`).then(
-      (res) => {
-        setRows(res.data);
-      }
-    );
+    MyAxios.get(`http://localhost:5000/api/v1/products?type=product`).then((res) => {
+      setRows(res.data);
+    });
   }, []);
   console.log(rows);
   const columns = [
@@ -192,13 +188,7 @@ const ListProduct = () => {
             : params.row.status === "out of stock"
             ? "text-gray-400"
             : "";
-        return (
-          <div
-            className={`capitalize font-bold font-mainText3 ${statusClass} `}
-          >
-            {statusText}
-          </div>
-        );
+        return <div className={`capitalize font-bold font-mainText3 ${statusClass} `}>{statusText}</div>;
       },
     },
     {
@@ -232,10 +222,7 @@ const ListProduct = () => {
     }
 
     try {
-      const response = await MyAxios.post(
-        "http://localhost:5000/api/v1/products",
-        data
-      );
+      const response = await MyAxios.post("http://localhost:5000/api/v1/products", data);
       toast.success(` Đã thêm sản phẩm `, {});
       console.log(response.data);
       setAddShow(false);
@@ -248,9 +235,7 @@ const ListProduct = () => {
         nameCategory: "",
       });
       setFile(null);
-      const updatedProductList = await MyAxios.get(
-        `http://localhost:5000/api/v1/products?type=product`
-      );
+      const updatedProductList = await MyAxios.get(`http://localhost:5000/api/v1/products?type=product`);
       setRows(updatedProductList.data);
     } catch (error) {
       console.error("There was an error uploading the data!", error);
@@ -263,9 +248,7 @@ const ListProduct = () => {
         productId: selectedProductId,
       });
       toast.success(` Đã xóa sản phẩm `, {});
-      const updatedProductList = await MyAxios.get(
-        `http://localhost:5000/api/v1/products?type=product`
-      );
+      const updatedProductList = await MyAxios.get(`http://localhost:5000/api/v1/products?type=product`);
       setRows(updatedProductList.data);
       setDeleteShow(false);
       setSelectedProductId(null);
@@ -280,9 +263,7 @@ const ListProduct = () => {
         productId,
       });
       toast.success(` Đã hủy xóa sản phẩm `, {});
-      const updatedProductList = await MyAxios.get(
-        `http://localhost:5000/api/v1/products?type=product`
-      );
+      const updatedProductList = await MyAxios.get(`http://localhost:5000/api/v1/products?type=product`);
       setRows(updatedProductList.data);
       setSelectedProductId(null);
     } catch (error) {
@@ -338,13 +319,7 @@ const ListProduct = () => {
                   <label htmlFor="price">
                     Giá <span className={styles["required"]}>*</span>
                   </label>
-                  <input
-                    type="text"
-                    id="price"
-                    name="price"
-                    value={formData.price}
-                    onChange={handleInputChange}
-                  />
+                  <input type="text" id="price" name="price" value={formData.price} onChange={handleInputChange} />
                 </div>
                 <div className={styles["form-group"]}>
                   <label htmlFor="quantity">
@@ -361,12 +336,7 @@ const ListProduct = () => {
                 </div>
                 <div className={styles["form-group"]}>
                   <label htmlFor="species">Loài</label>
-                  <select
-                    name="species"
-                    id="species"
-                    value={formData.species}
-                    onChange={handleInputChange}
-                  >
+                  <select name="species" id="species" value={formData.species} onChange={handleInputChange}>
                     <option value="dog">Chó</option>
                     <option value="cat">Mèo</option>
                   </select>
@@ -410,16 +380,10 @@ const ListProduct = () => {
                     style={{ display: "none" }}
                   />
                   <div className={styles["file"]}>
-                    <button
-                      type="button"
-                      onClick={handleFileUpload}
-                      className={styles["btn-file"]}
-                    >
+                    <button type="button" onClick={handleFileUpload} className={styles["btn-file"]}>
                       Chọn file ảnh
                     </button>
-                    {file && (
-                      <span className={styles["file-text"]}>{file.name}</span>
-                    )}
+                    {file && <span className={styles["file-text"]}>{file.name}</span>}
                   </div>
                 </div>
                 <div className={styles["submit"]}>
@@ -444,10 +408,7 @@ const ListProduct = () => {
               <button className={styles["delete-btn"]} onClick={handleDelete}>
                 Xóa
               </button>
-              <button
-                className={styles["cancel-btn"]}
-                onClick={handleDeleteClose}
-              >
+              <button className={styles["cancel-btn"]} onClick={handleDeleteClose}>
                 Hủy
               </button>
             </ModalFooter>
@@ -460,10 +421,7 @@ const ListProduct = () => {
         <div className={styles["add-modal-frame"]}>
           <div className={styles["add-modal-container"]}>
             <ModalBody>
-              <form
-                className={styles["contact-form"]}
-                onSubmit={handleUpdateProduct}
-              >
+              <form className={styles["contact-form"]} onSubmit={handleUpdateProduct}>
                 <div className={styles["form-group"]}>
                   <label htmlFor="name">
                     Tên <span className={styles["required"]}>*</span>
