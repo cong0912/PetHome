@@ -14,6 +14,7 @@ import {
   ModalFooter,
   ModalHeader,
 } from "Components/Atom/Modal/Modal";
+import { Link } from "react-router-dom";
 const OrderHistory = () => {
   const [rows, setRows] = useState([]);
   const [selectedProductId, setSelectedProductId] = useState(null);
@@ -72,7 +73,9 @@ const OrderHistory = () => {
       headerName: "ID đặt hàng",
       width: 120,
       renderCell: (params) => {
-        return <div className={styles["id"]}>{params.row._id}</div>;
+        return <Link to={`/order-detail/${params.row._id}`}>
+          <div className={styles["id"]}>{params.row._id}</div>
+        </Link>;
       },
     },
     {
@@ -132,24 +135,24 @@ const OrderHistory = () => {
           params.row.status === "Processing"
             ? "Đang xử lí"
             : params.row.status === "Processed"
-            ? "Đã xử lý"
-            : params.row.status === "Cancelled"
-            ? "Đã hủy"
-            : params.row.status === "Completed"
-            ? "Hoàn thành"
-            : params.row.status === "In Transit"
-            ? "Đang vận chuyển"
-            : params.row.status;
+              ? "Đã xử lý"
+              : params.row.status === "Cancelled"
+                ? "Đã hủy"
+                : params.row.status === "Completed"
+                  ? "Hoàn thành"
+                  : params.row.status === "In Transit"
+                    ? "Đang vận chuyển"
+                    : params.row.status;
         const statusClass =
           params.row.status === "Processing"
             ? "text-yellow-400"
             : params.row.status === "In Transit"
-            ? "text-violet-400"
-            : params.row.status === "Completed"
-            ? "text-green-400"
-            : params.row.status === "Cancelled"
-            ? "text-red-400"
-            : "";
+              ? "text-violet-400"
+              : params.row.status === "Completed"
+                ? "text-green-400"
+                : params.row.status === "Cancelled"
+                  ? "text-red-400"
+                  : "";
         return (
           <div
             className={`capitalize font-bold font-mainText3 ${statusClass} `}
