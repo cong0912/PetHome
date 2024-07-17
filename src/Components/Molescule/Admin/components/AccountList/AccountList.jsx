@@ -1,33 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import MyAxios from "../../../../../setup/configAxios";
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, TextField } from '@mui/material';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
 import BlockIcon from '@mui/icons-material/Block';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
-const initialRows = [
-  { id: "1", email: 'john@example.com', fullName: 'John Doe', role: 'Admin', disabled: false },
-  { id: "2", email: 'jane@example.com', fullName: 'Jane Doe', role: 'User', disabled: false },
-];
-
 const AccountList = () => {
-  const [rows, setRows] = useState(initialRows);
+  const [rows, setRows] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await MyAxios.get('http://localhost:5000/api/v1/user');
+        const users = response.data; // Accessing the data array from the response
+        const formattedUsers = users.map(user => ({
+          id: user._id,
+          email: user.email,
+          fullName: user.name,
+          role: user.role,
+          isDisabled: user.isDisabled,
+        }));
+        setRows(formattedUsers);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
   const handleStatusChange = (row) => {
-    setSelectedRow(row);  
+    setSelectedRow(row);
     setOpen(true);
-  };  
+  };
 
   const handleClose = () => {
     setOpen(false);
     setSelectedRow(null);
   };
 
-  const handleConfirmStatusChange = () => {
-    setRows(rows.map((row) => 
-      (row.id === selectedRow.id ? { ...row, disabled: !row.disabled } : row)
-    ));
+  const handleConfirmStatusChange = async () => {
+    try {
+      const updatedUser = { ...selectedRow, isDisabled: !selectedRow.isDisabled };
+      await MyAxios.get(`http://localhost:5000/api/v1/user/disable?id=${selectedRow.id}`, { isDisabled: updatedUser.isDisabled });
+      setRows(rows.map((row) =>
+        (row.id === selectedRow.id ? updatedUser : row)
+      ));
+    } catch (error) {
+      console.error('Error updating user status:', error);
+    }
     handleClose();
   };
 
@@ -38,11 +61,11 @@ const AccountList = () => {
   const columns = [
     { field: 'id', headerName: 'ID', width: 150 },
     { field: 'email', headerName: 'Email', width: 250 },
-    { field: 'fullName', headerName: 'Full Name', width: 200 },
+    { field: 'fullName', headerName: 'Họ và tên', width: 200 },
     { field: 'role', headerName: 'Role', width: 150 },
     {
-      field: 'disabled',
-      headerName: 'Status',
+      field: 'isDisabled',
+      headerName: 'Trạng thái',
       width: 150,
       renderCell: (params) => (params.value ? 'Disabled' : 'Active')
     },
@@ -53,8 +76,8 @@ const AccountList = () => {
       width: 150,
       getActions: (params) => [
         <GridActionsCellItem
-          icon={params.row.disabled ? <CheckCircleIcon /> : <BlockIcon />}
-          label={params.row.disabled ? "Enable" : "Disable"}
+          icon={params.row.isDisabled ? <CheckCircleIcon /> : <BlockIcon />}
+          label={params.row.isDisabled ? "Enable" : "Disable"}
           onClick={() => handleStatusChange(params.row)}
         />,
       ],
@@ -65,7 +88,7 @@ const AccountList = () => {
     <div className="min-h-screen bg-gray-100 p-4">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-3xl font-semibold mb-4">Quản lý tài khoản</h1>
-        <div className=" p-4 rounded-md shadow-md">
+        <div className="p-4 rounded-md shadow-md">
           <div style={{ height: 400, width: '100%' }}>
             <DataGrid
               rows={rows}
@@ -80,16 +103,16 @@ const AccountList = () => {
         </div>
       </div>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{selectedRow?.disabled ? 'Enable Account' : 'Disable Account'}</DialogTitle>
+        <DialogTitle>{selectedRow?.isDisabled ? 'Enable Account' : 'Disable Account'}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Bạn có muốn  {selectedRow?.disabled ? 'enable' : 'disable'} tài khoản này?
+            Bạn có muốn {selectedRow?.isDisabled ? 'enable' : 'disable'} tài khoản này?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button> 
+          <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={handleConfirmStatusChange} color="primary">
-            {selectedRow?.disabled ? 'Enable' : 'Disable'}
+            {selectedRow?.isDisabled ? 'Enable' : 'Disable'}
           </Button>
         </DialogActions>
       </Dialog>
