@@ -38,6 +38,7 @@ import {
   TableHeader,
   TableRow,
 } from "Components/ui/table";
+import { Link } from "react-router-dom";
 
 export const columns = [
   {
@@ -51,9 +52,14 @@ export const columns = [
     accessorKey: "idOrder",
     header: "ID đơn hàng",
     cell: ({ row }) => (
-      <div className="capitalize  font-mainText3 ">
-        {row.getValue("idOrder")}
-      </div>
+      <Link
+        to={`/order-detail/${row.getValue("idOrder")}`}
+
+      >
+        <div className="capitalize font-mainText3">
+          {row.getValue("idOrder")}
+        </div>
+      </Link>
     ),
   },
   {
@@ -74,8 +80,8 @@ export const columns = [
         status === "OP"
           ? "Chuyển khoản"
           : status === "COD"
-          ? "Thanh toán tiền mặt"
-          : status;
+            ? "Thanh toán tiền mặt"
+            : status;
       return (
         <div className="capitalize  font-mainText3 font-bold">{statusText}</div>
       );
@@ -100,24 +106,24 @@ export const columns = [
         statuss === "Processing"
           ? "Đang xử lí"
           : statuss === "Processed"
-          ? "Đã xử lý"
-          : statuss === "Cancelled"
-          ? "Đã hủy"
-          : statuss === "Completed"
-          ? "Hoàn thành"
-          : statuss === "In Transit"
-          ? "Đang vận chuyển"
-          : statuss;
+            ? "Đã xử lý"
+            : statuss === "Cancelled"
+              ? "Đã hủy"
+              : statuss === "Completed"
+                ? "Hoàn thành"
+                : statuss === "In Transit"
+                  ? "Đang vận chuyển"
+                  : statuss;
       const statusClass =
         statuss === "Processing"
           ? "text-yellow-400"
           : statuss === "In Transit"
-          ? "text-violet-400"
-          : statuss === "Completed"
-          ? "text-green-400"
-          : statuss === "Cancelled"
-          ? "text-red-400"
-          : "";
+            ? "text-violet-400"
+            : statuss === "Completed"
+              ? "text-green-400"
+              : statuss === "Cancelled"
+                ? "text-red-400"
+                : "";
       return (
         <div className={`capitalize font-bold font-mainText3 ${statusClass} `}>
           {statusText}
@@ -134,15 +140,15 @@ export const columns = [
         status === "PAID"
           ? "Đã thanh toán"
           : status === "UNPAID"
-          ? "Chưa thanh toán"
-          : status;
+            ? "Chưa thanh toán"
+            : status;
 
       const statusClass =
         status === "PAID"
           ? "text-green-400"
           : status === "UNPAID"
-          ? "text-gray-400"
-          : status;
+            ? "text-gray-400"
+            : status;
       return (
         <div className={`capitalize font-bold font-mainText3 ${statusClass} `}>
           {statusText}
@@ -236,9 +242,9 @@ export function DataTableOrder({ res }) {
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                     </TableHead>
                   );
                 })}
