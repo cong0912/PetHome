@@ -28,7 +28,7 @@ function ProductDetail() {
       addToCart(id);
     }
     toast.success(`${product.name} đã thêm vào giỏ hàng`, {
-      autoClose: 100
+      autoClose: 100,
     });
   };
 
@@ -55,17 +55,24 @@ function ProductDetail() {
           <h1 className="info-name mb-7">{product.name}</h1>
           <p className="info-price">{product.price} đ</p>
           <p className="info-availability">
-            <span className="font-bold text-black">Availability:</span>{" "}
-            <span className="text-[#77a464]">còn {product.quantity} sản phẩm</span>{" "}
+            <span className="font-bold text-black">khả dụng:</span>{" "}
+            <span className="text-[#77a464]">
+              còn {product.quantity} sản phẩm
+            </span>{" "}
           </p>
 
           <div className="flex gap-10">
             <div>
-              <TextField type="number" value={quantity} onChange={handleQuantityChange} className="quantity-section" />
+              <TextField
+                type="number"
+                value={quantity}
+                onChange={handleQuantityChange}
+                className="quantity-section"
+              />
             </div>
 
             <button onClick={handleAddToCart} className="add-to-cart-btn">
-              Add to Cart
+              Thêm vào giỏ hàng
             </button>
           </div>
         </div>
@@ -73,13 +80,15 @@ function ProductDetail() {
       </div>
       <div className="w-100% flex">
         <div className="product-des">
-          <p className="text-[#273172] font-bold text-xl mb-5">MÔ TẢ SẢN PHẨM</p>
+          <p className="text-[#273172] font-bold text-xl mb-5">
+            MÔ TẢ SẢN PHẨM
+          </p>
           {product.des}
         </div>
       </div>
     </div>
   ) : (
-    <div>Product not found</div>
+    <div>Sản phẩm không có</div>
   );
 }
 

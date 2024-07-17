@@ -70,7 +70,7 @@ const OrderHistoryService = () => {
   const columns = [
     {
       field: "bookingid",
-      headerName: "BookingID",
+      headerName: "ID đặt chổ",
       width: 250,
       renderCell: (params) => {
         return (
@@ -80,7 +80,7 @@ const OrderHistoryService = () => {
     },
     {
       field: "name",
-      headerName: "Pet name",
+      headerName: "Tên thú cưng",
       width: 120,
       renderCell: (params) => {
         return <div className={styles["id"]}>{params.row.petName}</div>;
@@ -89,7 +89,7 @@ const OrderHistoryService = () => {
 
     {
       field: "nameservice",
-      headerName: "Service name",
+      headerName: "Tên dịch vụ",
       width: 400,
       renderCell: (params) => {
         return (
@@ -101,17 +101,45 @@ const OrderHistoryService = () => {
     },
     {
       field: "status",
-      headerName: "Status",
+      headerName: "Trạng thái",
       width: 200,
       renderCell: (params) => {
+        const statusText =
+          params.row.serviceRecord.status === "Processing"
+            ? "Đang xử lí"
+            : params.row.serviceRecord.status === "Processed"
+            ? "Đã xử lý"
+            : params.row.serviceRecord.status === "Cancelled"
+            ? "Đã hủy"
+            : params.row.serviceRecord.status === "Completed"
+            ? "Hoàn thành"
+            : params.row.serviceRecord.status === "In Progress"
+            ? "Đang tiến hành"
+            : params.row.serviceRecord.status;
+        const statusClass =
+          params.row.serviceRecord.status === "Processing"
+            ? "text-yellow-400 "
+            : params.row.serviceRecord.status === "Processed"
+            ? "text-cyan-400"
+            : params.row.serviceRecord.status === "Cancelled"
+            ? "text-red-500"
+            : params.row.serviceRecord.status === "Completed"
+            ? "text-green-500"
+            : params.row.serviceRecord.status === "In Progress"
+            ? "text-violet-500"
+            : "";
         return (
-          <div className="font-bold">{params.row.serviceRecord.status}</div>
+          <div
+            className={`capitalize font-bold font-mainText3 ${statusClass} `}
+          >
+            {statusText}
+          </div>
         );
       },
     },
     {
       field: "",
-      headerName: "Action",
+      headerName: "Hành động",
       width: 80,
       renderCell: (params) => {
         return (

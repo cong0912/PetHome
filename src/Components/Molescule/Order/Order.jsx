@@ -92,7 +92,9 @@ const Order = () => {
     // Lấy tỉnh thành
     const getProvinces = async () => {
       try {
-        const response = await axios.get("https://esgoo.net/api-tinhthanh/1/0.htm");
+        const response = await axios.get(
+          "https://esgoo.net/api-tinhthanh/1/0.htm"
+        );
         setProvinces(response.data.data);
       } catch (error) {
         console.error(error);
@@ -113,7 +115,9 @@ const Order = () => {
     // Lấy quận huyện
     if (dis) {
       try {
-        const response = await axios.get(`https://esgoo.net/api-tinhthanh/2/${dis.id}.htm`);
+        const response = await axios.get(
+          `https://esgoo.net/api-tinhthanh/2/${dis.id}.htm`
+        );
         setDistricts(response.data.data);
       } catch (error) {
         console.error(error);
@@ -165,14 +169,19 @@ const Order = () => {
     };
 
     try {
-      const response = await MyAxios.post("http://localhost:5000/api/v1/orders", dataToSend);
+      const response = await MyAxios.post(
+        "http://localhost:5000/api/v1/orders",
+        dataToSend
+      );
 
       if (response.status === "success") {
         localStorage.removeItem("shopCart");
         setcartItem([]);
         navigate("/order-success");
       } else {
-        toast.error(`Đặt hàng thất bại: ${response.message || "Unknown error"}`);
+        toast.error(
+          `Đặt hàng thất bại: ${response.message || "Unknown error"}`
+        );
       }
     } catch (error) {
       console.error("Lỗi khi gửi dữ liệu", error);
@@ -223,9 +232,14 @@ const Order = () => {
             <div className={styles["address-info"]}>
               <div className={styles["provice-info"]}>
                 <p className={styles["text"]}>Tỉnh/Thành phố</p>
-                <select id="province" className={styles["select"]} onChange={handleProvinceChange} value={address.city}>
+                <select
+                  id="province"
+                  className={styles["select"]}
+                  onChange={handleProvinceChange}
+                  value={address.city}
+                >
                   <option disabled value="">
-                    Select Provinces ...
+                    Chọn tỉnh...
                   </option>
                   {provinces.map((province) => {
                     return (
@@ -247,7 +261,7 @@ const Order = () => {
                   disabled={!address.city}
                 >
                   <option disabled value="">
-                    Select Dictricts ...
+                    Chọn Quận ...
                   </option>
                   {districts.map((district) => {
                     return (
@@ -271,7 +285,9 @@ const Order = () => {
               />
             </div>
             <div className={styles["payment"]}>
-              <div className={styles["payment-title"]}>Phương thức thanh toán</div>
+              <div className={styles["payment-title"]}>
+                Phương thức thanh toán
+              </div>
               <ul>
                 <li>
                   <input

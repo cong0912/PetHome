@@ -139,7 +139,7 @@ function Navbar() {
         </li>
       </ul>
       <div className="navbar-booking">
-        <p>ONLINE BOOKING</p>
+        <p>ĐẶT PHÒNG TRỰC TUYẾN</p>
         <SendIcon />
       </div>
     </div>
