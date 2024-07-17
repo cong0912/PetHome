@@ -11,13 +11,6 @@ function ProductCard({
   onClick,
   price,
 }) {
-  const statusText =
-    status === "In stock"
-      ? "Khả dụng"
-      : status === "out of stock"
-      ? "Hết hàng"
-      : "";
-
   return (
     <div className={`product-card-container ${className}`} onClick={onClick}>
       <div className="product-card-detail">
@@ -25,7 +18,7 @@ function ProductCard({
           <img src={img} alt="Product" />
         </div>
         <div className="product-card-current">
-          <Text className="product-card-current-text" content={statusText} />
+          <Text className="product-card-current-text" content={status} />
         </div>
         <div>
           <Text className="product-card-whichpet" content={forType} />

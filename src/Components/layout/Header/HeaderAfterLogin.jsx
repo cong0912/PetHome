@@ -153,11 +153,11 @@ function HeaderAfterLogin() {
                 <MenuItem onClick={() => navigate("/pet-info")}>
                   Danh sách thú cưng
                 </MenuItem>
-                <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
+                <MenuItem onClick={handleLogout}>Log Out</MenuItem>
               </Menu>
             </>
           ) : (
-            <button onClick={() => navigate("/login")}>Đăng nhập</button>
+            <button onClick={() => navigate("/login")}>Login</button>
           )}
         </Toolbar>
       </AppBar>
