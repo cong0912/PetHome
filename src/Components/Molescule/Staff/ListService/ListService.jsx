@@ -2,7 +2,12 @@ import { DataGrid } from "@mui/x-data-grid";
 import styles from "./ListService.module.scss";
 import MyAxios from "setup/configAxios";
 import { useEffect, useRef, useState } from "react";
-import { Modal, ModalBody, ModalFooter, ModalHeader } from "Components/Atom/Modal/Modal";
+import {
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+} from "Components/Atom/Modal/Modal";
 import { toast } from "react-toastify";
 import Moreicon from "Components/Atom/MoreIcon/MoreIcon";
 const ListService = () => {
@@ -51,7 +56,9 @@ const ListService = () => {
   const handleEditShow = async (id) => {
     setSelectedProductId(id);
     try {
-      const response = await MyAxios.get(`http://localhost:5000/api/v1/products/${id}`);
+      const response = await MyAxios.get(
+        `http://localhost:5000/api/v1/products/${id}`
+      );
       const { name, des, price, quantity } = response.data;
       setProductDetails({
         name,
@@ -106,14 +113,18 @@ const ListService = () => {
   };
   useEffect(() => {
     //goi api
-    MyAxios.get(`http://localhost:5000/api/v1/products?type=service&name=spa&species=both`).then((res) => {
+    MyAxios.get(
+      `http://localhost:5000/api/v1/products?type=service&name=spa&species=both`
+    ).then((res) => {
       setRows(res.data);
     });
   }, []);
   console.log(rows);
   const handleDelete = async () => {
     try {
-      await MyAxios.post(`http://localhost:5000/api/v1/products/disable`, { productId: selectedProductId });
+      await MyAxios.post(`http://localhost:5000/api/v1/products/disable`, {
+        productId: selectedProductId,
+      });
       toast.success(` Đã xóa dịch vụ thành công `, {});
       const updatedProductList = await MyAxios.get(
         `http://localhost:5000/api/v1/products?type=service&name=spa&species=both`
@@ -128,7 +139,9 @@ const ListService = () => {
 
   const handleUnDelete = async (productId) => {
     try {
-      await MyAxios.post(`http://localhost:5000/api/v1/products/unDisable`, { productId });
+      await MyAxios.post(`http://localhost:5000/api/v1/products/unDisable`, {
+        productId,
+      });
       toast.success(` Đã hủy xóa dịch vụ `, {});
       const updatedProductList = await MyAxios.get(
         `http://localhost:5000/api/v1/products?type=service&name=spa&species=both`
@@ -186,12 +199,30 @@ const ListService = () => {
       headerName: "Trạng thái",
       width: 100,
       renderCell: (params) => {
-        return <div className={styles["status"]}>{params.row.status}</div>;
+        const statusText =
+          params.row.status === "In stock"
+            ? "khả dụng"
+            : params.row.status === "out of stock"
+            ? "Hết hàng"
+            : params.row.status;
+        const statusClass =
+          params.row.status === "In stock"
+            ? "text-green-400"
+            : params.row.status === "out of stock"
+            ? "text-gray-400"
+            : "";
+        return (
+          <div
+            className={`capitalize font-bold font-mainText3 ${statusClass} `}
+          >
+            {statusText}
+          </div>
+        );
       },
     },
     {
       field: "",
-      headerName: "Action",
+      headerName: "Hành động",
       width: 80,
       renderCell: (params) => {
         return (
@@ -216,7 +247,10 @@ const ListService = () => {
     }
 
     try {
-      const response = await MyAxios.post("http://localhost:5000/api/v1/products/addService", data);
+      const response = await MyAxios.post(
+        "http://localhost:5000/api/v1/products/addService",
+        data
+      );
       toast.success(` Đã thêm dịch vụ `, {});
       console.log(response.data);
       setAddShow(false);
@@ -283,7 +317,13 @@ const ListService = () => {
                   <label htmlFor="price">
                     Giá <span className={styles["required"]}>*</span>
                   </label>
-                  <input type="text" id="price" name="price" value={formData.price} onChange={handleInputChange} />
+                  <input
+                    type="text"
+                    id="price"
+                    name="price"
+                    value={formData.price}
+                    onChange={handleInputChange}
+                  />
                 </div>
 
                 <div className={styles["form-group"]}>
@@ -313,10 +353,16 @@ const ListService = () => {
                     style={{ display: "none" }}
                   />
                   <div className={styles["file"]}>
-                    <button type="button" onClick={handleFileUpload} className={styles["btn-file"]}>
+                    <button
+                      type="button"
+                      onClick={handleFileUpload}
+                      className={styles["btn-file"]}
+                    >
                       Chọn file ảnh
                     </button>
-                    {file && <span className={styles["file-text"]}>{file.name}</span>}
+                    {file && (
+                      <span className={styles["file-text"]}>{file.name}</span>
+                    )}
                   </div>
                 </div>
                 <div className={styles["submit"]}>
@@ -343,7 +389,10 @@ const ListService = () => {
         <div className={styles["add-modal-frame"]}>
           <div className={styles["add-modal-container"]}>
             <ModalBody>
-              <form className={styles["contact-form"]} onSubmit={handleUpdateProduct}>
+              <form
+                className={styles["contact-form"]}
+                onSubmit={handleUpdateProduct}
+              >
                 <div className={styles["form-group"]}>
                   <label htmlFor="name">
                     Tên <span className={styles["required"]}>*</span>
@@ -353,7 +402,12 @@ const ListService = () => {
                     id="name"
                     name="name"
                     value={productDetails.name}
-                    onChange={(e) => setProductDetails({ ...productDetails, name: e.target.value })}
+                    onChange={(e) =>
+                      setProductDetails({
+                        ...productDetails,
+                        name: e.target.value,
+                      })
+                    }
                     required
                   />
                 </div>
@@ -366,7 +420,12 @@ const ListService = () => {
                     id="price"
                     name="price"
                     value={productDetails.price}
-                    onChange={(e) => setProductDetails({ ...productDetails, price: e.target.value })}
+                    onChange={(e) =>
+                      setProductDetails({
+                        ...productDetails,
+                        price: e.target.value,
+                      })
+                    }
                     required
                   />
                 </div>
@@ -379,7 +438,12 @@ const ListService = () => {
                     id="des"
                     name="des"
                     value={productDetails.des}
-                    onChange={(e) => setProductDetails({ ...productDetails, des: e.target.value })}
+                    onChange={(e) =>
+                      setProductDetails({
+                        ...productDetails,
+                        des: e.target.value,
+                      })
+                    }
                     required
                   />
                 </div>

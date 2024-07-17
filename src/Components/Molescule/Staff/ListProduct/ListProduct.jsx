@@ -2,7 +2,12 @@ import { DataGrid } from "@mui/x-data-grid";
 import styles from "./ListProduct.module.scss";
 import { useEffect, useRef, useState } from "react";
 import MyAxios from "setup/configAxios";
-import { Modal, ModalBody, ModalFooter, ModalHeader } from "Components/Atom/Modal/Modal";
+import {
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+} from "Components/Atom/Modal/Modal";
 import { toast } from "react-toastify";
 import Moreicon from "Components/Atom/MoreIcon/MoreIcon";
 const ListProduct = () => {
@@ -56,8 +61,11 @@ const ListProduct = () => {
   const handleEditShow = async (id) => {
     setSelectedProductId(id);
     try {
-      const response = await MyAxios.get(`http://localhost:5000/api/v1/products/${id}`);
-      const { name, des, price, quantity, nameCategory, species } = response.data;
+      const response = await MyAxios.get(
+        `http://localhost:5000/api/v1/products/${id}`
+      );
+      const { name, des, price, quantity, nameCategory, species } =
+        response.data;
       setProductDetails({
         name,
         des,
@@ -84,7 +92,8 @@ const ListProduct = () => {
     });
   };
   const handleUpdateProduct = async () => {
-    const { name, des, price, quantity, nameCategory, species } = productDetails;
+    const { name, des, price, quantity, nameCategory, species } =
+      productDetails;
     const updatedData = {
       name,
       des,
@@ -97,7 +106,9 @@ const ListProduct = () => {
     try {
       await MyAxios.put(`http://localhost:5000/api/v1/products`, updatedData);
       toast.success(`Đã cập nhật sản phẩm`, {});
-      const updatedProductList = await MyAxios.get(`http://localhost:5000/api/v1/products?type=product`);
+      const updatedProductList = await MyAxios.get(
+        `http://localhost:5000/api/v1/products?type=product`
+      );
       setRows(updatedProductList.data);
       setEditShow(false);
       setSelectedProductId(null);
@@ -115,9 +126,11 @@ const ListProduct = () => {
   };
   useEffect(() => {
     //goi api
-    MyAxios.get(`http://localhost:5000/api/v1/products?type=product`).then((res) => {
-      setRows(res.data);
-    });
+    MyAxios.get(`http://localhost:5000/api/v1/products?type=product`).then(
+      (res) => {
+        setRows(res.data);
+      }
+    );
   }, []);
   console.log(rows);
   const columns = [
@@ -167,12 +180,30 @@ const ListProduct = () => {
       headerName: "Trạng thái",
       width: 100,
       renderCell: (params) => {
-        return <div className={styles["status"]}>{params.row.status}</div>;
+        const statusText =
+          params.row.status === "In stock"
+            ? "khả dụng"
+            : params.row.status === "out of stock"
+            ? "Hết hàng"
+            : params.row.status;
+        const statusClass =
+          params.row.status === "In stock"
+            ? "text-green-400"
+            : params.row.status === "out of stock"
+            ? "text-gray-400"
+            : "";
+        return (
+          <div
+            className={`capitalize font-bold font-mainText3 ${statusClass} `}
+          >
+            {statusText}
+          </div>
+        );
       },
     },
     {
       field: "",
-      headerName: "Action",
+      headerName: "Hành động",
       width: 80,
       renderCell: (params) => {
         return (
@@ -201,7 +232,10 @@ const ListProduct = () => {
     }
 
     try {
-      const response = await MyAxios.post("http://localhost:5000/api/v1/products", data);
+      const response = await MyAxios.post(
+        "http://localhost:5000/api/v1/products",
+        data
+      );
       toast.success(` Đã thêm sản phẩm `, {});
       console.log(response.data);
       setAddShow(false);
@@ -214,7 +248,9 @@ const ListProduct = () => {
         nameCategory: "",
       });
       setFile(null);
-      const updatedProductList = await MyAxios.get(`http://localhost:5000/api/v1/products?type=product`);
+      const updatedProductList = await MyAxios.get(
+        `http://localhost:5000/api/v1/products?type=product`
+      );
       setRows(updatedProductList.data);
     } catch (error) {
       console.error("There was an error uploading the data!", error);
@@ -223,9 +259,13 @@ const ListProduct = () => {
 
   const handleDelete = async () => {
     try {
-      await MyAxios.post(`http://localhost:5000/api/v1/products/disable`, { productId: selectedProductId });
+      await MyAxios.post(`http://localhost:5000/api/v1/products/disable`, {
+        productId: selectedProductId,
+      });
       toast.success(` Đã xóa sản phẩm `, {});
-      const updatedProductList = await MyAxios.get(`http://localhost:5000/api/v1/products?type=product`);
+      const updatedProductList = await MyAxios.get(
+        `http://localhost:5000/api/v1/products?type=product`
+      );
       setRows(updatedProductList.data);
       setDeleteShow(false);
       setSelectedProductId(null);
@@ -236,9 +276,13 @@ const ListProduct = () => {
 
   const handleUnDelete = async (productId) => {
     try {
-      await MyAxios.post(`http://localhost:5000/api/v1/products/unDisable`, { productId });
+      await MyAxios.post(`http://localhost:5000/api/v1/products/unDisable`, {
+        productId,
+      });
       toast.success(` Đã hủy xóa sản phẩm `, {});
-      const updatedProductList = await MyAxios.get(`http://localhost:5000/api/v1/products?type=product`);
+      const updatedProductList = await MyAxios.get(
+        `http://localhost:5000/api/v1/products?type=product`
+      );
       setRows(updatedProductList.data);
       setSelectedProductId(null);
     } catch (error) {
@@ -294,7 +338,13 @@ const ListProduct = () => {
                   <label htmlFor="price">
                     Giá <span className={styles["required"]}>*</span>
                   </label>
-                  <input type="text" id="price" name="price" value={formData.price} onChange={handleInputChange} />
+                  <input
+                    type="text"
+                    id="price"
+                    name="price"
+                    value={formData.price}
+                    onChange={handleInputChange}
+                  />
                 </div>
                 <div className={styles["form-group"]}>
                   <label htmlFor="quantity">
@@ -311,7 +361,12 @@ const ListProduct = () => {
                 </div>
                 <div className={styles["form-group"]}>
                   <label htmlFor="species">Loài</label>
-                  <select name="species" id="species" value={formData.species} onChange={handleInputChange}>
+                  <select
+                    name="species"
+                    id="species"
+                    value={formData.species}
+                    onChange={handleInputChange}
+                  >
                     <option value="dog">Chó</option>
                     <option value="cat">Mèo</option>
                   </select>
@@ -355,10 +410,16 @@ const ListProduct = () => {
                     style={{ display: "none" }}
                   />
                   <div className={styles["file"]}>
-                    <button type="button" onClick={handleFileUpload} className={styles["btn-file"]}>
+                    <button
+                      type="button"
+                      onClick={handleFileUpload}
+                      className={styles["btn-file"]}
+                    >
                       Chọn file ảnh
                     </button>
-                    {file && <span className={styles["file-text"]}>{file.name}</span>}
+                    {file && (
+                      <span className={styles["file-text"]}>{file.name}</span>
+                    )}
                   </div>
                 </div>
                 <div className={styles["submit"]}>
@@ -386,7 +447,10 @@ const ListProduct = () => {
         <div className={styles["add-modal-frame"]}>
           <div className={styles["add-modal-container"]}>
             <ModalBody>
-              <form className={styles["contact-form"]} onSubmit={handleUpdateProduct}>
+              <form
+                className={styles["contact-form"]}
+                onSubmit={handleUpdateProduct}
+              >
                 <div className={styles["form-group"]}>
                   <label htmlFor="name">
                     Tên <span className={styles["required"]}>*</span>
@@ -396,7 +460,12 @@ const ListProduct = () => {
                     id="name"
                     name="name"
                     value={productDetails.name}
-                    onChange={(e) => setProductDetails({ ...productDetails, name: e.target.value })}
+                    onChange={(e) =>
+                      setProductDetails({
+                        ...productDetails,
+                        name: e.target.value,
+                      })
+                    }
                     required
                   />
                 </div>
@@ -409,7 +478,12 @@ const ListProduct = () => {
                     id="price"
                     name="price"
                     value={productDetails.price}
-                    onChange={(e) => setProductDetails({ ...productDetails, price: e.target.value })}
+                    onChange={(e) =>
+                      setProductDetails({
+                        ...productDetails,
+                        price: e.target.value,
+                      })
+                    }
                     required
                   />
                 </div>
@@ -422,7 +496,12 @@ const ListProduct = () => {
                     id="quantity"
                     name="quantity"
                     value={productDetails.quantity}
-                    onChange={(e) => setProductDetails({ ...productDetails, quantity: e.target.value })}
+                    onChange={(e) =>
+                      setProductDetails({
+                        ...productDetails,
+                        quantity: e.target.value,
+                      })
+                    }
                     required
                   />
                 </div>
@@ -432,7 +511,12 @@ const ListProduct = () => {
                     name="species"
                     id="species"
                     value={productDetails.species}
-                    onChange={(e) => setProductDetails({ ...productDetails, species: e.target.value })}
+                    onChange={(e) =>
+                      setProductDetails({
+                        ...productDetails,
+                        species: e.target.value,
+                      })
+                    }
                   >
                     <option value="dog">Chó</option>
                     <option value="cat">Mèo</option>
@@ -444,7 +528,12 @@ const ListProduct = () => {
                     name="nameCategory"
                     id="nameCategory"
                     value={productDetails.nameCategory}
-                    onChange={(e) => setProductDetails({ ...productDetails, nameCategory: e.target.value })}
+                    onChange={(e) =>
+                      setProductDetails({
+                        ...productDetails,
+                        nameCategory: e.target.value,
+                      })
+                    }
                   >
                     <option value="other">Khác</option>
                     <option value="food">Thức ăn</option>
@@ -459,7 +548,12 @@ const ListProduct = () => {
                     id="des"
                     name="des"
                     value={productDetails.des}
-                    onChange={(e) => setProductDetails({ ...productDetails, des: e.target.value })}
+                    onChange={(e) =>
+                      setProductDetails({
+                        ...productDetails,
+                        des: e.target.value,
+                      })
+                    }
                     required
                   />
                 </div>

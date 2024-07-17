@@ -69,7 +69,7 @@ const OrderHistory = () => {
   const columns = [
     {
       field: "_id",
-      headerName: "OrderID",
+      headerName: "ID đặt hàng",
       width: 120,
       renderCell: (params) => {
         return <div className={styles["id"]}>{params.row._id}</div>;
@@ -77,7 +77,7 @@ const OrderHistory = () => {
     },
     {
       field: "order_info",
-      headerName: "Order Info",
+      headerName: "Thông tin đặt hàng",
       width: 500,
       renderCell: (params) => {
         return (
@@ -93,7 +93,7 @@ const OrderHistory = () => {
     },
     {
       field: "orderdate",
-      headerName: "Date",
+      headerName: "Ngày",
       width: 120,
       renderCell: (params) => {
         return <div className={styles["date"]}>{params.row.dateOrder}</div>;
@@ -101,7 +101,7 @@ const OrderHistory = () => {
     },
     {
       field: "shipping",
-      headerName: "Shipping Address",
+      headerName: "Địa chỉ giao hàng",
       width: 500,
       renderCell: (params) => {
         return (
@@ -115,7 +115,7 @@ const OrderHistory = () => {
     },
     {
       field: "totalPrice",
-      headerName: "Total",
+      headerName: "Tổng",
       width: 120,
       renderCell: (params) => {
         return (
@@ -125,16 +125,45 @@ const OrderHistory = () => {
     },
     {
       field: "status",
-      headerName: "Order Status",
+      headerName: "Trạng thái",
       width: 100,
       renderCell: (params) => {
-        return <div className="font-bold">{params.row.status}</div>;
+        const statusText =
+          params.row.status === "Processing"
+            ? "Đang xử lí"
+            : params.row.status === "Processed"
+            ? "Đã xử lý"
+            : params.row.status === "Cancelled"
+            ? "Đã hủy"
+            : params.row.status === "Completed"
+            ? "Hoàn thành"
+            : params.row.status === "In Transit"
+            ? "Đang vận chuyển"
+            : params.row.status;
+        const statusClass =
+          params.row.status === "Processing"
+            ? "text-yellow-400"
+            : params.row.status === "In Transit"
+            ? "text-violet-400"
+            : params.row.status === "Completed"
+            ? "text-green-400"
+            : params.row.status === "Cancelled"
+            ? "text-red-400"
+            : "";
+        return (
+          <div
+            className={`capitalize font-bold font-mainText3 ${statusClass} `}
+          >
+            {statusText}
+          </div>
+        );
+        // return <div className="font-bold">{params.row.status}</div>;
       },
     },
 
     {
       field: "",
-      headerName: "Action",
+      headerName: "Hành động",
       width: 80,
       renderCell: (params) => {
         return (
