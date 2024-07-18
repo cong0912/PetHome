@@ -71,7 +71,18 @@ export const columns = [
   },
   {
     accessorKey: "timeStartService",
-    header: "Thời gian bắt đầu",
+    header: ({ column }) => {
+      return (
+        <div
+          className="flex cursor-pointer items-center justify-center"
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Thời gian bắt đầu
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </div>
+      );
+    },
     cell: ({ row }) => (
       <div className="capitalize  font-mainText3 ">
         {row.getValue("timeStartService")}
