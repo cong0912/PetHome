@@ -38,6 +38,7 @@ import AdminPage from "Components/Molescule/Admin/AdminPage";
 import AccountList from "Components/Molescule/Admin/components/AccountList/AccountList";
 import OrderHistoryService from "Components/Molescule/OrderHistoryService/OrderHistoryService";
 import OrderDetail from "Components/Molescule/OrderDetail/OrderDetail";
+import OrderDetailStaff from "Components/Molescule/Staff/DetailOrder/DetailOrder";
 const role = localStorage.getItem("userRole");
 const publicRoute = [
   { path: "/register", component: Register, layout: null },
@@ -115,7 +116,7 @@ if (role == "STAFF") {
   });
   publicRoute.push({
     path: "/staff/list-order/:id",
-    component: OrderDetail,
+    component: OrderDetailStaff,
     layout: StaffPage,
   });
   publicRoute.push({
