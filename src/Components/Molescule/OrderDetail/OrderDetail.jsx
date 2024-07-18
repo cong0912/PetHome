@@ -92,7 +92,6 @@ const OrderDetail = () => {
           <Typography variant="h6">Thanh toán</Typography>
           <Typography>Phương thức: {orderData.payment.paymentMethod}</Typography>
           <Typography>Trạng thái: {orderData.payment.status}</Typography>
-          <Typography>Ngày thanh toán: {new Date(orderData.payment.datePayment).toLocaleString()}</Typography>
         </CardContent>
       </Card>
     </div>

@@ -464,7 +464,7 @@ export const columns = [
     header: "ID đơn hàng",
     cell: ({ row }) => (
       <Link
-        to={`/order-detail/${row.getValue("idOrder")}`}
+        to={`/staff/list-order/${row.getValue("idOrder")}`}
 
       >
         <div className="capitalize font-mainText3">
