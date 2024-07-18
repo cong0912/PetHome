@@ -10,9 +10,8 @@ export const DataProvider = ({ children }) => {
   const fetchBookingData = async () => {
     try {
       const data = await getAllBookingService();
-      console.log("dt", data);
+
       const formattedData = data.map((order, index) => {
-        console.log("ra", order);
         return {
           id: index + 1,
           idBooking: order._id,
@@ -50,8 +49,10 @@ export const DataProvider = ({ children }) => {
         image: order.orderDetails.map((detail) => detail.product.image),
         statusPayment: order.payment.status,
         paymentMethod: order.payment.paymentMethod,
+        dateOrder: order.dateOrder,
       }));
       setOrder(data2);
+      console.log("dt", data2);
     } catch (error) {
       console.log("err", error);
     } finally {
