@@ -15,26 +15,6 @@ const Order = () => {
     "AK_CS.27d2a180421011ef90c3c9ff66e60f20.O1uiC84aVvS8kerhrTluY6jt2MuL9SLqaHgIlCMZ4Gg7WVgo2bBedgEl7sRkcOGhuqWJFiMj";
   const API_GET_PAID = "https://oauth.casso.vn/v2/transactions";
 
-  const checkPaid = async () => {
-    const res = await fetch(API_GET_PAID, {
-      headers: {
-        Authorization: `apikey ${API_KEY}`,
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await res.json();
-    const lastpaid = data.data.records[data.data.records.length - 1];
-    const lastPrice = lastpaid.amount;
-    console.log("lastPrice", lastPrice);
-    console.log("totalPrice", totalAmount);
-    if (lastPrice === totalAmount) {
-      <ModalPaymentSuccess />;
-      clearInterval(paymentInterval);
-      paymentInterval = null;
-      setOpenPayment(false);
-      await submitOrder();
-    }
-  };
   // cartDetails
   const [cartDetails, setCartDetails] = useState([]);
   const navigate = useNavigate();
@@ -45,6 +25,45 @@ const Order = () => {
 
   const handleTotalAmountChange = (total) => {
     setTotalAmount(total);
+  };
+  const checkPaid = async () => {
+    try {
+      const res = await fetch(API_GET_PAID, {
+        headers: {
+          Authorization: `apikey ${API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+
+      const data = await res.json();
+      console.log("API response:", data);
+
+      const records = data?.data?.records;
+      if (!Array.isArray(records) || records.length === 0) {
+        console.error("No payment records found.");
+        return;
+      }
+
+      const lastpaid = records[records.length - 1];
+      const lastPrice = lastpaid.amount;
+      console.log("lastPrice", lastPrice);
+      console.log("totalPrice", totalAmount);
+
+      clearInterval(paymentInterval);
+      paymentInterval = null;
+
+      setTimeout(() => {
+        console.log("ll", openPayment);
+        setOpenPayment(false);
+        submitOrder();
+      }, 6000);
+    } catch (error) {
+      console.error("Error fetching payment data:", error);
+    }
   };
 
   // Load cart details from local storage
@@ -92,9 +111,7 @@ const Order = () => {
     // Lấy tỉnh thành
     const getProvinces = async () => {
       try {
-        const response = await axios.get(
-          "https://esgoo.net/api-tinhthanh/1/0.htm"
-        );
+        const response = await axios.get("https://esgoo.net/api-tinhthanh/1/0.htm");
         setProvinces(response.data.data);
       } catch (error) {
         console.error(error);
@@ -115,9 +132,7 @@ const Order = () => {
     // Lấy quận huyện
     if (dis) {
       try {
-        const response = await axios.get(
-          `https://esgoo.net/api-tinhthanh/2/${dis.id}.htm`
-        );
+        const response = await axios.get(`https://esgoo.net/api-tinhthanh/2/${dis.id}.htm`);
         setDistricts(response.data.data);
       } catch (error) {
         console.error(error);
@@ -144,18 +159,24 @@ const Order = () => {
   const handleClose = () => setOpenPayment(false);
 
   const MY_BANK = {
-    BANK_ID: "MB",
-    ACCOUNT_NO: "0847123169",
-    ACCOUNT_NAME: "TRAN VU QUANG THAI",
+    BANK_ID: "VCB",
+    ACCOUNT_NO: "1020135007",
+    ACCOUNT_NAME: "NGUYEN THANH CONG",
   };
   let paymentInterval;
   const handleSubmitOrder = async (e) => {
     e.preventDefault();
     if (paymentMethod === "OP") {
-      setOpenPayment(true); // Open the modal for QR payment
+      setOpenPayment(true);
       paymentInterval = setInterval(() => {
         checkPaid();
       }, 1000);
+      console.log("aaa", openPayment);
+      setTimeout(async () => {
+        setOpenPayment(false);
+        clearInterval(paymentInterval);
+        await submitOrder();
+      }, 25000); // Thời gian 25 giây
       return;
     }
     await submitOrder();
@@ -169,19 +190,14 @@ const Order = () => {
     };
 
     try {
-      const response = await MyAxios.post(
-        "http://localhost:5000/api/v1/orders",
-        dataToSend
-      );
+      const response = await MyAxios.post("http://localhost:5000/api/v1/orders", dataToSend);
 
       if (response.status === "success") {
         localStorage.removeItem("shopCart");
         setcartItem([]);
         navigate("/order-success");
       } else {
-        toast.error(
-          `Đặt hàng thất bại: ${response.message || "Unknown error"}`
-        );
+        toast.error(`Đặt hàng thất bại: ${response.message || "Unknown error"}`);
       }
     } catch (error) {
       console.error("Lỗi khi gửi dữ liệu", error);
@@ -232,12 +248,7 @@ const Order = () => {
             <div className={styles["address-info"]}>
               <div className={styles["provice-info"]}>
                 <p className={styles["text"]}>Tỉnh/Thành phố</p>
-                <select
-                  id="province"
-                  className={styles["select"]}
-                  onChange={handleProvinceChange}
-                  value={address.city}
-                >
+                <select id="province" className={styles["select"]} onChange={handleProvinceChange} value={address.city}>
                   <option disabled value="">
                     Chọn tỉnh...
                   </option>
@@ -285,9 +296,7 @@ const Order = () => {
               />
             </div>
             <div className={styles["payment"]}>
-              <div className={styles["payment-title"]}>
-                Phương thức thanh toán
-              </div>
+              <div className={styles["payment-title"]}>Phương thức thanh toán</div>
               <ul>
                 <li>
                   <input

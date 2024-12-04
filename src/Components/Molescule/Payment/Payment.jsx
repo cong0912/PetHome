@@ -3,6 +3,8 @@ import { Modal, Box, Typography, Stack, LinearProgress } from "@mui/material";
 
 const PaymentModal = ({ open, handleClose, bankDetails, totalPayment }) => {
   const { BANK_ID, ACCOUNT_NO, ACCOUNT_NAME } = bankDetails;
+  console.log("Bank Details:", bankDetails);
+  console.log("Total Payment:", totalPayment);
   const QR = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-compact2.jpg?amount=${totalPayment}&addInfo=<Thanh toán Pet Home>&accountName=<Pet Home>`;
   return (
     <Modal open={open} onClose={handleClose}>
