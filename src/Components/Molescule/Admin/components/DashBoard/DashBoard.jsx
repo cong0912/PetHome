@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import MyAxios from "../../../../../setup/configAxios";
-import { Button, Card, CardContent, Typography, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Button, Card, CardContent, Typography, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
 const Dashboard = () => {
-  const [timeRange, setTimeRange] = useState('day');
+  const [timeRange, setTimeRange] = useState("day");
   const [year, setYear] = useState(new Date().getFullYear());
   const [data, setData] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
@@ -17,8 +17,12 @@ const Dashboard = () => {
 
   function getWeekRange() {
     const currentDate = new Date();
-    const firstDay = new Date(currentDate.setDate(currentDate.getDate() - currentDate.getDay() + 1)).toISOString().split('T')[0];
-    const lastDay = new Date(currentDate.setDate(currentDate.getDate() - currentDate.getDay() + 7)).toISOString().split('T')[0];
+    const firstDay = new Date(currentDate.setDate(currentDate.getDate() - currentDate.getDay() + 1))
+      .toISOString()
+      .split("T")[0];
+    const lastDay = new Date(currentDate.setDate(currentDate.getDate() - currentDate.getDay() + 7))
+      .toISOString()
+      .split("T")[0];
     return { firstDay, lastDay };
   }
 
@@ -35,8 +39,8 @@ const Dashboard = () => {
         currentWeekEnd = lastDate;
       }
       weeks.push({
-        firstDay: currentWeekStart.toISOString().split('T')[0],
-        lastDay: currentWeekEnd.toISOString().split('T')[0]
+        firstDay: currentWeekStart.toISOString().split("T")[0],
+        lastDay: currentWeekEnd.toISOString().split("T")[0],
       });
       currentWeekStart.setDate(currentWeekStart.getDate() + 7);
     }
@@ -47,16 +51,16 @@ const Dashboard = () => {
     let startTime, endTime;
 
     switch (range) {
-      case 'day':
+      case "day":
         startTime = weekRange.firstDay;
         endTime = weekRange.lastDay;
         break;
-      case 'month':
-        startTime = '';
-        endTime = '';
+      case "month":
+        startTime = "";
+        endTime = "";
         break;
       default:
-        startTime = endTime = '';
+        startTime = endTime = "";
     }
 
     return { startTime, endTime };
@@ -67,21 +71,25 @@ const Dashboard = () => {
       const { startTime, endTime } = getStartEndTime(timeRange);
       let response;
       try {
-        if (timeRange === 'day') {
-          response = await MyAxios.get(`http://localhost:5000/api/v1/dashboard/daily?startTime=${startTime}&endTime=${endTime}&year=${year}`);
-          setData(response.data.map(item => ({
-            date: new Date(item.date).toLocaleDateString('en-US'),
-            revenue: item.total
-          })));
-        } else if (timeRange === 'month') {
-          response = await MyAxios.get(`http://localhost:5000/api/v1/dashboard/month?year=${year}`);
-          setData(response.data.map(item => ({
-            date: item.month,
-            revenue: item.total
-          })));
+        if (timeRange === "day") {
+          response = await MyAxios.get(`api/v1/dashboard/daily?startTime=${startTime}&endTime=${endTime}&year=${year}`);
+          setData(
+            response.data.map((item) => ({
+              date: new Date(item.date).toLocaleDateString("en-US"),
+              revenue: item.total,
+            }))
+          );
+        } else if (timeRange === "month") {
+          response = await MyAxios.get(`api/v1/dashboard/month?year=${year}`);
+          setData(
+            response.data.map((item) => ({
+              date: item.month,
+              revenue: item.total,
+            }))
+          );
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
     fetchData();
@@ -93,8 +101,18 @@ const Dashboard = () => {
   }, [selectedMonth, year]);
 
   const months = [
-    'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
-    'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
+    "Tháng 1",
+    "Tháng 2",
+    "Tháng 3",
+    "Tháng 4",
+    "Tháng 5",
+    "Tháng 6",
+    "Tháng 7",
+    "Tháng 8",
+    "Tháng 9",
+    "Tháng 10",
+    "Tháng 11",
+    "Tháng 12",
   ];
 
   return (
@@ -103,15 +121,11 @@ const Dashboard = () => {
         <h1 className="text-3xl font-semibold mb-4">Doanh thu của PetHome</h1>
 
         <div className="flex justify-end mb-4 space-x-2 items-center">
-          {timeRange === 'day' && (
+          {timeRange === "day" && (
             <>
               <FormControl variant="outlined" size="small" className="min-w-[150px]">
                 <InputLabel>Tháng</InputLabel>
-                <Select
-                  value={selectedMonth}
-                  onChange={(e) => setSelectedMonth(e.target.value)}
-                  label="Tháng"
-                >
+                <Select value={selectedMonth} onChange={(e) => setSelectedMonth(e.target.value)} label="Tháng">
                   {months.map((month, index) => (
                     <MenuItem key={index} value={index}>
                       {month}
@@ -123,7 +137,7 @@ const Dashboard = () => {
                 <InputLabel>Tuần</InputLabel>
                 <Select
                   value={weekOptions.findIndex(
-                    week => week.firstDay === weekRange.firstDay && week.lastDay === weekRange.lastDay
+                    (week) => week.firstDay === weekRange.firstDay && week.lastDay === weekRange.lastDay
                   )}
                   onChange={(e) => setWeekRange(weekOptions[e.target.value])}
                   label="Tuần"
@@ -138,17 +152,17 @@ const Dashboard = () => {
             </>
           )}
           <Button
-            variant={timeRange === 'day' ? 'contained' : 'outlined'}
+            variant={timeRange === "day" ? "contained" : "outlined"}
             color="primary"
-            onClick={() => handleTimeRangeChange('day')}
+            onClick={() => handleTimeRangeChange("day")}
           >
             Theo tuần
           </Button>
 
           <Button
-            variant={timeRange === 'month' ? 'contained' : 'outlined'}
+            variant={timeRange === "month" ? "contained" : "outlined"}
             color="primary"
-            onClick={() => handleTimeRangeChange('month')}
+            onClick={() => handleTimeRangeChange("month")}
           >
             Theo năm
           </Button>

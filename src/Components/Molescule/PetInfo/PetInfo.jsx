@@ -21,7 +21,7 @@ const Petinfo = () => {
   const fileInputRef = useRef(null);
   useEffect(() => {
     const userId = localStorage.getItem("userId");
-    MyAxios.get(`http://localhost:5000/api/v1/pet?userId=${userId}`)
+    MyAxios.get(`api/v1/pet?userId=${userId}`)
       .then((response) => {
         setPetList(response.data);
         setLoading(false);
@@ -72,7 +72,7 @@ const Petinfo = () => {
     }
 
     try {
-      const response = await MyAxios.post("http://localhost:5000/api/v1/pet", data);
+      const response = await MyAxios.post("api/v1/pet", data);
       toast.success(` Đã thêm thú cưng vào danh sách `, {});
       console.log(response.data);
       setAddShow(false);
@@ -85,7 +85,7 @@ const Petinfo = () => {
         weight: "",
       });
       setFile(null);
-      const updatedPetList = await MyAxios.get(`http://localhost:5000/api/v1/pet?userId=${userId}`);
+      const updatedPetList = await MyAxios.get(`api/v1/pet?userId=${userId}`);
       setPetList(updatedPetList.data);
     } catch (error) {
       console.error("There was an error uploading the data!", error);

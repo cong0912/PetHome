@@ -70,7 +70,7 @@ const LoginForm = () => {
   // Post API
   const loginUser = async (email, password) => {
     try {
-      const response = await MyAxios.post("http://localhost:5000/api/v1/auth/login", {
+      const response = await MyAxios.post("api/v1/auth/login", {
         email,
         password,
       });

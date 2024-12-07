@@ -8,12 +8,7 @@ import MoreiconHisoty from "./components/moreicoin";
 import { Input } from "Components/ui/input";
 import { toast } from "react-toastify";
 
-import {
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-} from "Components/Atom/Modal/Modal";
+import { Modal, ModalBody, ModalFooter, ModalHeader } from "Components/Atom/Modal/Modal";
 import { Link } from "react-router-dom";
 const OrderHistory = () => {
   const [rows, setRows] = useState([]);
@@ -34,9 +29,7 @@ const OrderHistory = () => {
   useEffect(() => {
     const userId = localStorage.getItem("userId");
     //goi api
-    MyAxios.get(
-      `http://localhost:5000/api/v1/orders/history?userId=${userId}`
-    ).then((res) => {
+    MyAxios.get(`api/v1/orders/history?userId=${userId}`).then((res) => {
       setRows(res.data);
     });
   }, [render]);
@@ -44,13 +37,10 @@ const OrderHistory = () => {
 
   const handleDelete = async () => {
     try {
-      const data = await MyAxios.post(
-        `http://localhost:5000/api/v1/orders/cancel`,
-        {
-          orderId: selectedProductId,
-          reason: reason,
-        }
-      );
+      const data = await MyAxios.post(`api/v1/orders/cancel`, {
+        orderId: selectedProductId,
+        reason: reason,
+      });
       if (data.status === "error") {
         toast.error(`Error: ${data.message}`, {
           position: "top-left",
@@ -73,9 +63,11 @@ const OrderHistory = () => {
       headerName: "ID đặt hàng",
       width: 120,
       renderCell: (params) => {
-        return <Link to={`/order-detail/${params.row._id}`}>
-          <div className={styles["id"]}>{params.row._id}</div>
-        </Link>;
+        return (
+          <Link to={`/order-detail/${params.row._id}`}>
+            <div className={styles["id"]}>{params.row._id}</div>
+          </Link>
+        );
       },
     },
     {
@@ -121,9 +113,7 @@ const OrderHistory = () => {
       headerName: "Tổng",
       width: 120,
       renderCell: (params) => {
-        return (
-          <div className={styles["total-price"]}>{params.row.totalPrice}</div>
-        );
+        return <div className={styles["total-price"]}>{params.row.totalPrice}</div>;
       },
     },
     {
@@ -135,31 +125,25 @@ const OrderHistory = () => {
           params.row.status === "Processing"
             ? "Đang xử lí"
             : params.row.status === "Processed"
-              ? "Đã xử lý"
-              : params.row.status === "Cancelled"
-                ? "Đã hủy"
-                : params.row.status === "Completed"
-                  ? "Hoàn thành"
-                  : params.row.status === "In Transit"
-                    ? "Đang vận chuyển"
-                    : params.row.status;
+            ? "Đã xử lý"
+            : params.row.status === "Cancelled"
+            ? "Đã hủy"
+            : params.row.status === "Completed"
+            ? "Hoàn thành"
+            : params.row.status === "In Transit"
+            ? "Đang vận chuyển"
+            : params.row.status;
         const statusClass =
           params.row.status === "Processing"
             ? "text-yellow-400"
             : params.row.status === "In Transit"
-              ? "text-violet-400"
-              : params.row.status === "Completed"
-                ? "text-green-400"
-                : params.row.status === "Cancelled"
-                  ? "text-red-400"
-                  : "";
-        return (
-          <div
-            className={`capitalize font-bold font-mainText3 ${statusClass} `}
-          >
-            {statusText}
-          </div>
-        );
+            ? "text-violet-400"
+            : params.row.status === "Completed"
+            ? "text-green-400"
+            : params.row.status === "Cancelled"
+            ? "text-red-400"
+            : "";
+        return <div className={`capitalize font-bold font-mainText3 ${statusClass} `}>{statusText}</div>;
       },
     },
 
@@ -171,9 +155,7 @@ const OrderHistory = () => {
         return (
           <>
             {params.row.status === "Processing" ? (
-              <MoreiconHisoty
-                handleDelete={() => handleDeleteShow(params.row._id)}
-              />
+              <MoreiconHisoty handleDelete={() => handleDeleteShow(params.row._id)} />
             ) : (
               ""
             )}
@@ -204,11 +186,7 @@ const OrderHistory = () => {
           </motion.h1>
         </div>
         <div>
-          <img
-            src={petCover}
-            alt="Pet Cover"
-            className="w-[50vw] hidden md:block"
-          />
+          <img src={petCover} alt="Pet Cover" className="w-[50vw] hidden md:block" />
         </div>
       </div>
       <div className={styles["data"]}>
@@ -241,17 +219,11 @@ const OrderHistory = () => {
           />
           <ModalFooter>
             <div className="flex justify-end items-center">
-              <button
-                className="bg-slate-700 p-2 text-white rounded-sm m-1"
-                onClick={handleDelete}
-              >
+              <button className="bg-slate-700 p-2 text-white rounded-sm m-1" onClick={handleDelete}>
                 xác nhận
               </button>
 
-              <button
-                className="bg-red-700 p-2 text-white rounded-sm m-1"
-                onClick={handleDeleteClose}
-              >
+              <button className="bg-red-700 p-2 text-white rounded-sm m-1" onClick={handleDeleteClose}>
                 Hủy
               </button>
             </div>

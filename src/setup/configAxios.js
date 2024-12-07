@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Set config defaults when creating the instance
 const instance = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://pethome.onrender.com",
 });
 instance.defaults.withCredentials = true;
 // Alter defaults after instance has been created

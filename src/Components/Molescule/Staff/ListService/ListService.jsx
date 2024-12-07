@@ -2,12 +2,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import styles from "./ListService.module.scss";
 import MyAxios from "setup/configAxios";
 import { useEffect, useRef, useState } from "react";
-import {
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-} from "Components/Atom/Modal/Modal";
+import { Modal, ModalBody, ModalFooter, ModalHeader } from "Components/Atom/Modal/Modal";
 import { toast } from "react-toastify";
 import Moreicon from "Components/Atom/MoreIcon/MoreIcon";
 const ListService = () => {
@@ -56,9 +51,7 @@ const ListService = () => {
   const handleEditShow = async (id) => {
     setSelectedProductId(id);
     try {
-      const response = await MyAxios.get(
-        `http://localhost:5000/api/v1/products/${id}`
-      );
+      const response = await MyAxios.get(`api/v1/products/${id}`);
       const { name, des, price, quantity } = response.data;
       setProductDetails({
         name,
@@ -91,11 +84,9 @@ const ListService = () => {
       productId: selectedProductId,
     };
     try {
-      await MyAxios.put(`http://localhost:5000/api/v1/products`, updatedData);
+      await MyAxios.put(`api/v1/products`, updatedData);
       toast.success(`Đã cập nhật sản phẩm`, {});
-      const updatedProductList = await MyAxios.get(
-        `http://localhost:5000/api/v1/products?type=service&name=spa&species=both`
-      );
+      const updatedProductList = await MyAxios.get(`api/v1/products?type=service&name=spa&species=both`);
       setRows(updatedProductList.data);
       setEditShow(false);
       setSelectedProductId(null);
@@ -113,22 +104,18 @@ const ListService = () => {
   };
   useEffect(() => {
     //goi api
-    MyAxios.get(
-      `http://localhost:5000/api/v1/products?type=service&name=spa&species=both`
-    ).then((res) => {
+    MyAxios.get(`api/v1/products?type=service&name=spa&species=both`).then((res) => {
       setRows(res.data);
     });
   }, []);
   console.log(rows);
   const handleDelete = async () => {
     try {
-      await MyAxios.post(`http://localhost:5000/api/v1/products/disable`, {
+      await MyAxios.post(`api/v1/products/disable`, {
         productId: selectedProductId,
       });
       toast.success(` Đã xóa dịch vụ thành công `, {});
-      const updatedProductList = await MyAxios.get(
-        `http://localhost:5000/api/v1/products?type=service&name=spa&species=both`
-      );
+      const updatedProductList = await MyAxios.get(`api/v1/products?type=service&name=spa&species=both`);
       setRows(updatedProductList.data);
       setDeleteShow(false);
       setSelectedProductId(null);
@@ -139,13 +126,11 @@ const ListService = () => {
 
   const handleUnDelete = async (productId) => {
     try {
-      await MyAxios.post(`http://localhost:5000/api/v1/products/unDisable`, {
+      await MyAxios.post(`api/v1/products/unDisable`, {
         productId,
       });
       toast.success(` Đã hủy xóa dịch vụ `, {});
-      const updatedProductList = await MyAxios.get(
-        `http://localhost:5000/api/v1/products?type=service&name=spa&species=both`
-      );
+      const updatedProductList = await MyAxios.get(`api/v1/products?type=service&name=spa&species=both`);
       setRows(updatedProductList.data);
       setSelectedProductId(null);
     } catch (error) {
@@ -211,13 +196,7 @@ const ListService = () => {
             : params.row.status === "out of stock"
             ? "text-gray-400"
             : "";
-        return (
-          <div
-            className={`capitalize font-bold font-mainText3 ${statusClass} `}
-          >
-            {statusText}
-          </div>
-        );
+        return <div className={`capitalize font-bold font-mainText3 ${statusClass} `}>{statusText}</div>;
       },
     },
     {
@@ -247,10 +226,7 @@ const ListService = () => {
     }
 
     try {
-      const response = await MyAxios.post(
-        "http://localhost:5000/api/v1/products/addService",
-        data
-      );
+      const response = await MyAxios.post("api/v1/products/addService", data);
       toast.success(` Đã thêm dịch vụ `, {});
       console.log(response.data);
       setAddShow(false);
@@ -260,9 +236,7 @@ const ListService = () => {
         price: "",
       });
       setFile(null);
-      const updatedServiceList = await MyAxios.get(
-        `http://localhost:5000/api/v1/products?type=service&name=spa&species=both`
-      );
+      const updatedServiceList = await MyAxios.get(`api/v1/products?type=service&name=spa&species=both`);
       setRows(updatedServiceList.data);
     } catch (error) {
       console.error("There was an error uploading the data!", error);
@@ -317,13 +291,7 @@ const ListService = () => {
                   <label htmlFor="price">
                     Giá <span className={styles["required"]}>*</span>
                   </label>
-                  <input
-                    type="text"
-                    id="price"
-                    name="price"
-                    value={formData.price}
-                    onChange={handleInputChange}
-                  />
+                  <input type="text" id="price" name="price" value={formData.price} onChange={handleInputChange} />
                 </div>
 
                 <div className={styles["form-group"]}>
@@ -353,16 +321,10 @@ const ListService = () => {
                     style={{ display: "none" }}
                   />
                   <div className={styles["file"]}>
-                    <button
-                      type="button"
-                      onClick={handleFileUpload}
-                      className={styles["btn-file"]}
-                    >
+                    <button type="button" onClick={handleFileUpload} className={styles["btn-file"]}>
                       Chọn file ảnh
                     </button>
-                    {file && (
-                      <span className={styles["file-text"]}>{file.name}</span>
-                    )}
+                    {file && <span className={styles["file-text"]}>{file.name}</span>}
                   </div>
                 </div>
                 <div className={styles["submit"]}>
@@ -386,10 +348,7 @@ const ListService = () => {
               <button className={styles["delete-btn"]} onClick={handleDelete}>
                 Xóa
               </button>
-              <button
-                className={styles["cancel-btn"]}
-                onClick={handleDeleteClose}
-              >
+              <button className={styles["cancel-btn"]} onClick={handleDeleteClose}>
                 Hủy
               </button>
             </ModalFooter>
@@ -402,10 +361,7 @@ const ListService = () => {
         <div className={styles["add-modal-frame"]}>
           <div className={styles["add-modal-container"]}>
             <ModalBody>
-              <form
-                className={styles["contact-form"]}
-                onSubmit={handleUpdateProduct}
-              >
+              <form className={styles["contact-form"]} onSubmit={handleUpdateProduct}>
                 <div className={styles["form-group"]}>
                   <label htmlFor="name">
                     Tên <span className={styles["required"]}>*</span>

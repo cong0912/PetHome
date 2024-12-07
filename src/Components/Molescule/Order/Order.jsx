@@ -83,7 +83,7 @@ const Order = () => {
   const [userInfo, setUserInfo] = useState();
   useEffect(() => {
     const userId = localStorage.getItem("userId");
-    MyAxios.get(`http://localhost:5000/api/v1/user/${userId}`)
+    MyAxios.get(`api/v1/user/${userId}`)
       .then((res) => {
         setUserInfo(res.data);
         console.log("res", userInfo);
@@ -190,7 +190,7 @@ const Order = () => {
     };
 
     try {
-      const response = await MyAxios.post("http://localhost:5000/api/v1/orders", dataToSend);
+      const response = await MyAxios.post("api/v1/orders", dataToSend);
 
       if (response.status === "success") {
         localStorage.removeItem("shopCart");

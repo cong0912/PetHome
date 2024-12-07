@@ -33,7 +33,7 @@ function ProductDetail() {
   };
 
   useEffect(() => {
-    MyAxios.get(`http://localhost:5000/api/v1/products/${id}`)
+    MyAxios.get(`api/v1/products/${id}`)
       .then((response) => {
         setProduct(response.data);
         setLoading(false);
@@ -56,19 +56,12 @@ function ProductDetail() {
           <p className="info-price">{product.price} đ</p>
           <p className="info-availability">
             <span className="font-bold text-black">khả dụng:</span>{" "}
-            <span className="text-[#77a464]">
-              còn {product.quantity} sản phẩm
-            </span>{" "}
+            <span className="text-[#77a464]">còn {product.quantity} sản phẩm</span>{" "}
           </p>
 
           <div className="flex gap-10">
             <div>
-              <TextField
-                type="number"
-                value={quantity}
-                onChange={handleQuantityChange}
-                className="quantity-section"
-              />
+              <TextField type="number" value={quantity} onChange={handleQuantityChange} className="quantity-section" />
             </div>
 
             <button onClick={handleAddToCart} className="add-to-cart-btn">
@@ -80,9 +73,7 @@ function ProductDetail() {
       </div>
       <div className="w-100% flex">
         <div className="product-des">
-          <p className="text-[#273172] font-bold text-xl mb-5">
-            MÔ TẢ SẢN PHẨM
-          </p>
+          <p className="text-[#273172] font-bold text-xl mb-5">MÔ TẢ SẢN PHẨM</p>
           {product.des}
         </div>
       </div>

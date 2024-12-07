@@ -1,15 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import {
-  AppBar,
-  Box,
-  IconButton,
-  Menu,
-  MenuItem,
-  Stack,
-  Toolbar,
-  Typography,
-  Badge,
-} from "@mui/material";
+import { AppBar, Box, IconButton, Menu, MenuItem, Stack, Toolbar, Typography, Badge } from "@mui/material";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import Avatar from "@mui/material/Avatar";
 import HomeIcon from "@mui/icons-material/Home";
@@ -63,7 +53,7 @@ function HeaderAfterLogin() {
 
   const getUserInfo = () => {
     const userId = localStorage.getItem("userId");
-    MyAxios.get(`http://localhost:5000/api/v1/user/${userId}`).then((res) => {
+    MyAxios.get(`api/v1/user/${userId}`).then((res) => {
       setUserInfo(res.data);
     });
   };
@@ -87,9 +77,7 @@ function HeaderAfterLogin() {
             </div>
             <div className="header-address">
               <HomeIcon fontSize="large" className={"header-color"} />
-              <Typography className="header-color">
-                123 Nguyễn Trãi, P.Tân Phú, Q.3, TPHCM
-              </Typography>
+              <Typography className="header-color">123 Nguyễn Trãi, P.Tân Phú, Q.3, TPHCM</Typography>
               {searchExpanded && (
                 <div className="header-search">
                   <input
@@ -102,10 +90,7 @@ function HeaderAfterLogin() {
                   />
                 </div>
               )}
-              <IconButton
-                onClick={handleSearchClick}
-                className={"header-color"}
-              >
+              <IconButton onClick={handleSearchClick} className={"header-color"}>
                 <SearchIcon className={"header-color"} />
               </IconButton>
             </div>
@@ -124,9 +109,7 @@ function HeaderAfterLogin() {
                   <IconButton onClick={handleMenu} sx={{ p: 0 }}>
                     <Avatar
                       alt="User Avatar"
-                      src={
-                        "https://t4.ftcdn.net/jpg/04/22/57/65/360_F_422576509_8MxGhSGZ4otQPtV6FyqO2FPrgNRTlEXj.jpg"
-                      }
+                      src={"https://t4.ftcdn.net/jpg/04/22/57/65/360_F_422576509_8MxGhSGZ4otQPtV6FyqO2FPrgNRTlEXj.jpg"}
                     />
                   </IconButton>
                   <Typography variant="subtitle2" className="text-white">
@@ -150,9 +133,7 @@ function HeaderAfterLogin() {
                 onClose={handleClose}
               >
                 <MenuItem onClick={() => navigate("/profile")}>Hồ sơ</MenuItem>
-                <MenuItem onClick={() => navigate("/pet-info")}>
-                  Danh sách thú cưng
-                </MenuItem>
+                <MenuItem onClick={() => navigate("/pet-info")}>Danh sách thú cưng</MenuItem>
                 <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
               </Menu>
             </>

@@ -60,7 +60,7 @@ const ListProduct = () => {
   const handleEditShow = async (id) => {
     setSelectedProductId(id);
     try {
-      const response = await MyAxios.get(`http://localhost:5000/api/v1/products/${id}`);
+      const response = await MyAxios.get(`api/v1/products/${id}`);
       const { name, des, price, quantity, nameCategory, species } = response.data;
       setProductDetails({
         name,
@@ -104,9 +104,9 @@ const ListProduct = () => {
       productId: selectedProductId,
     };
     try {
-      await MyAxios.put(`http://localhost:5000/api/v1/products`, updatedData);
+      await MyAxios.put(`api/v1/products`, updatedData);
       toast.success(`Đã cập nhật sản phẩm`, {});
-      const updatedProductList = await MyAxios.get(`http://localhost:5000/api/v1/products?type=product`);
+      const updatedProductList = await MyAxios.get(`api/v1/products?type=product`);
       setRows(updatedProductList.data);
       setEditShow(false);
       setSelectedProductId(null);
@@ -124,7 +124,7 @@ const ListProduct = () => {
   };
   useEffect(() => {
     //goi api
-    MyAxios.get(`http://localhost:5000/api/v1/products?type=product`).then((res) => {
+    MyAxios.get(`api/v1/products?type=product`).then((res) => {
       setRows(res.data);
     });
   }, []);
@@ -222,7 +222,7 @@ const ListProduct = () => {
     }
 
     try {
-      const response = await MyAxios.post("http://localhost:5000/api/v1/products", data);
+      const response = await MyAxios.post("api/v1/products", data);
       toast.success(` Đã thêm sản phẩm `, {});
       console.log(response.data);
       setAddShow(false);
@@ -235,7 +235,7 @@ const ListProduct = () => {
         nameCategory: "",
       });
       setFile(null);
-      const updatedProductList = await MyAxios.get(`http://localhost:5000/api/v1/products?type=product`);
+      const updatedProductList = await MyAxios.get(`api/v1/products?type=product`);
       setRows(updatedProductList.data);
     } catch (error) {
       console.error("There was an error uploading the data!", error);
@@ -244,11 +244,11 @@ const ListProduct = () => {
 
   const handleDelete = async () => {
     try {
-      await MyAxios.post(`http://localhost:5000/api/v1/products/disable`, {
+      await MyAxios.post(`api/v1/products/disable`, {
         productId: selectedProductId,
       });
       toast.success(` Đã xóa sản phẩm `, {});
-      const updatedProductList = await MyAxios.get(`http://localhost:5000/api/v1/products?type=product`);
+      const updatedProductList = await MyAxios.get(`api/v1/products?type=product`);
       setRows(updatedProductList.data);
       setDeleteShow(false);
       setSelectedProductId(null);
@@ -259,11 +259,11 @@ const ListProduct = () => {
 
   const handleUnDelete = async (productId) => {
     try {
-      await MyAxios.post(`http://localhost:5000/api/v1/products/unDisable`, {
+      await MyAxios.post(`api/v1/products/unDisable`, {
         productId,
       });
       toast.success(` Đã hủy xóa sản phẩm `, {});
-      const updatedProductList = await MyAxios.get(`http://localhost:5000/api/v1/products?type=product`);
+      const updatedProductList = await MyAxios.get(`api/v1/products?type=product`);
       setRows(updatedProductList.data);
       setSelectedProductId(null);
     } catch (error) {

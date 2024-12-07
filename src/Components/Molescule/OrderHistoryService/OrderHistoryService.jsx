@@ -7,12 +7,7 @@ import { motion } from "framer-motion";
 import MoreiconHisotyService from "./components/moreicoin";
 import { Input } from "Components/ui/input";
 import { toast } from "react-toastify";
-import {
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-} from "Components/Atom/Modal/Modal";
+import { Modal, ModalBody, ModalFooter, ModalHeader } from "Components/Atom/Modal/Modal";
 const OrderHistoryService = () => {
   const [rows, setRows] = useState([]);
   const [selectedServiceId, setSelectedServiceId] = useState(null);
@@ -41,13 +36,10 @@ const OrderHistoryService = () => {
 
   const handleDelete = async () => {
     try {
-      const data = await MyAxios.post(
-        `http://localhost:5000/api/v1/service/cancel`,
-        {
-          serviceRecordId: selectedServiceId,
-          reason: reason,
-        }
-      );
+      const data = await MyAxios.post(`api/v1/service/cancel`, {
+        serviceRecordId: selectedServiceId,
+        reason: reason,
+      });
       if (data.status === "error") {
         toast.error(`Error: ${data.message}`, {
           position: "top-left",
@@ -73,9 +65,7 @@ const OrderHistoryService = () => {
       headerName: "ID đặt chổ",
       width: 250,
       renderCell: (params) => {
-        return (
-          <div className={styles["id"]}>{params.row.serviceRecord._id}</div>
-        );
+        return <div className={styles["id"]}>{params.row.serviceRecord._id}</div>;
       },
     },
     {
@@ -92,11 +82,7 @@ const OrderHistoryService = () => {
       headerName: "Tên dịch vụ",
       width: 400,
       renderCell: (params) => {
-        return (
-          <div className={styles["id"]}>
-            {params.row.serviceRecord.product.name}
-          </div>
-        );
+        return <div className={styles["id"]}>{params.row.serviceRecord.product.name}</div>;
       },
     },
     {
@@ -128,13 +114,7 @@ const OrderHistoryService = () => {
             : params.row.serviceRecord.status === "In Progress"
             ? "text-violet-500"
             : "";
-        return (
-          <div
-            className={`capitalize font-bold font-mainText3 ${statusClass} `}
-          >
-            {statusText}
-          </div>
-        );
+        return <div className={`capitalize font-bold font-mainText3 ${statusClass} `}>{statusText}</div>;
       },
     },
     {
@@ -145,11 +125,7 @@ const OrderHistoryService = () => {
         return (
           <>
             {params.row.serviceRecord.status === "Processing" ? (
-              <MoreiconHisotyService
-                handleDelete={() =>
-                  handleDeleteShow(params.row.serviceRecord._id)
-                }
-              />
+              <MoreiconHisotyService handleDelete={() => handleDeleteShow(params.row.serviceRecord._id)} />
             ) : (
               ""
             )}
@@ -180,11 +156,7 @@ const OrderHistoryService = () => {
           </motion.h1>
         </div>
         <div>
-          <img
-            src={petCover}
-            alt="Pet Cover"
-            className="w-[50vw] hidden md:block"
-          />
+          <img src={petCover} alt="Pet Cover" className="w-[50vw] hidden md:block" />
         </div>
       </div>
       <div className={styles["data"]}>
@@ -217,17 +189,11 @@ const OrderHistoryService = () => {
           />
           <ModalFooter>
             <div className="flex justify-end items-center">
-              <button
-                className="bg-slate-700 p-2 text-white rounded-sm m-1"
-                onClick={handleDelete}
-              >
+              <button className="bg-slate-700 p-2 text-white rounded-sm m-1" onClick={handleDelete}>
                 xác nhận
               </button>
 
-              <button
-                className="bg-red-700 p-2 text-white rounded-sm m-1"
-                onClick={handleDeleteClose}
-              >
+              <button className="bg-red-700 p-2 text-white rounded-sm m-1" onClick={handleDeleteClose}>
                 Hủy
               </button>
             </div>
