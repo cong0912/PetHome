@@ -2,8 +2,10 @@
 import React, { createContext, useState, useEffect } from "react";
 import { getAllBookingService } from "lib/api/services-api";
 import { getAllOrder } from "lib/api/order-api";
+import { useLocation } from "react-router-dom";
 export const DataContext = createContext();
 export const DataProvider = ({ children }) => {
+  const location = useLocation();
   const [booking, setBooking] = useState([]);
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState([]);
@@ -32,8 +34,13 @@ export const DataProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchBookingData();
-  }, []);
+    if (
+      location.pathname === "/staff/list-booking" ||
+      location.pathname === "/staff"
+    ) {
+      fetchBookingData();
+    }
+  }, [location.pathname]);
   const getAllOrderS = async () => {
     try {
       const data = await getAllOrder();

@@ -29,7 +29,7 @@ export default function DetailBooking() {
     };
 
     getAllBookingDetail();
-  }, []);
+  }, [bookingService]);
   return (
     <div>
       <h1 className="font-bold font-mainText3 text-xl pb-4">
